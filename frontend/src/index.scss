@@ -1,0 +1,12 @@
+// index.scss or styles.scss
+@import './styles/reboot';
+@import './styles/variables';
+
+// Your other styles here
+body {
+    font-family: sans-serif;
+    color: $text-color-light;
+    margin: 0;
+    padding: 0;
+    background-color: $background-color-light;
+  }

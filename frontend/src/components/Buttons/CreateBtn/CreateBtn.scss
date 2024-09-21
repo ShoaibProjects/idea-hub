@@ -1,0 +1,23 @@
+@import '../../../styles/variables';
+
+.btn-cont{
+    background-color: $primary-color-light;
+    color: $text-color-dark;
+    height: fit-content;
+    border-radius: 2rem;
+    padding: .5rem 1rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    gap: .5rem;
+    cursor: pointer;
+    transition: 0ms ease;
+    span{
+        font-size: larger;
+    }
+    &:hover{
+        filter: brightness(110%);
+        filter: contrast(2);
+    }
+}

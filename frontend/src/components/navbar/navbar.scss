@@ -1,0 +1,99 @@
+@import '../../styles/variables';
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-cont {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  background: transparent;
+}
+
+.logo {
+  height: 2rem;
+  fill: $primary-color-light;
+  stroke: $primary-color-light;
+  stroke-width: 5px;
+}
+
+.logo-outer-cont {
+  @include flex-center();
+  width: 25%;
+  background-color: white;
+  height: 100%;
+  padding: .5rem 0rem;
+  justify-content: start;
+  padding-left: 1rem;
+}
+
+.logo-inner-cont {
+  display: flex;
+  font-size: x-large;
+  font-weight: bold;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem;
+  color: $primary-color-light;
+}
+
+.search-outer-cont {
+  @include flex-center();
+  background: transparent;
+  width: 50%;
+  background: transparentize($color: #ffffff, $amount: 0.5);
+  backdrop-filter: blur(10px);
+  height: 100%;
+}
+
+.search-cont {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+}
+
+.searchBar {
+  all: unset;
+  padding-right: 1.5rem;
+  padding-left: .3rem;
+  height: 2rem;
+  border-radius: .5rem;
+  border: 1px solid rgba($color: #000000, $alpha: 0.25);
+}
+
+.searchBar:focus {
+  outline: 2.5px solid gray;
+  outline-offset: 2.5px;
+}
+
+.mag-glass {
+  position: absolute;
+  right: 0.2rem;
+  color: $primary-color-light;
+  height: 1.25rem;
+}
+
+.h-icons-cont {
+  @include flex-center();
+  width: 25%;
+  background-color: white;
+  height: 100%;
+  padding: 1.5rem;
+  justify-content: end;
+  padding-right: 2.5rem;
+
+  button {
+    background: $secondary-color-light;
+    border: none;
+    margin-left: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 2rem;
+  }
+}

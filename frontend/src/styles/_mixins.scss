@@ -1,0 +1,9 @@
+@import './variables';
+
+@mixin middle-style{
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    padding: 0% 1rem;
+    padding-top: 5rem;
+}
