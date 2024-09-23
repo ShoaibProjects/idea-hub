@@ -2,16 +2,17 @@
 import { Router } from 'express';  // Correct import
 const router = Router();
 import Idea from '../models/Idea.js';
+import { recomm } from '../controllers/recommendations.js';
 
 // Use Text.find(), Text.findById(), and Text.findByIdAndDelete() methods
 
 
 // Create text
 router.post('/add', async (req, res) => {
-    const { title, description } = req.body;  // Destructure title and description
+    const { title, description, tags } = req.body;  // Destructure title and description
   
     // Create a new Text document with title and description
-    const newIdea = new Idea({ title, description });
+    const newIdea = new Idea({ title, description, tags });
   
     try {
       await newIdea.save();  // Save to the database
@@ -61,7 +62,7 @@ router.put('/update/:id', async (req, res) => {
 });
 
 // Delete an idea by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     await Idea.findByIdAndDelete(req.params.id);
     res.json('Idea deleted.');
@@ -69,6 +70,8 @@ router.delete('/:id', async (req, res) => {
     res.status(400).json('Error: ' + err);
   }
 });
+
+router.get('/recommendations/:userId', recomm);
 
 
 export default router;

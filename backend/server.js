@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 import ideaRouter from './routes/idea.js';
 app.use('/idea', ideaRouter);
 
+import UserRouter from './routes/user.js';
+app.use('/user', UserRouter);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
