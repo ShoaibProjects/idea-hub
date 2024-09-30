@@ -5,3 +5,12 @@
     @include middle-style;
     background-color: blue;
 }
+
+.category-dropdown {
+    max-height: 150px; /* Set the maximum height for the dropdown */
+    overflow-y: auto;  /* Enable vertical scrolling */     /* Ensure the dropdown fits the parent container */
+}
+
+.select-container {
+    position: relative;
+}

@@ -10,7 +10,7 @@ function LeftAside() {
             <NavLink className="nav-link" to="/" end style={({isActive})=>({color:isActive?'rgb(51 51 51)':'rgb(130 140 160)'})}>
                <Home/>Home
             </NavLink>
-            <NavLink className="nav-link" to="/a" style={({isActive})=>({color:isActive?'rgb(255 255 255)':'rgb(140 150 160)'})}>
+            <NavLink className="nav-link" to="/trending" style={({isActive})=>({color:isActive?'rgb(255 255 255)':'rgb(140 150 160)'})}>
                 <TrendingUp/>Trending
             </NavLink>
             <NavLink className="nav-link" to="/aa" style={({isActive})=>({color:isActive?'rgb(255 255 255)':'rgb(140 150 160)'})}>

@@ -3,7 +3,8 @@ import { Router } from 'express';  // Correct import
 const router = Router();
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
-import { getAll} from "../controllers/users.js"
+import { dislikeIdea, getAll, getUser, isDisiked, isLiked, likeIdea, undislikeIdea, unlikeIdea} from "../controllers/users.js"
+import { signin, signupform } from '../controllers/auth.js';
 // Use Text.find(), Text.findById(), and Text.findByIdAndDelete() methods
 
 
@@ -13,33 +14,14 @@ import { getAll} from "../controllers/users.js"
   router.get('/', getAll);
   
   // GET: Get a single user by ID
-  router.get('/:id', getUser, (req, res) => {
+  router.get('/:username', getUser, (req, res) => {
     res.json(res.user);
   });
   
   // POST: Create a new user
-  router.post('/signup', async (req, res) => {
-    try {
-      // Hash the password before saving
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword,
-        interactions: req.body.interactions || {},
-        preferences: req.body.preferences || [],
-        friends: [],
-        following: [],
-        followers: [],
-        postedContent: []
-      });
-  
-      const newUser = await user.save();
-      res.status(201).json(newUser);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  });
+  router.post('/signup', signupform);
+
+  router.post('/signin', signin);
   
   // PATCH: Update a user by ID
   router.patch('/update/:id', getUser, async (req, res) => {
@@ -75,6 +57,22 @@ import { getAll} from "../controllers/users.js"
       res.status(400).json({ message: err.message });
     }
   });
+
+  router.put('/:username/add-posted-idea', async (req, res) => {
+    const { username } = req.params;
+    const { ideaId } = req.body;
+
+    try {
+        await User.updateOne(
+            { username },
+            { $push: { postedContent: ideaId } }
+        );
+        res.status(200).send({ message: 'Posted content updated' });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+});
+
   
   // DELETE: Delete a user by ID
   router.delete('/delete/:id', getUser, async (req, res) => {
@@ -85,23 +83,17 @@ import { getAll} from "../controllers/users.js"
       res.status(500).json({ message: err.message });
     }
   });
+
+  router.put('/:username/isLiked',isLiked);
+  router.put('/:username/liked/add',likeIdea)
+  router.put('/:username/liked/remove',unlikeIdea)
+
+  router.put('/:username/isDisliked',isDisiked);
+  router.put('/:username/disliked/add',dislikeIdea)
+  router.put('/:username/disliked/remove',undislikeIdea)
   
   // Middleware to get a user by ID
-  async function getUser(req, res, next) {
-    let user;
-    try {
-      user = await User.findById(req.params.id);
-      if (user == null) {
-        return res.status(404).json({ message: 'Cannot find user' });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: err.message });
-    }
-  
-    res.user = user;
-    next();
-  }
-  
+
   
 
 

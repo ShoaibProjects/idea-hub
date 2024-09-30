@@ -3,20 +3,23 @@ import { Router } from 'express';  // Correct import
 const router = Router();
 import Idea from '../models/Idea.js';
 import { recomm } from '../controllers/recommendations.js';
+import { getTrendingIdeas } from '../controllers/trending.js';
+import { getDisikes, getLikes, updateDislikes, updateLikes } from '../controllers/likeDislike.js';
+import { getIdea } from '../controllers/ideas.js';
 
 // Use Text.find(), Text.findById(), and Text.findByIdAndDelete() methods
 
 
 // Create text
 router.post('/add', async (req, res) => {
-    const { title, description, tags } = req.body;  // Destructure title and description
+    const { title, description, creator, category, tags, upvotes, downvotes } = req.body;  // Destructure title and description
   
     // Create a new Text document with title and description
-    const newIdea = new Idea({ title, description, tags });
+    const newIdea = new Idea({ title, description, creator, category, tags, upvotes, downvotes });
   
     try {
-      await newIdea.save();  // Save to the database
-      res.status(201).json(newIdea);  // Success response
+      const newerIdea = await newIdea.save();  // Save to the database
+      res.status(201).json(newerIdea);  // Success response
     } catch (err) {
       res.status(400).json('Error: ' + err);  // Error response
     }
@@ -73,5 +76,16 @@ router.delete('/delete/:id', async (req, res) => {
 
 router.get('/recommendations/:userId', recomm);
 
+router.get('/trending', getTrendingIdeas);
+
+router.put('/update/:id/likes/update', updateLikes);
+
+router.put('/update/:id/dislikes/update', updateDislikes);
+
+router.get('/:id', getIdea);
+
+router.get('/:id/likes', getLikes)
+
+router.get('/:id/dislikes', getDisikes)
 
 export default router;

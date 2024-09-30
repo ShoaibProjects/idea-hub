@@ -14,6 +14,7 @@ const IdeaSchema = new mongoose.Schema({
   },
   creator: {
     type: String,
+    default: '',
     trim: true
   },
   category: {

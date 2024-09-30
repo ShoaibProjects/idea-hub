@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/home/home';
 import UserPage from './pages/user/userPage';
 import IdeaPage from './pages/idea/IdeaPage';
+import SignupPage from './pages/signupPage/signupPage';
+import SigninPage from './pages/signinPage/signinPage';
+import TrendPage from './pages/trendingPage/trendingPage';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +17,9 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/user" element={<UserPage />} />
         <Route path="/NewIdea" element={<IdeaPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/trending" element={<TrendPage />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} /> */}
       </Routes>
