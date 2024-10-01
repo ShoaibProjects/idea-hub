@@ -31,17 +31,15 @@ export const getTrendingIdeas = async (req, res) => {
       filter.category = category;
     }
 
-    // Step 3: Implement pagination using .skip() and .limit()
-    const startIndex = (page - 1) * limit;  // Calculate the starting index
 
     // Step 4: Fetch the ideas based on the filter and sort by upvotes (trending), with pagination
     const trendingIdeas = await Idea.find(filter)
       .sort(sort)
-      .skip(startIndex)   // Skip ideas from previous pages
-      .limit(limit);      // Limit the results to 'limit' ideas per page
-
+    console.log(trendingIdeas.length)
+      const startIndex = (page - 1) * limit;  // Calculate the starting index
+      const paginatedTrendIdeas = trendingIdeas.slice(startIndex, startIndex + limit);
     // Step 5: Return the trending ideas
-    res.json(trendingIdeas);
+    res.json(paginatedTrendIdeas);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

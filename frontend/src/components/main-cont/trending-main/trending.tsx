@@ -4,6 +4,7 @@ import axios from 'axios';
 import { selectUser } from '../../Auth/userSlice';
 import IdeaCard from '../../idea-card/idea-card';
 import './trending.scss';
+import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 
 interface Idea {
   _id: string;
@@ -18,9 +19,10 @@ function TrendingIdeas() {
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);  // For tracking if more ideas are available
-  const [period, setPeriod] = useState<string>('');  // Default to last 30 days
+  const [period, setPeriod] = useState<string>("7days");  // Default to last 30 days
   const [category, setCategory] = useState<string>('');  // Default to all categories
   const user = useSelector(selectUser);
+  const categories = useSelector(selectCategories);
 
   // Fetch trending ideas with pagination and filters
   const fetchTrendingIdeas = async (page: number) => {
@@ -35,7 +37,11 @@ function TrendingIdeas() {
         },
       });
       const newIdeas: Idea[] = response.data;
-      setIdeas((prevIdeas) => [...prevIdeas, ...newIdeas]);  // Append new ideas to the list
+      if (page === 1) {
+        setIdeas(newIdeas);  // Replace ideas with new data if it's the first page
+      } else {
+        setIdeas((prevIdeas) => [...prevIdeas, ...newIdeas]);  // Append new ideas to the list
+      }
       setLoading(false);
       setHasMore(newIdeas.length > 0);  // Check if there are more ideas to load
     } catch (error) {
@@ -48,6 +54,12 @@ function TrendingIdeas() {
     // Initial fetch when page or filters change
     fetchTrendingIdeas(page);
   }, [page, period, category]);
+
+  useEffect(() => {
+    setPage(1);   // Reset page to 1
+    setIdeas([]); // Clear the ideas array
+    fetchTrendingIdeas(1); // Fetch new ideas
+  }, [period, category]);
 
   // Infinite scrolling logic
   useEffect(() => {
@@ -69,18 +81,19 @@ function TrendingIdeas() {
       <div className="filters">
         <label>Time Period: </label>
         <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+          <option value="">All Time</option>
           <option value="30days">Last 30 Days</option>
           <option value="7days">Last 7 Days</option>
-          <option value="">All Time</option>
         </select>
 
         <label>Category: </label>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
-          <option value="tech">Tech</option>
-          <option value="science">Science</option>
-          <option value="art">Art</option>
-          {/* Add other categories as needed */}
+          {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
         </select>
       </div>
 
