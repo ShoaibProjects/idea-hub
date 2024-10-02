@@ -12,6 +12,6 @@ export const getIdea = async (req, res, next) => {
       return res.status(500).json({ message: err.message });
     }
   
-    res.json(idea._id)
+    res.json(idea)
     next();
   }

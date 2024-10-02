@@ -8,6 +8,7 @@ import IdeaPage from './pages/idea/IdeaPage';
 import SignupPage from './pages/signupPage/signupPage';
 import SigninPage from './pages/signinPage/signinPage';
 import TrendPage from './pages/trendingPage/trendingPage';
+import ProfilePage from './pages/profilePage/profilePage';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/trending" element={<TrendPage />} />
+        <Route path="/user/profile/:lookedUpUsername" element={<ProfilePage />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} /> */}
       </Routes>

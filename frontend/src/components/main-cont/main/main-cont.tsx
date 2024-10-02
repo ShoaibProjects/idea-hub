@@ -82,6 +82,7 @@ function MainCont() {
                 id={idea._id} 
                 title={idea.title} 
                 content={idea.description} 
+                creator={idea.creator}
                 upvotes={idea.upvotes} 
                 downvotes={idea.downvotes} 
                 category='' 

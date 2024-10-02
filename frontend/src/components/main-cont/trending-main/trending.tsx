@@ -10,6 +10,7 @@ interface Idea {
   _id: string;
   title: string;
   description: string;
+  creator: string;
   upvotes: number;
   category: string;
 }
@@ -109,6 +110,7 @@ function TrendingIdeas() {
               order={currentOrder}
               title={idea.title}
               content={idea.description}
+              creator={idea.creator}
               upvotes={idea.upvotes}
               downvotes={0}  // Adjust as necessary
               category={idea.category}
