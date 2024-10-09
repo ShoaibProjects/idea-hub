@@ -4,9 +4,9 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     preferences: [String],
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    friends: [{ type: String }], // Store usernames instead of ObjectId
+    following: [{ type: String }], // Store usernames of followed users
+    followers: [{ type: String }], // Store usernames of followers
     postedContent: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Idea' }],
     chats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' }],
     likedIdeas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Idea' }], // Ideas liked by user
@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
   }, { timestamps: true });
   
 
+  userSchema.index({ username: 'text' });
 // Create and export the model
 const User = mongoose.model('User', userSchema);
 export default User;

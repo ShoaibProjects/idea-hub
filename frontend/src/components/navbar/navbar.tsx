@@ -1,4 +1,5 @@
 import { Bell, Home, Lightbulb, MessageSquare, Search, Settings,  User, X, Moon } from "lucide-react";
+import SearchComponent from "./search/search";
 import './Navbar.scss';
 import Logo from './logo';
 
@@ -10,10 +11,11 @@ const Navbar = () => {
           <div className='logo-inner-cont'><Logo className='logo'></Logo><span>IdeaHub</span></div>
         </div>
         <div className="search-outer-cont">
-        <div className="search-cont">
+        {/* <div className="search-cont">
           <input type="search" placeholder='Search ideas...' className="searchBar"/>
           <Search className="mag-glass"/>
-        </div>
+        </div> */}
+        <SearchComponent></SearchComponent>
         </div>
         <div className="h-icons-cont">
           <button><Bell/></button>

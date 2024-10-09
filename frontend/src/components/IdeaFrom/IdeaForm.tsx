@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../components/Auth/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPostedContent, selectUser } from '../../components/Auth/userSlice';
 import { selectCategories } from '../../Redux-slices/categories/categorySlices';
 import axios from 'axios';
 import './IdeaForm.scss';
+
 
 const IdeaForm: React.FC = () => {
     const [title, setTitle] = useState<string>('');  // State for title
@@ -19,6 +20,7 @@ const IdeaForm: React.FC = () => {
     const filteredSuggestions = categories.filter((category) =>
         category.toLowerCase().startsWith(tagInput.toLowerCase())
       );
+      const dispatch = useDispatch();
     // You can add more categories here
 
     // Handle tag input when the user presses ',' or 'Enter'
@@ -77,10 +79,11 @@ const IdeaForm: React.FC = () => {
             await axios.put(`http://localhost:5000/user/${user.username}/add-posted-idea`, {
                 ideaId,
             });
-
+            
             // Clear form fields after successful submission
             if (response.status === 201) {
                 alert('Idea submitted successfully!');
+                dispatch(addPostedContent(ideaId));
             } else {
                 alert('Error submitting idea');
             }

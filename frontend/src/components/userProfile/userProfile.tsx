@@ -5,6 +5,7 @@ import { selectUser } from '../Auth/userSlice';
 import axios from 'axios';
 import './userProfile.scss';
 import IdeaCard from '../idea-card/idea-card';
+import FollowBtn from '../Buttons/followBtn/followBtn';
 
 // Define interfaces for Idea and UserProfile
 interface Idea {
@@ -28,6 +29,7 @@ interface UserProfileData {
 function UserProfile() {
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
+  const [followed, setFollowed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   const user = useSelector(selectUser); // The logged-in user
@@ -61,19 +63,22 @@ function UserProfile() {
       const fetchedIdeas = ideasResponses.map((res) => res.data);
 
       setIdeas(fetchedIdeas); // Store fetched ideas
+      const isFollowedCond = user.following.includes(userData.username)
+      setFollowed(isFollowedCond);
     } catch (error) {
       console.error('Error fetching user profile or ideas:', error);
     } finally {
       setLoading(false);
     }
   };
-
+  
   // Fetch user data and posted ideas when the component mounts or when lookedUpUsername changes
   useEffect(() => {
     if (lookedUpUsername) {
       fetchUserProfile(lookedUpUsername); // Fetch the looked-up user profile
     }
   }, [lookedUpUsername]);
+
 
   let order = 1;
 
@@ -85,6 +90,7 @@ function UserProfile() {
         <>
           <p>{userProfile.description}</p>
           <p>{userProfile.followersCount} followers</p>
+          <p><FollowBtn username={userProfile.username} isFollowed={followed} setFollowed={setFollowed}></FollowBtn></p>
         </>
       )}
       {/* Display posted ideas */}

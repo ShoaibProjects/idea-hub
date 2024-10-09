@@ -1,0 +1,6 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.idea-page-cont{
+    @include middle-style;
+}

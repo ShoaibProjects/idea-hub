@@ -37,6 +37,9 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ id, order, title, category, content
             <Link to={`/user/profile/${creator}`} className="creator-link">
               {creator}
             </Link>
+            <Link to={`/idea/${id}`} className="creator-link">
+              <span>idea detail</span>
+            </Link>
         </div>
         <div className="votes">
           <Like Id={id} setLikes={setLikes} likes={likes} setDislikes={setDislikes} dislikes={dislikes} liked={liked} setLiked={setLiked} disliked={disliked} setDisliked={setDisliked}></Like> 

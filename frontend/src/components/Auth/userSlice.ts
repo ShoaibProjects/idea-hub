@@ -4,6 +4,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface UserState {
   username: string | null; // Allow username to be null
   preferences: string[];
+  postedContent: string[];
+  followers : string[];
+  following : string[];
   likedIdeas: string[];
   dislikedIdeas: string[];
   isAuthenticated: boolean;
@@ -13,6 +16,9 @@ interface UserState {
 const initialState: UserState = {
   username: null, // Set username to null initially
   preferences: [],
+  postedContent: [],
+  followers: [],
+  following: [],
   likedIdeas: [],
   dislikedIdeas: [],
   isAuthenticated: false,
@@ -23,9 +29,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     // Set user data on signup/signin
-    setUser: (state, action: PayloadAction<{ username: string; preferences: string[]; likedIdeas: string[]; dislikedIdeas: string[]; }>) => {
+    setUser: (state, action: PayloadAction<{ username: string; preferences: string[]; postedContent: string[]; followers : string[]; following : string[]; likedIdeas: string[]; dislikedIdeas: string[]; }>) => {
       state.username = action.payload.username;
       state.preferences = action.payload.preferences;
+      state.postedContent = action.payload.postedContent;
+      state.followers = action.payload.followers;
+      state.following = action.payload.following;
       state.likedIdeas = action.payload.likedIdeas;
       state.dislikedIdeas = action.payload.dislikedIdeas;
       state.isAuthenticated = true;
@@ -34,6 +43,8 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.username = null; // Set to null on logout
       state.preferences = [];
+      state.followers = [];
+      state.following = [];
       state.likedIdeas = [];
       state.dislikedIdeas = [];
       state.isAuthenticated = false;
@@ -54,11 +65,19 @@ export const userSlice = createSlice({
         (ideaId) => ideaId !== action.payload
       );
     },
+    addPostedContent: (state, action) => {
+      state.postedContent.push(action.payload);
+    },
+    removePostedContent: (state, action) => {
+      state.postedContent = state.postedContent.filter(
+        (ideaId) => ideaId !== action.payload
+      );
+    },
   },
 });
 
 // Export actions
-export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea } = userSlice.actions;
+export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent } = userSlice.actions;
 
 // Selector to get the user state
 export const selectUser = (state: { user: UserState }) => state.user; // Return the entire user state

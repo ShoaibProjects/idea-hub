@@ -15,3 +15,21 @@ export const getIdea = async (req, res, next) => {
     res.json(idea)
     next();
   }
+
+export const upadateIdea =  async (req, res) => {
+  try {
+    const updatedIdea = await Idea.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedIdea);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
+
+export const deleteIdea = async (req, res) => {
+  try {
+    await Idea.findByIdAndDelete(req.params.id);
+    res.json('Idea deleted.');
+  } catch (err) {
+    res.status(400).json('Error: ' + err);
+  }
+}

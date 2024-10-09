@@ -139,3 +139,61 @@ export const undislikeIdea = async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 };
+export const following = async (req, res) => {
+  try {
+    // Find the user by username
+    const user = await User.findOneAndUpdate(
+      { username: req.body.currentUser }, // Find the user by their username
+      { $addToSet: { following: req.body.followedUser } }, // Add the ideaId to the likedIdeas array, if it doesn't already exist
+      { new: true } // Return the updated user document
+    );
+    
+    if (!user) {
+      return res.status(404).json({ message: 'Cannot find user' });
+    }
+
+    const FollowedUser = await User.findOneAndUpdate(
+      { username: req.body.followedUser }, // Find the user by their username
+      { $addToSet: { followers: req.body.currentUser } }, // Add the ideaId to the likedIdeas array, if it doesn't already exist
+      { new: true } // Return the updated user document
+    );
+    
+    if (!FollowedUser) {
+      return res.status(404).json({ message: 'Cannot find followed user' });
+    }
+
+    return res.status(200).json({ message: 'following added successfully', following: user.following });
+
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+export const unfollow = async (req, res) => {
+  try {
+
+    // Find the user by username and remove the ideaId from the likedIdeas array
+    const user = await User.findOneAndUpdate(
+      { username: req.body.currentUser },
+      { $pull: { following: req.body.followedUser } }, // Remove ideaId from likedIdeas array
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'Cannot find user' });
+    }
+
+    const FollowedUser = await User.findOneAndUpdate(
+      { username: req.body.followedUser },
+      { $pull: { followers: req.body.currentUser } }, // Remove ideaId from likedIdeas array
+      { new: true }
+    );
+
+    if (!FollowedUser) {
+      return res.status(404).json({ message: 'Cannot find followed user' });
+    }
+
+    return res.status(200).json({ message: 'unfollowed successfully', following: user.following });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};

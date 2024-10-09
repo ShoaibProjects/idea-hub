@@ -21,6 +21,9 @@ const Signin = () => {
         dispatch(setUser({
           username: response.data.username,
           preferences: response.data.preferences,
+          postedContent: response.data.postedContent,
+          followers : response.data.followers,
+          following: response.data.following,
           likedIdeas: response.data.likedIdeas,
           dislikedIdeas: response.data.dislikedIdeas,
         }));

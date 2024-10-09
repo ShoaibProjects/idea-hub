@@ -1,16 +1,26 @@
 import User from "../models/User.js";
 import bcrypt from 'bcrypt';
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from 'uuid'; // For generating random usernames
 
 export const signupform = async (req, res) => {
     try {
+      let username = req.body.username;
+      let password = req.body.password;
+
+      // Handle guest signup
+      if (req.body.isGuest) {
+        username = `guest_${uuidv4().slice(0, 8)}`; // Generate random guest username
+        password = `guest_${uuidv4().slice(0, 8)}`; // Generate random password for guest
+      }
+
       // Hash the password before saving
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const user = new User({
-        username: req.body.username,
+        username: username,
         password: hashedPassword,
-        preferences: req.body.preferences || [],
+        preferences: req.body.preferences || [], // Default preferences for guest if any
         friends: [],
         following: [],
         followers: [],
@@ -25,7 +35,7 @@ export const signupform = async (req, res) => {
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
-  }
+}
 
   export const signin = async (req, res) => {
     try {

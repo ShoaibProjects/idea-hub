@@ -32,10 +32,13 @@ const IdeaSchema = new mongoose.Schema({
   downvotes: {
     type: Number,
     default: 0
-  }
+  },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, {
   timestamps: true
 });
+
+IdeaSchema.index({ title: 'text', description: 'text' });
 
 // Create and export the model
 const Idea = mongoose.model('Idea', IdeaSchema);

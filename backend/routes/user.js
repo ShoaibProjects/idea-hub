@@ -3,7 +3,7 @@ import { Router } from 'express';  // Correct import
 const router = Router();
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
-import { dislikeIdea, getAll, getUser, isDisiked, isLiked, likeIdea, undislikeIdea, unlikeIdea} from "../controllers/users.js"
+import { dislikeIdea, following, getAll, getUser, isDisiked, isLiked, likeIdea, undislikeIdea, unfollow, unlikeIdea} from "../controllers/users.js"
 import { signin, signupform } from '../controllers/auth.js';
 // Use Text.find(), Text.findById(), and Text.findByIdAndDelete() methods
 
@@ -73,6 +73,21 @@ import { signin, signupform } from '../controllers/auth.js';
     }
 });
 
+router.put('/:username/remove-posted-idea', async (req, res) => {
+  const { username } = req.params;
+  const { ideaId } = req.body;
+
+  try {
+      await User.updateOne(
+          { username },
+          { $pull: { postedContent: ideaId } }
+      );
+      res.status(200).send({ message: 'Posted content updated' });
+  } catch (err) {
+      res.status(500).send({ message: err.message });
+  }
+});
+
   
   // DELETE: Delete a user by ID
   router.delete('/delete/:id', getUser, async (req, res) => {
@@ -91,6 +106,9 @@ import { signin, signupform } from '../controllers/auth.js';
   router.put('/:username/isDisliked',isDisiked);
   router.put('/:username/disliked/add',dislikeIdea)
   router.put('/:username/disliked/remove',undislikeIdea)
+
+  router.post('/follow/add',following);
+  router.post('/follow/remove',unfollow);
   
   // Middleware to get a user by ID
 

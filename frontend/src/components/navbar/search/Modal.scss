@@ -1,0 +1,50 @@
+// Variables
+$modal-bg-color: rgba(0, 0, 0, 0.5); // Background overlay color
+$modal-content-bg: #fff;             // Modal content background color
+$modal-padding: 20px;                // Padding for modal content
+$modal-border-radius: 8px;           // Border radius for the modal box
+$modal-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Box shadow for the modal
+$close-button-size: 18px;            // Size for the close button
+
+// Modal overlay
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $modal-bg-color; // Using the variable for background
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; // Ensure it appears above other elements
+}
+
+// Modal content
+.modal-content {
+  background-color: $modal-content-bg;
+  padding: $modal-padding;
+  border-radius: $modal-border-radius;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: $modal-shadow;
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: $close-button-size;
+    cursor: pointer;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+
+  div {
+    margin-bottom: 20px;
+  }
+}
