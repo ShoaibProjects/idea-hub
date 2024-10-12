@@ -10,6 +10,8 @@ import SigninPage from './pages/signinPage/signinPage';
 import TrendPage from './pages/trendingPage/trendingPage';
 import ProfilePage from './pages/profilePage/profilePage';
 import IdeaOpen from './pages/idea/ideaOpen';
+import SettingsPage from './pages/settingsPage/settingsPage';
+import AccountSettings from './components/Settings/AccSettings/AccSettings';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +24,9 @@ const App: React.FC = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/trending" element={<TrendPage />} />
+        <Route path="/settings" element={<SettingsPage />}>
+          <Route path="AccountSettings" element={<AccountSettings />} />
+        </Route>
         <Route path="/user/profile/:lookedUpUsername" element={<ProfilePage />} />
         <Route path="/idea/:lookedUpIdea" element={<IdeaOpen />} />
         {/* <Route path="/about" element={<About />} />

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../userSlice';
-import { AppDispatch } from '../../../store';                                                                                                   
+import { AppDispatch } from '../../../store';  
+import { Link, useParams } from 'react-router-dom';                                                                                                 
 import './signinForm.scss';
 
 const Signin = () => {
@@ -15,7 +16,7 @@ const Signin = () => {
       const response = await axios.post('http://localhost:5000/user/signin', {
         username,
         password,
-      });
+      }, { withCredentials: true });
       if (response.status === 200) {
         // Dispatch user data to Redux store
         dispatch(setUser({
@@ -51,6 +52,9 @@ const Signin = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleSignin}>Login</button>
+      <p>Doesn't have an Account yet?</p>
+      <Link to={`/signup`}>SignUp! </Link>
+      <Link to={`/signup`}> OR continue as a guest User</Link>
     </div>
   );
 };

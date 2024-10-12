@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcrypt';
 import User from '../models/User.js';
+import Idea from "../models/Idea.js";
+import Comment from "../models/Comment.js";
 
 export const getAll = async (req, res) => {
     try {
@@ -83,7 +86,7 @@ export const unlikeIdea = async (req, res) => {
   }
 };
 
-export const isDisiked = async (req, res) => {
+export const isDisliked = async (req, res) => {
   try {
     // Use findOne to search for a user by the username field
     const user = await User.findOne({ username: req.params.username });
@@ -197,3 +200,85 @@ export const unfollow = async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+export const deleteUserByUsername = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Find the user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Validate the password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect password' });
+    }
+
+    // *** Step 1: Delete user's ideas ***
+    await Idea.deleteMany({ creator: user.username }); // Assuming `creator` stores the username
+
+    // *** Step 2: Delete user's comments ***
+    await Comment.deleteMany({ creator: user.username }); // Assuming `user` field links to the username
+
+
+    // *** Step 1: Decrease likes and dislikes on associated ideas ***
+    if (user.likedIdeas.length > 0) {
+      await Idea.updateMany(
+        { _id: { $in: user.likedIdeas } },
+        { $inc: { upvotes: -1 } } // Assuming `likes` is the field that counts likes
+      );
+    }
+
+    if (user.dislikedIdeas.length > 0) {
+      await Idea.updateMany(
+        { _id: { $in: user.dislikedIdeas } },
+        { $inc: { downvotes: -1 } } // Assuming `dislikes` is the field that counts dislikes
+      );
+    }
+
+    // *** Step 4: Remove user from followers/following lists ***
+    await User.updateMany(
+      { $or: [{ followers: user.username }, { following: user.username }] },
+      { $pull: { followers: user.username, following: user.username } }
+    );
+
+    // Finally, remove the user
+    await User.deleteOne({ username });
+    res.json({ message: 'User and associated data deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const addPostedIdea = async (req, res) => {
+  const { username } = req.params;
+  const { ideaId } = req.body;
+
+  try {
+      await User.updateOne(
+          { username },
+          { $push: { postedContent: ideaId } }
+      );
+      res.status(200).send({ message: 'Posted content updated' });
+  } catch (err) {
+      res.status(500).send({ message: err.message });
+  }
+}
+
+export const removePostedIdeas = async (req, res) => {
+  const { username } = req.params;
+  const { ideaId } = req.body;
+
+  try {
+      await User.updateOne(
+          { username },
+          { $pull: { postedContent: ideaId } }
+      );
+      res.status(200).send({ message: 'Posted content updated' });
+  } catch (err) {
+      res.status(500).send({ message: err.message });
+  }
+}

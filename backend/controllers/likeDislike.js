@@ -40,7 +40,7 @@ export const updateLikes = async (req, res) => {
     }
   }
 
-  export const getDisikes = async (req, res) => {
+  export const getDislikes = async (req, res) => {
     try {
       const idea = await Idea.findById(req.params.id);
       if (!idea) return res.status(404).json('Idea not found');

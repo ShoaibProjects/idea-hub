@@ -37,7 +37,7 @@ const Signup = () => {
         password,
         preferences: selectedPreferences,
         isGuest, // Send isGuest flag
-      });
+      }, { withCredentials: true });
       if (response.status === 201) {
         dispatch(setUser({
           username: response.data.username,

@@ -41,32 +41,32 @@ const Dislike: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes,
       if(!disliked){
         const response = await axios.put(`http://localhost:5000/idea/update/${Id}/dislikes/update`, {
             dislikes: dislikes + 1,
-          });
+          }, { withCredentials: true });
           setDislikes(response.data);
           await axios.put(`http://localhost:5000/user/${user.username}/disliked/add`,{
             ideaId : Id
-          })
+          }, { withCredentials: true })
           setDisliked(true)
           dispatch(addDislikedIdea(Id));
           if(liked){
             const response = await axios.put(`http://localhost:5000/idea/update/${Id}/likes/update`, {
               likes: likes - 1,
-            });
+            }, { withCredentials: true });
             setLikes(response.data);
             await axios.put(`http://localhost:5000/user/${user.username}/liked/remove`,{
               ideaId : Id
-            })
+            }, { withCredentials: true })
             setLiked(false)
             dispatch(removeLikedIdea(Id));
           }
       }else{
         const response = await axios.put(`http://localhost:5000/idea/update/${Id}/dislikes/update`, {
             dislikes: dislikes - 1,
-          });
+          }, { withCredentials: true });
           setDislikes(response.data);
           await axios.put(`http://localhost:5000/user/${user.username}/disliked/remove`,{
             ideaId : Id
-          })
+          }, { withCredentials: true })
           setDisliked(false)
           dispatch(removeDislikedIdea(Id));
       } // Update local likes count after successful API response

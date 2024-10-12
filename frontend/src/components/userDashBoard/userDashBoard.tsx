@@ -43,11 +43,11 @@ const UserCont: React.FC = () => {
 
   const handleDelete = async (ideaId: string) => {
     try {
-      const response= await axios.delete(`http://localhost:5000/idea/delete/${ideaId}`);
+      const response= await axios.delete(`http://localhost:5000/idea/delete/${ideaId}`, { withCredentials: true });
       setIdeas(ideas.filter((idea) => idea._id !== ideaId)); // Remove the deleted idea from the list
       await axios.put(`http://localhost:5000/user/${user.username}/remove-posted-idea`, {
         ideaId,
-    });
+    }, { withCredentials: true });
     if (response.status === 201) {
       alert('Idea deleted successfully!');
       dispatch(removePostedContent(ideaId));
@@ -63,7 +63,7 @@ const UserCont: React.FC = () => {
 
   const handleUpdateIdea = async (updatedIdea: Idea) => {
     try {
-      const response = await axios.put(`http://localhost:5000/idea/update/${updatedIdea._id}`, updatedIdea);
+      const response = await axios.put(`http://localhost:5000/idea/update/${updatedIdea._id}`, updatedIdea, { withCredentials: true });
       const updatedIdeas = ideas.map((idea) =>
         idea._id === response.data._id ? response.data : idea
       );

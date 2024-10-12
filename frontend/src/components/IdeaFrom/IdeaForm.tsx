@@ -70,7 +70,7 @@ const IdeaForm: React.FC = () => {
                 creator: user.username,
                 category: category || null, // Allow category to be empty
                 tags,
-            });
+            }, { withCredentials: true });
             console.log(response.data);
             const ideaId = response.data._id; // Assuming the response contains the new idea's ID
             console.log("Idea added:", ideaId);
@@ -78,7 +78,7 @@ const IdeaForm: React.FC = () => {
             // Now update the user's postedContent array with this new idea ID
             await axios.put(`http://localhost:5000/user/${user.username}/add-posted-idea`, {
                 ideaId,
-            });
+            }, { withCredentials: true });
             
             // Clear form fields after successful submission
             if (response.status === 201) {

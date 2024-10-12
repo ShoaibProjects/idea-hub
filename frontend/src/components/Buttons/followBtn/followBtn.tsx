@@ -17,7 +17,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
           const response = await axios.post(`http://localhost:5000/user/follow/add`, {
             currentUser,
             followedUser
-          });
+          }, { withCredentials: true });
           
           if (response.status === 200) {
             console.log(`Successfully followed ${followedUser}`);
@@ -29,7 +29,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
           const response = await axios.post(`http://localhost:5000/user/follow/remove`, {
             currentUser,
             followedUser
-          });
+          }, { withCredentials: true });
           
           if (response.status === 200) {
             console.log(`Successfully unfollowed ${followedUser}`);

@@ -1,7 +1,8 @@
-import { Bell, Home, Lightbulb, MessageSquare, Search, Settings,  User, X, Moon } from "lucide-react";
+import { Bell, Home, Lightbulb, MessageSquare, Search, Settings, X, Moon } from "lucide-react";
 import SearchComponent from "./search/search";
 import './Navbar.scss';
 import Logo from './logo';
+import AccountBtn from "../accountStuff/accountBtnFolder/accountBtn";
 
 const Navbar = () => {
   return (
@@ -18,8 +19,8 @@ const Navbar = () => {
         <SearchComponent></SearchComponent>
         </div>
         <div className="h-icons-cont">
-          <button><Bell/></button>
-          <button><User/></button>
+          {/* <button><Bell/></button> */}
+          <AccountBtn></AccountBtn>
           <button><Moon/></button>
         </div>
       </div>
