@@ -81,5 +81,7 @@ export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, 
 
 // Selector to get the user state
 export const selectUser = (state: { user: UserState }) => state.user; // Return the entire user state
+export const selectIsAuthenticated = (state: { user: UserState }) => state.user.isAuthenticated;
+
 
 export default userSlice.reducer;

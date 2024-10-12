@@ -3,7 +3,7 @@ import { Router } from 'express';  // Correct import
 const router = Router();
 import User from '../models/User.js';
 import { addPostedIdea, deleteUserByUsername, dislikeIdea, following, getAll, getUser, isDisliked, isLiked, likeIdea, removePostedIdeas, undislikeIdea, unfollow, unlikeIdea} from "../controllers/users.js"
-import { signin, signupform } from '../controllers/auth.js';
+import { logout, signin, signupform } from '../controllers/auth.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
 
   
@@ -73,6 +73,8 @@ import { verifyToken } from '../middleware/authMiddleware.js';
 
   router.post('/follow/add', verifyToken, following);
   router.post('/follow/remove', verifyToken, unfollow);
+
+  router.post('/logout',logout);
   
 
 export default router;

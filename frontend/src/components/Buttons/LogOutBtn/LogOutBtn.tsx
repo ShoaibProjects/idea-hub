@@ -2,21 +2,25 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../Auth/userSlice'; // Import the logout action
+import axios from 'axios';
 
 const LogoutButton: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Dispatch the logout action to clear the Redux state
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      // Call the backend API to handle logout and clear cookies
+      await axios.post('http://localhost:5000/user/logout', {}, { withCredentials: true });
 
-    // // Remove any tokens from local storage or cookies (if applicable)
-    // localStorage.removeItem('token');
-    // document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // Dispatch the logout action to clear the Redux state
+      dispatch(logout());
 
-    // Redirect to the login page
-    navigate('/signin');
+      // Redirect to the login page
+      navigate('/signin');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
