@@ -11,6 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   const [isGuest, setIsGuest] = useState(false); // New state for guest signup
+  const [rememberMe, setRememberMe] = useState(false); 
   const dispatch: AppDispatch = useDispatch();
 
   const categories = useSelector(selectCategories);
@@ -37,6 +38,7 @@ const Signup = () => {
         password,
         preferences: selectedPreferences,
         isGuest, // Send isGuest flag
+        rememberMe,
       }, { withCredentials: true });
       if (response.status === 201) {
         dispatch(setUser({
@@ -92,6 +94,15 @@ const Signup = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="remember-me">
+        <input
+          type="checkbox"
+          id="rememberMe"
+          checked={rememberMe}
+          onChange={() => setRememberMe(!rememberMe)}
+        />
+        <label htmlFor="rememberMe">Remember Me</label>
       </div>
       <div className="signup-buttons">
         <button onClick={handleSignup}>Sign Up</button>

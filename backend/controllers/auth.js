@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid';  // For generating random guest usernames
 
 const JWT_SECRET = process.env.JWT_SECRET || 'yourSecretKey';  // Use a secure key in production
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;  // 7 days in milliseconds
+const COOKIE_MAX_AGE_30_MINUTES = 30 * 60 * 1000;  // 30 minutes in milliseconds
+
 
 // Signup Controller
 export const signupform = async (req, res) => {
@@ -37,15 +39,25 @@ export const signupform = async (req, res) => {
     const newUser = await user.save();
 
     // Create a JWT token
-    const token = jwt.sign({ username: newUser.username }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ username: newUser.username }, JWT_SECRET, { expiresIn: req.body.rememberMe ? '7d' : '30m' });
 
     // Store the token in a secure HTTP-only cookie
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',  // Secure cookie in production (HTTPS)
-      maxAge: COOKIE_MAX_AGE,  // 7 days expiration
+      maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
       sameSite: 'Strict'  // Prevent CSRF attacks
     });
+
+    // Set the "Remember Me" cookie if the option is checked
+    if (req.body.rememberMe) {
+      res.cookie('rememberMe', 'true', {
+        httpOnly: false, // Can be accessed from the frontend
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
+        sameSite: 'Strict'
+      });
+    }
 
     res.status(201).json(newUser);
   } catch (err) {
@@ -63,7 +75,7 @@ export const signin = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Compare the password with hashed password in the database
+    // Compare the password with the hashed password in the database
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     // If the password doesn't match
@@ -72,15 +84,27 @@ export const signin = async (req, res) => {
     }
 
     // Create a JWT token
-    const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ username: user.username }, JWT_SECRET, {
+      expiresIn: req.body.rememberMe ? '7d' : '30m'  // 7 days for remember me, 30 minutes otherwise
+    });
 
-    // Store the token in a secure HTTP-only cookie
+    // Set the JWT cookie expiration based on "Remember Me" checkbox
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',  // Secure cookie in production
-      maxAge: COOKIE_MAX_AGE,  // 7 days expiration
-      sameSite: 'Strict'  // Prevent CSRF attacks
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
+      sameSite: 'Strict'
     });
+
+    // Set the "Remember Me" cookie if the option is checked
+    if (req.body.rememberMe) {
+      res.cookie('rememberMe', 'true', {
+        httpOnly: false, // Can be accessed from the frontend
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
+        sameSite: 'Strict'
+      });
+    }
 
     res.status(200).json(user);
   } catch (err) {
@@ -91,5 +115,43 @@ export const signin = async (req, res) => {
 // Logout Controller (to clear the cookie)
 export const logout = (req, res) => {
   res.clearCookie('token');
+  res.clearCookie('rememberMe');
   res.status(200).json({ message: 'Logged out successfully' });
+};
+
+// Middleware to get the user info from the token
+export const getCurrentUser = async (req, res) => {
+  console.log('ok')
+  try {
+    const token = req.cookies.token;
+
+    // If no token is provided, return an error
+    if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
+
+    // Verify the token
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+
+    // Find the user based on the decoded username
+    const user = await User.findOne({ username: decoded.username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Send back the user details
+    res.status(200).json({
+      username: user.username,
+      preferences: user.preferences,
+      postedContent: user.postedContent,
+      followers: user.followers,
+      following: user.following,
+      likedIdeas: user.likedIdeas,
+      dislikedIdeas: user.dislikedIdeas,
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 };

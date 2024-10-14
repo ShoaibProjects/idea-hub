@@ -3,7 +3,7 @@ import { Router } from 'express';  // Correct import
 const router = Router();
 import User from '../models/User.js';
 import { addPostedIdea, deleteUserByUsername, dislikeIdea, following, getAll, getUser, isDisliked, isLiked, likeIdea, removePostedIdeas, undislikeIdea, unfollow, unlikeIdea} from "../controllers/users.js"
-import { logout, signin, signupform } from '../controllers/auth.js';
+import { getCurrentUser, logout, signin, signupform } from '../controllers/auth.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
 
   
@@ -14,6 +14,8 @@ import { verifyToken } from '../middleware/authMiddleware.js';
   router.get('/:username', getUser, (req, res) => {
     res.json(res.user);
   });
+
+  router.get('/getUser/current', getCurrentUser)
   
   // POST: Create a new user
   router.post('/signup', signupform);
