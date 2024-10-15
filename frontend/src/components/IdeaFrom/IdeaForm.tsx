@@ -60,7 +60,28 @@ const IdeaForm: React.FC = () => {
         setShowSuggestions(false); // Hide dropdown
       };
 
+      // Validation logic for the form
+  const validateForm = () => {
+    if (!title.trim()) {
+      alert('Title is required.');
+      return false;
+    }
+    if (!description.trim()) {
+      alert('Description is required.');
+      return false;
+    }
+    if(category==''){
+      alert('Please select idea category.')
+      return false;
+    }
+    return true;
+  };
+
     const handleSubmit = async (e: React.FormEvent) => {
+
+          if (!validateForm()) {
+            return;
+          } 
         e.preventDefault();
         try {
             // Send title and description to the database
@@ -68,7 +89,7 @@ const IdeaForm: React.FC = () => {
                 title,
                 description,
                 creator: user.username,
-                category: category || null, // Allow category to be empty
+                category: category, // Allow category to be empty
                 tags,
             }, { withCredentials: true });
             console.log(response.data);
@@ -115,6 +136,7 @@ const IdeaForm: React.FC = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                             className="category-dropdown"
+                            required
                         >
                             <option value="">None</option>
                             {categories.map((cat) => (

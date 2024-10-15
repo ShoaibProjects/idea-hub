@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    description: { type: String},
     preferences: [String],
     friends: [{ type: String }], // Store usernames instead of ObjectId
     following: [{ type: String }], // Store usernames of followed users

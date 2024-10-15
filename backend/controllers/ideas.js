@@ -1,5 +1,19 @@
 import Idea from "../models/Idea.js";
 
+const validateIdea = (title, description, creator) => {
+  if (!title || typeof title !== 'string' || title.trim().length < 5) {
+    return "Title must be a string and at least 5 characters long.";
+  }
+  if (!description || typeof description !== 'string' || description.trim().length < 10) {
+    return "Description must be at least 10 characters long.";
+  }
+  if (!creator || typeof creator !== 'string' || creator.trim().length === 0) {
+    return "Creator is required.";
+  }
+  return null;
+};
+
+
 export const getIdea = async (req, res, next) => {
     let idea;
     try {
@@ -19,6 +33,12 @@ export const getIdea = async (req, res, next) => {
 export const addIdea = async (req, res) => {
   const { title, description, creator, category, tags, upvotes, downvotes } = req.body;  // Destructure title and description
 
+    // Validate fields
+    const validationError = validateIdea(title, description, creator);
+    if (validationError) {
+      return res.status(400).json({ message: validationError });
+    }
+    
   // Create a new Text document with title and description
   const newIdea = new Idea({ title, description, creator, category, tags, upvotes, downvotes });
 

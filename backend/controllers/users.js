@@ -4,6 +4,11 @@ import User from '../models/User.js';
 import Idea from "../models/Idea.js";
 import Comment from "../models/Comment.js";
 
+const validatePassword = (password) => {
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; // at least one digit, one lowercase, one uppercase, min length 8
+  return regex.test(password);
+};
+
 export const getAll = async (req, res) => {
     try {
       const users = await User.find();
@@ -282,3 +287,72 @@ export const removePostedIdeas = async (req, res) => {
       res.status(500).send({ message: err.message });
   }
 }
+
+export const updateDesc = async (req, res) => {
+  let user;
+  try {
+    if(req.user.username!=req.body.username){
+      return res.status(403).json({ message: 'not authorized' });
+    }
+    user = await User.findOne({ username: req.body.username });
+    if (user == null) {
+      return res.status(404).json({ message: 'Cannot find user' });
+    }
+    if (req.body.description != null) {
+          user.description = req.body.description;
+          await user.save();
+          res.status(200).json({ message: 'success'});
+        }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+}
+
+export const updatePassword = async (req, res) => {
+  const { username, password, newPassword } = req.body;
+
+  try {
+    // Check if the authenticated user is the same as the one being updated
+    if (req.user.username !== username) {
+      return res.status(403).json({ message: 'Not authorized to update password for this user' });
+    }
+
+    // Find the user by username
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Validate the current password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Incorrect current password' });
+    }
+
+    // Check if the new password is provided
+    if (!newPassword) {
+      return res.status(400).json({ message: 'New password is required' });
+    }
+
+    // Validate new password (length, complexity, etc.)
+    if (!validatePassword(newPassword)) {
+      return res.status(400).json({
+        message:
+          'Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter, and a number.',
+      });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    // Return success response
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    // Return server error response
+    res.status(500).json({ message: err.message });
+  }
+};

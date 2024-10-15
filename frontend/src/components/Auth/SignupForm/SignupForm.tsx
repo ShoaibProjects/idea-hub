@@ -12,9 +12,31 @@ const Signup = () => {
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   const [isGuest, setIsGuest] = useState(false); // New state for guest signup
   const [rememberMe, setRememberMe] = useState(false); 
+  const [error, setError] = useState(''); // State to track form validation errors
   const dispatch: AppDispatch = useDispatch();
-
   const categories = useSelector(selectCategories);
+
+  const validateForm = () => {
+    setError(''); // Clear previous errors
+
+    if (!isGuest) {
+      if (!username.trim()) {
+        setError('Username is required');
+        return false;
+      }
+      if (!password) {
+        setError('Password is required');
+        return false;
+      }
+    }
+
+    if (selectedPreferences.length === 0) {
+      setError('Please select at least one preference');
+      return false;
+    }
+
+    return true;
+  };
 
   const handlePreferenceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -32,6 +54,8 @@ const Signup = () => {
   };
 
   const handleSignup = async () => {
+    if (!validateForm()) return; // Stop signup if validation fails
+
     try {
       const response = await axios.post('http://localhost:5000/user/signup', {
         username,
@@ -40,6 +64,7 @@ const Signup = () => {
         isGuest, // Send isGuest flag
         rememberMe,
       }, { withCredentials: true });
+
       if (response.status === 201) {
         dispatch(setUser({
           username: response.data.username,
@@ -50,16 +75,19 @@ const Signup = () => {
           likedIdeas: response.data.likedIdeas,
           dislikedIdeas: response.data.dislikedIdeas,
         }));
+
         alert(isGuest ? 'Guest signup successful' : 'Signup successful');
       }
     } catch (error) {
       console.error('Signup error:', error);
+      setError('Signup failed. Please try again.');
     }
   };
 
   return (
     <div className='signup-form'>
       <h2>Signup</h2>
+      {error && <div className="error">{error}</div>} {/* Display error messages */}
       {!isGuest && (
         <>
           <input

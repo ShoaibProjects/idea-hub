@@ -8,11 +8,26 @@ const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;  // 7 days in milliseconds
 const COOKIE_MAX_AGE_30_MINUTES = 30 * 60 * 1000;  // 30 minutes in milliseconds
 
 
+const validatePassword = (password) => {
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/; // at least one digit, one lowercase, one uppercase, min length 8
+  return regex.test(password);
+};
+
 // Signup Controller
 export const signupform = async (req, res) => {
   try {
     let username = req.body.username;
     let password = req.body.password;
+
+    if (!req.body.isGuest) {
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required." });
+      }
+      
+      if (!validatePassword(password)) {
+        return res.status(400).json({ message: "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number." });
+      }
+    }
 
     // Handle guest signup
     if (req.body.isGuest) {
@@ -27,6 +42,7 @@ export const signupform = async (req, res) => {
       username: username,
       password: hashedPassword,
       preferences: req.body.preferences || [],  // Default preferences for guest if any
+      description: req.body.description || '',
       friends: [],
       following: [],
       followers: [],
@@ -68,6 +84,10 @@ export const signupform = async (req, res) => {
 // Signin Controller
 export const signin = async (req, res) => {
   try {
+
+    if (!req.body.username || !req.body.password) {
+      return res.status(400).json({ message: "Username and password are required." });
+    }
     const user = await User.findOne({ username: req.body.username });
 
     // If user not found

@@ -2,7 +2,7 @@
 import { Router } from 'express';  // Correct import
 const router = Router();
 import User from '../models/User.js';
-import { addPostedIdea, deleteUserByUsername, dislikeIdea, following, getAll, getUser, isDisliked, isLiked, likeIdea, removePostedIdeas, undislikeIdea, unfollow, unlikeIdea} from "../controllers/users.js"
+import { addPostedIdea, deleteUserByUsername, dislikeIdea, following, getAll, getUser, isDisliked, isLiked, likeIdea, removePostedIdeas, undislikeIdea, unfollow, unlikeIdea, updateDesc} from "../controllers/users.js"
 import { getCurrentUser, logout, signin, signupform } from '../controllers/auth.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
 
@@ -61,6 +61,7 @@ import { verifyToken } from '../middleware/authMiddleware.js';
 
   router.put('/:username/remove-posted-idea', verifyToken, removePostedIdeas);
 
+  router.patch('/update/description', verifyToken, updateDesc);
   
   // DELETE: Delete a user by ID
   router.delete('/delete/:username', verifyToken, deleteUserByUsername);

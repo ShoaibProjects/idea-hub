@@ -2,12 +2,24 @@ import React from 'react';
 import './rightAside.scss';
 import CreateBtn from '../Buttons/CreateBtn/CreateBtn';
 import UserBtn from '../Buttons/UserBtn/UserBtn';
+import { selectUser } from '../Auth/userSlice';
+import { useSelector } from 'react-redux';
+import LoginButton from '../Buttons/loginBtn/LoginBtn';
 
 function RightAside() {
+  const user = useSelector(selectUser);
   return (
     <div className='rightAside-cont'>
-      <CreateBtn></CreateBtn>
-      <UserBtn></UserBtn>
+      {
+        user.username?(
+          <>
+            <CreateBtn></CreateBtn>
+            <UserBtn></UserBtn>
+          </>
+        ):(
+          <LoginButton></LoginButton>
+        )
+      }
     </div>
   )
 }
