@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../userSlice';
 import { AppDispatch } from '../../../store';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './signinForm.scss';
 
@@ -12,6 +13,8 @@ const Signin = () => {
   const [rememberMe, setRememberMe] = useState(false); // State for "Remember Me"
   const [error, setError] = useState(''); // State for error messages
   const dispatch: AppDispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const validateForm = () => {
     // Reset error message
@@ -47,6 +50,7 @@ const Signin = () => {
         // Dispatch user data to Redux store
         dispatch(setUser({
           username: response.data.username,
+          description: response.data.description?response.data.description:null,
           preferences: response.data.preferences,
           postedContent: response.data.postedContent,
           followers: response.data.followers,
@@ -56,7 +60,7 @@ const Signin = () => {
         }));
 
         alert('Login successful');
-        console.log(response);
+        navigate('/')
       }
     } catch (error) {
       console.error('Login error:', error);

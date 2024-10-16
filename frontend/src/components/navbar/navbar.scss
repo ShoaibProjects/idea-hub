@@ -24,11 +24,11 @@
 
 .logo-outer-cont {
   @include flex-center();
-  width: 25%;
+  width: 20%;
   background-color: white;
   height: 100%;
   padding: .5rem 0rem;
-  justify-content: start;
+  justify-content: center;
   padding-left: 1rem;
 }
 
@@ -45,10 +45,11 @@
 .search-outer-cont {
   @include flex-center();
   background: transparent;
-  width: 50%;
+  width: 60%;
   background: transparentize($color: #ffffff, $amount: 0.5);
   backdrop-filter: blur(10px);
   height: 100%;
+  align-items: center;
 }
 
 .search-cont {
@@ -81,11 +82,11 @@
 
 .h-icons-cont {
   @include flex-center();
-  width: 25%;
+  width: 20%;
   background-color: white;
   height: 100%;
   padding: 1.5rem;
-  justify-content: end;
+  justify-content: space-evenly;
   padding-right: 2.5rem;
 
   button {

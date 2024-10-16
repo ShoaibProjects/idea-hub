@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector,  } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; // Import useDispatch for dispatching Redux actions
 import axios from 'axios';
 import IdeaCard from '../idea-card/idea-card';
 import './user-cont.scss';
 
-// Assume we have the Redux store to select the user
-import { removePostedContent, selectUser } from '../Auth/userSlice';
+import { removePostedContent, selectUser, setUser, updateDesc } from '../Auth/userSlice';
 
 interface Idea {
   _id: string;
@@ -23,7 +22,11 @@ const UserCont: React.FC = () => {
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [editingIdea, setEditingIdea] = useState<Idea | null>(null);
-  const [showActionMenu, setShowActionMenu] = useState<string | null>(null); // For showing action menu for a specific idea
+  const [editingDescription, setEditingDescription] = useState<boolean>(false); // State for editing user description
+  const [description, setDescription] = useState<string>(user.description || ''); // State for user description
+  const [showActionMenu, setShowActionMenu] = useState<string | null>(null);
+  const dispatch = useDispatch(); // Add useDispatch hook
+  console.log(user.preferences)
 
   const fetchIdeas = async () => {
     try {
@@ -43,22 +46,20 @@ const UserCont: React.FC = () => {
 
   const handleDelete = async (ideaId: string) => {
     try {
-      const response= await axios.delete(`http://localhost:5000/idea/delete/${ideaId}`, { withCredentials: true });
-      setIdeas(ideas.filter((idea) => idea._id !== ideaId)); // Remove the deleted idea from the list
-      await axios.put(`http://localhost:5000/user/${user.username}/remove-posted-idea`, {
-        ideaId,
-    }, { withCredentials: true });
-    if (response.status === 201) {
-      alert('Idea deleted successfully!');
-      dispatch(removePostedContent(ideaId));
-  }
+      const response = await axios.delete(`http://localhost:5000/idea/delete/${ideaId}`, { withCredentials: true });
+      setIdeas(ideas.filter((idea) => idea._id !== ideaId));
+      await axios.put(`http://localhost:5000/user/${user.username}/remove-posted-idea`, { ideaId }, { withCredentials: true });
+      if (response.status === 201) {
+        alert('Idea deleted successfully!');
+        dispatch(removePostedContent(ideaId));
+      }
     } catch (error) {
       console.error('Error deleting idea:', error);
     }
   };
 
   const handleEdit = (idea: Idea) => {
-    setEditingIdea(idea); // Set the idea to edit
+    setEditingIdea(idea);
   };
 
   const handleUpdateIdea = async (updatedIdea: Idea) => {
@@ -68,15 +69,30 @@ const UserCont: React.FC = () => {
         idea._id === response.data._id ? response.data : idea
       );
       setIdeas(updatedIdeas);
-      setEditingIdea(null); // Close the edit modal after successful update
+      setEditingIdea(null);
     } catch (error) {
       console.error('Error updating idea:', error);
     }
   };
 
-  // Show/hide the action menu
   const toggleActionMenu = (ideaId: string) => {
     setShowActionMenu(showActionMenu === ideaId ? null : ideaId);
+  };
+
+  const handleDescriptionEdit = async () => {
+    try {
+      const response = await axios.patch(`http://localhost:5000/user/update/description`, 
+        { username: user.username,
+          description },
+        { withCredentials: true });
+      if (response.status === 200) {
+        alert('Description updated successfully!');
+        dispatch(updateDesc(description));
+        setEditingDescription(false);
+      }
+    } catch (error) {
+      console.error('Error updating description:', error);
+    }
   };
 
   useEffect(() => {
@@ -88,15 +104,30 @@ const UserCont: React.FC = () => {
       <h2>{user ? `${user.username}'s Profile` : 'Loading Profile...'}</h2>
       {user && (
         <>
-          <p>No description</p>
+          {editingDescription ? (
+            <div>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <button onClick={handleDescriptionEdit}>Save Description</button>
+              <button onClick={() => setEditingDescription(false)}>Cancel</button>
+            </div>
+          ) : (
+            <>
+              <p>{user.description || 'No description'}</p>
+              <button onClick={() => setEditingDescription(true)}>Edit Description</button>
+            </>
+          )}
           <p>{user.followers.length} followers</p>
         </>
       )}
+
       <div className="ideas-container">
         {ideas.length > 0 ? (
           ideas
-            .slice() // Create a shallow copy of the array
-            .reverse() // Reverse the order of the ideas
+            .slice()
+            .reverse()
             .map((idea) => (
               <div key={idea._id} className="idea-item">
                 <IdeaCard
@@ -107,10 +138,9 @@ const UserCont: React.FC = () => {
                   creator={idea.creator}
                   upvotes={idea.upvotes}
                   downvotes={idea.downvotes}
-                  category={idea.category.join(', ')} // Assuming it's an array of categories
-                  comments={0}                />
-
-                {/* Action menu with dots */}
+                  category={idea.category.join(', ')}
+                  comments={0}
+                />
                 <div className="action-menu">
                   <button className="dots" onClick={() => toggleActionMenu(idea._id)}>⋮</button>
                   {showActionMenu === idea._id && (
@@ -127,7 +157,6 @@ const UserCont: React.FC = () => {
         )}
       </div>
 
-      {/* Modal for editing idea */}
       {editingIdea && (
         <div className="modal">
           <div className="modal-content">
@@ -141,7 +170,6 @@ const UserCont: React.FC = () => {
               value={editingIdea.description}
               onChange={(e) => setEditingIdea({ ...editingIdea, description: e.target.value })}
             />
-            {/* Add other fields like category and tags here */}
             <div className="modal-actions">
               <button onClick={() => handleUpdateIdea(editingIdea)}>Save Changes</button>
               <button onClick={() => setEditingIdea(null)}>Cancel</button>
@@ -154,7 +182,3 @@ const UserCont: React.FC = () => {
 };
 
 export default UserCont;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
-

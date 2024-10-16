@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // Define a type for the User state
 interface UserState {
   username: string | null; // Allow username to be null
+  description: string;
   preferences: string[];
   postedContent: string[];
   followers : string[];
@@ -15,6 +16,7 @@ interface UserState {
 // Define the initial state using that type
 const initialState: UserState = {
   username: null, // Set username to null initially
+  description: '',
   preferences: [],
   postedContent: [],
   followers: [],
@@ -29,8 +31,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     // Set user data on signup/signin
-    setUser: (state, action: PayloadAction<{ username: string; preferences: string[]; postedContent: string[]; followers : string[]; following : string[]; likedIdeas: string[]; dislikedIdeas: string[]; }>) => {
+    setUser: (state, action: PayloadAction<{ username: string; description: string; preferences: string[]; postedContent: string[]; followers : string[]; following : string[]; likedIdeas: string[]; dislikedIdeas: string[]; }>) => {
       state.username = action.payload.username;
+      state.description = action.payload.description;
       state.preferences = action.payload.preferences;
       state.postedContent = action.payload.postedContent;
       state.followers = action.payload.followers;
@@ -42,6 +45,7 @@ export const userSlice = createSlice({
     // Logout user (clear the state)
     logout: (state) => {
       state.username = null; // Set to null on logout
+      state.description = '';
       state.preferences = [];
       state.followers = [];
       state.following = [];
@@ -73,11 +77,17 @@ export const userSlice = createSlice({
         (ideaId) => ideaId !== action.payload
       );
     },
+    updateDesc: (state, action) => {
+      state.description = action.payload
+    },
+    updatePref: (state, action) => {
+      state.preferences = action.payload
+    },
   },
 });
 
 // Export actions
-export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent } = userSlice.actions;
+export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent, updateDesc, updatePref } = userSlice.actions;
 
 // Selector to get the user state
 export const selectUser = (state: { user: UserState }) => state.user; // Return the entire user state

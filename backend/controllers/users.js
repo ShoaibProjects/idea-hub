@@ -356,3 +356,23 @@ export const updatePassword = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const updatePref = async (req, res) => {
+  let user;
+  try {
+    if(req.user.username!=req.body.username){
+      return res.status(403).json({ message: 'not authorized' });
+    }
+    user = await User.findOne({ username: req.body.username });
+    if (user == null) {
+      return res.status(404).json({ message: 'Cannot find user' });
+    }
+    if (req.body.preferences != null) {
+          user.preferences = req.body.preferences;
+          await user.save();
+          res.status(200).json({ message: 'success'});
+        }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+}

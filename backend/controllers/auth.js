@@ -17,14 +17,14 @@ const validatePassword = (password) => {
 export const signupform = async (req, res) => {
   try {
     let username = req.body.username;
-    let password = req.body.password;
+    let ReqPassword = req.body.password;
 
     if (!req.body.isGuest) {
-      if (!username || !password) {
+      if (!username || !ReqPassword) {
         return res.status(400).json({ message: "Username and password are required." });
       }
       
-      if (!validatePassword(password)) {
+      if (!validatePassword(ReqPassword)) {
         return res.status(400).json({ message: "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number." });
       }
     }
@@ -32,11 +32,11 @@ export const signupform = async (req, res) => {
     // Handle guest signup
     if (req.body.isGuest) {
       username = `guest_${uuidv4().slice(0, 8)}`;  // Generate random guest username
-      password = `guest_${uuidv4().slice(0, 8)}`;  // Generate random password for guest
+      ReqPassword = `guest_${uuidv4().slice(0, 8)}`;  // Generate random password for guest
     }
 
     // Hash the password before saving
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(ReqPassword, 10);
 
     const user = new User({
       username: username,
@@ -75,7 +75,9 @@ export const signupform = async (req, res) => {
       });
     }
 
-    res.status(201).json(newUser);
+    const {password, ...others} = newUser._doc;
+
+    res.status(201).json(others);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -125,8 +127,10 @@ export const signin = async (req, res) => {
         sameSite: 'Strict'
       });
     }
+    
+    const {password, ...others} = user._doc;
 
-    res.status(200).json(user);
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -161,16 +165,9 @@ export const getCurrentUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    const {password, ...others} = user._doc;
     // Send back the user details
-    res.status(200).json({
-      username: user.username,
-      preferences: user.preferences,
-      postedContent: user.postedContent,
-      followers: user.followers,
-      following: user.following,
-      likedIdeas: user.likedIdeas,
-      dislikedIdeas: user.dislikedIdeas,
-    });
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }

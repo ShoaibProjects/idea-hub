@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../userSlice';
 import { AppDispatch } from '../../../store';
+import { useNavigate } from 'react-router-dom';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 import './SignupForm.scss';
 
@@ -16,6 +17,8 @@ const Signup = () => {
   const dispatch: AppDispatch = useDispatch();
   const categories = useSelector(selectCategories);
 
+  const navigate = useNavigate();
+
   const validateForm = () => {
     setError(''); // Clear previous errors
 
@@ -28,11 +31,6 @@ const Signup = () => {
         setError('Password is required');
         return false;
       }
-    }
-
-    if (selectedPreferences.length === 0) {
-      setError('Please select at least one preference');
-      return false;
     }
 
     return true;
@@ -68,6 +66,7 @@ const Signup = () => {
       if (response.status === 201) {
         dispatch(setUser({
           username: response.data.username,
+          description: response.data.description?response.data.description:null,
           preferences: response.data.preferences,
           postedContent: response.data.postedContent,
           followers : response.data.followers,
@@ -77,12 +76,18 @@ const Signup = () => {
         }));
 
         alert(isGuest ? 'Guest signup successful' : 'Signup successful');
+        navigate('/')
       }
     } catch (error) {
       console.error('Signup error:', error);
       setError('Signup failed. Please try again.');
     }
   };
+  useEffect(() => {
+    if(isGuest){
+      handleSignup();
+    }
+  }, [isGuest]);
 
   return (
     <div className='signup-form'>
@@ -134,7 +139,7 @@ const Signup = () => {
       </div>
       <div className="signup-buttons">
         <button onClick={handleSignup}>Sign Up</button>
-        <button onClick={() => { setIsGuest(true); handleSignup(); }}>Continue as Guest</button>
+        <button onClick={() => { setIsGuest(true);}}>Continue as Guest</button>
       </div>
     </div>
   );

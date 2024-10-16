@@ -19,11 +19,14 @@ import ProfilePage from './pages/profilePage/profilePage';
 import IdeaOpen from './pages/idea/ideaOpen';
 import SettingsPage from './pages/settingsPage/settingsPage';
 import AccountSettings from './components/Settings/AccSettings/AccSettings';
+import PrefSettings from './components/Settings/preferencesSettings/preferencesSettings';
 
 const App: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector(selectUser);
+  // Check if "rememberMe" or "token" cookies exist
+  const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
 
   // Function to fetch user data if cookies exist
   const fetchUserData = async () => {
@@ -33,6 +36,7 @@ const App: React.FC = () => {
       if (response.status === 200) {
         dispatch(setUser({
           username: response.data.username,
+          description: response.data.description?response.data.description:null,
           preferences: response.data.preferences,
           postedContent: response.data.postedContent,
           followers: response.data.followers,
@@ -47,9 +51,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    // Check if "rememberMe" or "token" cookies exist
-    const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
-
+    
     // If either the "rememberMe" cookie or the JWT token exists, fetch the user data
     if (rememberMeCookie) {
       fetchUserData();
@@ -58,7 +60,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     // Call the logout API if user state becomes empty
-    if (!user.username) {
+    if (!user.username && !rememberMeCookie) {
       const logout = async () => {
         try {
           await axios.post('http://localhost:5000/user/logout', {}, { withCredentials: true });
@@ -82,6 +84,7 @@ const App: React.FC = () => {
         <Route path="/trending" element={<TrendPage />} />
         <Route path="/settings" element={<SettingsPage />}>
           <Route path="AccountSettings" element={<AccountSettings />} />
+          <Route path="Preferences" element={<PrefSettings />} />
         </Route>
         <Route path="/user/profile/:lookedUpUsername" element={<ProfilePage />} />
         <Route path="/idea/:lookedUpIdea" element={<IdeaOpen />} />

@@ -11,7 +11,7 @@ interface Idea {
   title: string;
   description: string;
   creator: string;
-  category: string[];
+  category: string;
   tags: string[];
   upvotes: number;
   downvotes: number;
@@ -121,7 +121,7 @@ function MainCont() {
                 creator={idea.creator}
                 upvotes={idea.upvotes} 
                 downvotes={idea.downvotes} 
-                category='' 
+                category={idea.category} 
                 comments={0}
               />
             );
