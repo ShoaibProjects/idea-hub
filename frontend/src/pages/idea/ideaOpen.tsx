@@ -10,7 +10,7 @@ const IdeaOpen: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <IdeaArea></IdeaArea>
       </main>
     </div>

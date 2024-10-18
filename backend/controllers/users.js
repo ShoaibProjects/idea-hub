@@ -223,40 +223,51 @@ export const deleteUserByUsername = async (req, res) => {
     }
 
     // *** Step 1: Delete user's ideas ***
-    await Idea.deleteMany({ creator: user.username }); // Assuming `creator` stores the username
+    const deletedIdeas = await Idea.find({ creator: user.username }); // Fetch the ideas to be deleted
+    const deletedIdeaIds = deletedIdeas.map((idea) => idea._id); // Get the idea IDs to remove from other users
+    await Idea.deleteMany({ creator: user.username }); // Delete the user's ideas
 
     // *** Step 2: Delete user's comments ***
-    await Comment.deleteMany({ creator: user.username }); // Assuming `user` field links to the username
+    await Comment.deleteMany({ creator: user.username }); // Delete the user's comments
 
-
-    // *** Step 1: Decrease likes and dislikes on associated ideas ***
+    // *** Step 3: Decrease likes and dislikes on associated ideas ***
     if (user.likedIdeas.length > 0) {
       await Idea.updateMany(
         { _id: { $in: user.likedIdeas } },
-        { $inc: { upvotes: -1 } } // Assuming `likes` is the field that counts likes
+        { $inc: { upvotes: -1 } } // Decrease the upvotes count on liked ideas
       );
     }
 
     if (user.dislikedIdeas.length > 0) {
       await Idea.updateMany(
         { _id: { $in: user.dislikedIdeas } },
-        { $inc: { downvotes: -1 } } // Assuming `dislikes` is the field that counts dislikes
+        { $inc: { downvotes: -1 } } // Decrease the downvotes count on disliked ideas
       );
     }
 
     // *** Step 4: Remove user from followers/following lists ***
     await User.updateMany(
       { $or: [{ followers: user.username }, { following: user.username }] },
-      { $pull: { followers: user.username, following: user.username } }
+      { $pull: { followers: user.username, following: user.username } } // Remove the user from followers/following arrays
     );
+
+    // *** Step 5: Remove deleted ideas from other users' likedIdeas and dislikedIdeas ***
+    if (deletedIdeaIds.length > 0) {
+      await User.updateMany(
+        { $or: [{ likedIdeas: { $in: deletedIdeaIds } }, { dislikedIdeas: { $in: deletedIdeaIds } }] },
+        { $pull: { likedIdeas: { $in: deletedIdeaIds }, dislikedIdeas: { $in: deletedIdeaIds } } }
+      );
+    }
 
     // Finally, remove the user
     await User.deleteOne({ username });
+
     res.json({ message: 'User and associated data deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 export const addPostedIdea = async (req, res) => {
   const { username } = req.params;

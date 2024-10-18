@@ -3,7 +3,14 @@ import { Bell, Home, Lightbulb, MessageSquare, Search, Settings,  User, X, Moon,
 import { NavLink } from "react-router-dom";
 import './leftAside.scss';
 
+import CreateBtn from '../Buttons/CreateBtn/CreateBtn';
+import UserBtn from '../Buttons/UserBtn/UserBtn';
+import { selectUser } from '../Auth/userSlice';
+import { useSelector } from 'react-redux';
+import LoginButton from '../Buttons/loginBtn/LoginBtn';
+
 function LeftAside() {
+    const user = useSelector(selectUser);
   return (
     <div className='leftAside-cont'>
         <nav className="nav">
@@ -20,6 +27,18 @@ function LeftAside() {
                 <Settings/>Settings
             </NavLink>
         </nav>
+        <div className='rightAside-cont-imp'>
+      {
+        user.username?(
+          <>
+            <CreateBtn></CreateBtn>
+            <UserBtn></UserBtn>
+          </>
+        ):(
+          <LoginButton></LoginButton>
+        )
+      }
+    </div>
     </div>
   )
 }

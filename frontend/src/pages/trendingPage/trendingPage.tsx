@@ -11,7 +11,7 @@ const TrendPage: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <TrendCont></TrendCont>
       </main>
     </div>

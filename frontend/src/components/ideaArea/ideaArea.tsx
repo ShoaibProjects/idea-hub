@@ -99,7 +99,7 @@ const IdeaArea: React.FC = () => {
         <div className="comments">
           <MessageSquare />
           <div>
-            <IdeaComments ideaId={lookedUpIdea?lookedUpIdea:''}></IdeaComments>
+            <IdeaComments ideaId={lookedUpIdea?lookedUpIdea:''} reader={user.username?user.username:''}></IdeaComments>
           </div>
         </div>
       </div>

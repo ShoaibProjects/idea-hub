@@ -82,8 +82,10 @@
 
 .h-icons-cont {
   @include flex-center();
-  width: 20%;
-  background-color: white;
+  width: 25%;
+  // background-color: white;
+  background: transparentize($color: #ffffff, $amount: 0.5);
+  backdrop-filter: blur(10px);
   height: 100%;
   padding: 1.5rem;
   justify-content: space-evenly;

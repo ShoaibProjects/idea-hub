@@ -12,6 +12,10 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  isEdited: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

@@ -24,14 +24,19 @@ export const addComment = async (req, res) => {
   }
 
   export const updateComment = async (req, res) => {
-    const dislikes = req.body.dislikes;
+    const { commentId, creator, description } = req.body;
     try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
+      if(req.user.username!=creator){
+        return res.status(403).json({ message: 'not authorized' });
+      }
       
-      idea.downvotes = dislikes;
-      await idea.save();
-      res.json(idea.downvotes);
+      const comment = await Comment.findById(commentId);
+      if (!comment) return res.status(404).json('Comment not found');
+      
+      comment.description = description;
+      comment.isEdited = true;
+      await comment.save();
+      res.json(comment);
     } catch (err) {
       res.status(400).json('Error: ' + err);
     }
@@ -49,10 +54,14 @@ export const addComment = async (req, res) => {
   
 
   export const deleteComment = async (req, res) => {
+    const { commentId, creator } = req.query;
     try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
-      res.json(idea.downvotes);
+      if(req.user.username!=creator){
+        return res.status(403).json({ message: 'not authorized' });
+      }
+      const comment = await Comment.findByIdAndDelete(commentId);
+      if (!comment) return res.status(404).json('comment not found');
+      res.status(200).json( {message: 'comment deleted'});
     } catch (err) {
       res.status(400).json('Error: ' + err);
     }

@@ -11,7 +11,7 @@ const SettingsPage: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <Settings></Settings>
       </main>
     </div>

@@ -10,7 +10,7 @@ const UserPage: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <UserCont></UserCont>
       </main>
     </div>

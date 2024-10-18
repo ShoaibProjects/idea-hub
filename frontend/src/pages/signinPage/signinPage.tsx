@@ -10,7 +10,7 @@ const SigninPage: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <Signin></Signin>
       </main>
     </div>

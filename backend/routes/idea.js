@@ -6,7 +6,7 @@ import { recomm } from '../controllers/recommendations.js';
 import { getTrendingIdeas } from '../controllers/trending.js';
 import { getDislikes, getLikes, updateDislikes, updateLikes } from '../controllers/likeDislike.js';
 import { addIdea, deleteIdea, getIdea, getMany, updateIdea } from '../controllers/ideas.js';
-import { addComment, getComments } from '../controllers/comments.js';
+import { addComment, deleteComment, getComments, updateComment } from '../controllers/comments.js';
 import { getSearch } from '../controllers/search.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
 
@@ -37,6 +37,10 @@ router.get('/:id', getIdea);
 router.post('/comment/add', verifyToken, addComment)
 
 router.get('/:id/comments', getComments)
+
+router.patch('/comment/update', verifyToken, updateComment)
+
+router.delete('/comment/delete', verifyToken, deleteComment)
 
 router.get('/explore/search', getSearch)
 

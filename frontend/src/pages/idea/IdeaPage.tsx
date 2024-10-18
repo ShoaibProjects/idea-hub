@@ -10,7 +10,7 @@ const IdeaPage: React.FC = () => {
       <Navbar/>
       <main>
         <LeftAside></LeftAside>
-        <RightAside></RightAside>
+        {/* <RightAside></RightAside> */}
         <IdeaForm></IdeaForm>
       </main>
     </div>
