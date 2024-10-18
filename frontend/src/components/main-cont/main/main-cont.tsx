@@ -15,6 +15,7 @@ interface Idea {
   tags: string[];
   upvotes: number;
   downvotes: number;
+  comments: string[];
 }
 
 function MainCont() {
@@ -102,19 +103,15 @@ function MainCont() {
     return () => window.removeEventListener('scroll', handleScroll);  // Cleanup scroll listener
   }, [loading, hasMore]);
 
-  let order = 1;
 
   return (
     <div className='main-cont'>
       <div className="ideas-container">
         {ideas.length > 0 ? (
           ideas.map((idea) => {
-            const currentOrder = order;
-            order++;  // Increment order after use
             return (
               <IdeaCard 
                 key={idea._id} 
-                order={currentOrder} 
                 id={idea._id} 
                 title={idea.title} 
                 content={idea.description} 
@@ -122,7 +119,8 @@ function MainCont() {
                 upvotes={idea.upvotes} 
                 downvotes={idea.downvotes} 
                 category={idea.category} 
-                comments={0}
+                comments={idea.comments.length}
+                viewer={user.username?user.username:''}
               />
             );
           })

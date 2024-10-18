@@ -1,6 +1,167 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins';
 
-.signin-form{
-    @include middle-style;
+.signin-form-cont {
+  @include middle-style;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8fafc;
+}
+
+.signin-form {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 2rem 2.5rem;
+  width: 80%;
+  height: 90%;
+  text-align: center;
+
+  h2 {
+    font-size: 2.2rem;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+  }
+
+  .error {
+    color: #f87171;
+    background-color: #fef2f2;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    color: #1f2937;
+    background-color: #f9fafb;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+  }
+
+  .password-input {
+    position: relative; // Position relative to contain the absolute icon
+    display: flex; // Use flexbox for better alignment
+    align-items: center; // Center items vertically
+  }
+  
+  input[type="password"] {
+    flex: 1; // Allow the input to take the remaining space
+    padding-right: 40px; // Add right padding to avoid text overlap with the icon
+  }
+  
+  .toggle-password {
+    position: absolute; // Absolute positioning for the icon
+    right: 15px; // Move inward from the right edge (adjust as needed)
+    top: 15px;
+    cursor: pointer; // Pointer cursor for better UX
+    color: #3b82f6; // Color to match your theme
+    font-size: 1.2rem; // Size of the icon
+  }
+  
+  
+  
+
+  .remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #475569;
+
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+      accent-color: #3b82f6;
+    }
+  }
+
+  button {
+    width: 100%;
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+  }
+
+  .signup-prompt {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 0.8rem;
+  }
+
+  a {
+    font-size: 1.1rem;
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: #2563eb;
+    }
+  }
+
+  .guest-signup {
+    background-color: #f0f9ff;
+    border: 2px solid #3b82f6;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3b82f6;
+    display: inline-block;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #e0f2fe;
+      border-color: #2563eb;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 }

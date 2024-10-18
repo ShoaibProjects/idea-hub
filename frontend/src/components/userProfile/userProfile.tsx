@@ -17,6 +17,7 @@ interface Idea {
   tags: string[];
   upvotes: number;
   downvotes: number;
+  comments: string[];
 }
 
 interface UserProfileData {
@@ -80,7 +81,6 @@ function UserProfile() {
   }, [lookedUpUsername]);
 
 
-  let order = 1;
 
   return (
     <div className='user-prof-cont'>
@@ -100,12 +100,10 @@ function UserProfile() {
           .slice() // Create a shallow copy of the array
           .reverse() // Reverse the order of the ideas
           .map((idea) => {
-            const currentOrder = order;
-            order++; // Increment order after use
+            
             return (
               <IdeaCard 
                 key={idea._id}
-                order={currentOrder}
                 id={idea._id}
                 title={idea.title}
                 content={idea.description}
@@ -113,7 +111,8 @@ function UserProfile() {
                 upvotes={idea.upvotes}
                 downvotes={idea.downvotes}
                 category={idea.category.join(', ')} // Assuming it's an array of categories
-                comments={0}  // Adjust as necessary
+                comments={idea.comments.length}
+                viewer={user.username?user.username:''}
               />
             );
           })

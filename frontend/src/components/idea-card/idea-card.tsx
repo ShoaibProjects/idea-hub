@@ -9,7 +9,6 @@ import Dislike from '../Buttons/likeDislikeBtns/dislike';
 // Step 1: Define Props interface
 interface IdeaCardProps {
   id : string;
-  order : number;
   title: string;
   category: string;
   content: string;
@@ -17,10 +16,11 @@ interface IdeaCardProps {
   upvotes: number;
   downvotes: number;
   comments: number;
+  viewer: string;
 }
 
 // Step 2: Add props to the component
-const IdeaCard: React.FC<IdeaCardProps> = ({ id, order, title, category, content, creator, upvotes, downvotes, comments }) => {
+const IdeaCard: React.FC<IdeaCardProps> = ({ id, title, category, content, creator, upvotes, downvotes, comments, viewer }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [disliked, setDisliked] = useState<boolean>(false);
   const [likes, setLikes] = useState<number>(upvotes);
@@ -28,7 +28,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ id, order, title, category, content
   return (
     <div className="card-cont">
       <div className="upper-card">
-        <span className="title">{title}</span><span>{order}</span>
+        <span className="title">{title}</span>
         <div className="category">{category}</div>
       </div>
       <p className="content">{content}</p>

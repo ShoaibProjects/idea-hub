@@ -15,6 +15,7 @@ interface Idea {
   tags: string[];
   upvotes: number;
   downvotes: number;
+  comments: string[];
 }
 
 const UserCont: React.FC = () => {
@@ -131,7 +132,6 @@ const UserCont: React.FC = () => {
             .map((idea) => (
               <div key={idea._id} className="idea-item">
                 <IdeaCard
-                  order={ideas.length - ideas.indexOf(idea)}
                   id={idea._id}
                   title={idea.title}
                   content={idea.description}
@@ -139,7 +139,8 @@ const UserCont: React.FC = () => {
                   upvotes={idea.upvotes}
                   downvotes={idea.downvotes}
                   category={idea.category.join(', ')}
-                  comments={0}
+                  comments={idea.comments.length}
+                  viewer={user.username?user.username:''}
                 />
                 <div className="action-menu">
                   <button className="dots" onClick={() => toggleActionMenu(idea._id)}>⋮</button>

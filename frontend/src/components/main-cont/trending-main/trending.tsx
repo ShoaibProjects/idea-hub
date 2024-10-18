@@ -12,7 +12,9 @@ interface Idea {
   description: string;
   creator: string;
   upvotes: number;
+  downvotes: number;
   category: string;
+  comments: string[];
 }
 
 function TrendingIdeas() {
@@ -73,7 +75,7 @@ function TrendingIdeas() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);  // Cleanup scroll listener
   }, [loading, hasMore]);
-  let order = 1;
+
   return (
     <div className='trend-cont'>
       <h2>Trending Ideas</h2>
@@ -101,20 +103,19 @@ function TrendingIdeas() {
       <div className="ideas-container">
         {ideas.length > 0 ? (
           ideas.map((idea) => {
-            const currentOrder = order;
-            order++; 
+            
             return (
               <IdeaCard
               key={idea._id}
               id={idea._id}
-              order={currentOrder}
               title={idea.title}
               content={idea.description}
               creator={idea.creator}
               upvotes={idea.upvotes}
-              downvotes={0}  // Adjust as necessary
+              downvotes={idea.downvotes}  // Adjust as necessary
               category={idea.category}
-              comments={0}  // Adjust as necessary
+              comments={idea.comments.length}  // Adjust as necessary
+              viewer={user.username?user.username:''}
             />
             )
 })
