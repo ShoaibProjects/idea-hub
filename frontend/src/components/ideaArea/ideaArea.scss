@@ -4,3 +4,101 @@
 .idea-page-cont{
     @include middle-style;
 }
+
+
+.idea-container {
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 1.5rem;
+  background-color: $card-bg-light;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+
+  .idea-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $text-color-light;
+  }
+
+  .idea-category {
+    background-color: $primary-color-light;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+}
+
+.idea-description {
+  color: $text-color-light;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 15px 0 20px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .creator-info {
+    .creator-link {
+      font-size: 0.9rem;
+      color: $primary-color-light;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover {
+        color: darken($primary-color-light, 10%);
+      }
+    }
+  }
+
+  .interactions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    svg {
+      cursor: pointer;
+      transition: fill 0.2s;
+
+      &:hover {
+        fill: $primary-color-light;
+      }
+    }
+  }
+
+  .comments-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: $text-color-light;
+
+    svg {
+      margin-right: 0.3rem;
+    }
+  }
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: $text-color-light;
+}

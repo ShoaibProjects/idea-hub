@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { ArrowUp, ArrowDown, MessageSquare } from 'lucide-react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { MessageSquare } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Like from '../Buttons/likeDislikeBtns/like';
 import Dislike from '../Buttons/likeDislikeBtns/dislike';
@@ -11,18 +10,17 @@ import axios from 'axios';
 import './ideaArea.scss';
 
 interface Idea {
-    _id: string;
-    title: string;
-    description: string;
-    creator: string;
-    category: string;
-    tags: string[];
-    upvotes: number;
-    downvotes: number;
-    comments: string[];
-  }
+  _id: string;
+  title: string;
+  description: string;
+  creator: string;
+  category: string;
+  tags: string[];
+  upvotes: number;
+  downvotes: number;
+  comments: string[];
+}
 
-// Step 2: Add props to the component
 const IdeaArea: React.FC = () => {
   const [ideaDetails, setIdeaDetails] = useState<Idea | null>(null);
   const [liked, setLiked] = useState<boolean>(false);
@@ -31,22 +29,15 @@ const IdeaArea: React.FC = () => {
   const [dislikes, setDislikes] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-
   const user = useSelector(selectUser); // The logged-in user
-  const { lookedUpIdea } = useParams<{ lookedUpIdea: string }>(); // Extract username from URL
-  console.log(lookedUpIdea)
+  const { lookedUpIdea } = useParams<{ lookedUpIdea: string }>(); // Extract ideaId from URL
 
-  // Fetch the profile data of the looked-up user and their ideas
-  const fetchIdea = async (idea: string) => { 
+  const fetchIdea = async (idea: string) => {
     try {
       setLoading(true);
-      // Step 1: Fetch user profile data by username
       const ideaResponse = await axios.get(`http://localhost:5000/idea/${idea}`);
       const ideaData = ideaResponse.data;
-      
 
-
-      // Assign extracted fields to the state
       setIdeaDetails({
         _id: ideaData._id,
         title: ideaData.title,
@@ -56,53 +47,71 @@ const IdeaArea: React.FC = () => {
         tags: ideaData.tags,
         upvotes: ideaData.upvotes,
         downvotes: ideaData.downvotes,
-        comments: ideaData.comments?ideaData.comments:''
+        comments: ideaData.comments || [],
       });
-      setLikes(ideaData.upvotes); // Set likes based on fetched data
-      setDislikes(ideaData.downvotes); // Set dislikes based on fetched data
-
+      setLikes(ideaData.upvotes);
+      setDislikes(ideaData.downvotes);
     } catch (error) {
-      console.error('Error fetching user profile or ideas:', error);
+      console.error('Error fetching idea details:', error);
     } finally {
       setLoading(false);
     }
   };
-  
-  // Fetch user data and posted ideas when the component mounts or when lookedUpUsername changes
+
   useEffect(() => {
     if (lookedUpIdea) {
-      fetchIdea(lookedUpIdea); // Fetch the looked-up user profile
+      fetchIdea(lookedUpIdea);
     }
   }, [lookedUpIdea]);
- 
+
   if (loading || !ideaDetails) {
-    return <p>Loading idea details...</p>;
+    return <p className="loading-message">Loading idea details...</p>;
   }
 
   return (
-    <div className="idea-page-cont">
-      <div className="upper-card">
-        <span className="title">{ideaDetails?ideaDetails.title:'new'}</span>
-        <div className="category">{ideaDetails?ideaDetails.category:'new'}</div>
+    <div className='idea-page-cont'>
+      <div className="idea-container">
+      <div className="header-section">
+        <span className="idea-title">{ideaDetails.title}</span>
+        <div className="idea-category">{ideaDetails.category}</div>
       </div>
-      <p className="content">{ideaDetails?ideaDetails.description:'new'}</p>
-      <div className="lower-card">
-        <div>
-            <Link to={`/user/profile/${ideaDetails?ideaDetails.creator:'new'}`} className="creator-link">
-              {ideaDetails?ideaDetails.creator:'new'}
-            </Link>
+      <p className="idea-description">{ideaDetails.description}</p>
+      <div className="footer-section">
+        <div className="creator-info">
+          <Link to={`/user/profile/${ideaDetails.creator}`} className="creator-link">
+            {ideaDetails.creator}
+          </Link>
         </div>
-        <div className="votes">
-          <Like Id={ideaDetails?ideaDetails._id:'new'} setLikes={setLikes} likes={likes} setDislikes={setDislikes} dislikes={dislikes} liked={liked} setLiked={setLiked} disliked={disliked} setDisliked={setDisliked}></Like> 
-          <Dislike Id={ideaDetails?ideaDetails._id:'new'} setLikes={setLikes} likes={likes} setDislikes={setDislikes} dislikes={dislikes} liked={liked} setLiked={setLiked} disliked={disliked} setDisliked={setDisliked}></Dislike>
+        <div className="interactions">
+          <Like
+            Id={ideaDetails._id}
+            setLikes={setLikes}
+            likes={likes}
+            setDislikes={setDislikes}
+            dislikes={dislikes}
+            liked={liked}
+            setLiked={setLiked}
+            disliked={disliked}
+            setDisliked={setDisliked}
+          />
+          <Dislike
+            Id={ideaDetails._id}
+            setLikes={setLikes}
+            likes={likes}
+            setDislikes={setDislikes}
+            dislikes={dislikes}
+            liked={liked}
+            setLiked={setLiked}
+            disliked={disliked}
+            setDisliked={setDisliked}
+          />
         </div>
-        <div className="comments">
-          <MessageSquare />
-          <div>
-            <IdeaComments ideaId={lookedUpIdea?lookedUpIdea:''} reader={user.username?user.username:''}></IdeaComments>
-          </div>
+        <div className="comments-section">
+          <MessageSquare size={20} />
+          <IdeaComments ideaId={lookedUpIdea || ''} reader={user?.username || ''} />
         </div>
       </div>
+    </div>
     </div>
   );
 };

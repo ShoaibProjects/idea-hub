@@ -54,15 +54,29 @@ export const addComment = async (req, res) => {
   
 
   export const deleteComment = async (req, res) => {
-    const { commentId, creator } = req.query;
+    const { commentId, creator, ideaId } = req.query; // Assuming you pass the ideaId in the query
     try {
-      if(req.user.username!=creator){
-        return res.status(403).json({ message: 'not authorized' });
+      // Check if the user is authorized to delete the comment
+      if (req.user.username !== creator) {
+        return res.status(403).json({ message: 'Not authorized' });
       }
+  
+      // Use $pull to remove the comment reference from the idea's comments array
+      const updatedIdea = await Idea.findByIdAndUpdate(
+        ideaId,
+        { $pull: { comments: commentId } }, // Remove the commentId from the comments array
+        { new: true } // Return the updated document after modification
+      );
+      if (!updatedIdea) return res.status(404).json({ message: 'Idea not found' });
+  
+      // Now delete the actual comment
       const comment = await Comment.findByIdAndDelete(commentId);
-      if (!comment) return res.status(404).json('comment not found');
-      res.status(200).json( {message: 'comment deleted'});
+      if (!comment) return res.status(404).json({ message: 'Comment not found' });
+  
+      // Respond with success
+      res.status(200).json({ message: 'Comment deleted and removed from the idea' });
     } catch (err) {
       res.status(400).json('Error: ' + err);
     }
-  }
+  };
+  

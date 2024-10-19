@@ -75,6 +75,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
         params: {
           commentId,
           creator: reader,
+          ideaId,
         },
         withCredentials: true,
       });
