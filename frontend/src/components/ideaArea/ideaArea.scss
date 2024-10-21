@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
-.idea-page-cont{
+.idea-page-cont {
     @include middle-style;
 }
 
@@ -14,6 +14,7 @@
   background-color: $card-bg-light;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow-wrap: break-word;
 
   &:hover {
     transform: translateY(-5px);
@@ -34,6 +35,23 @@
     color: $text-color-light;
   }
 
+  .creator-info {
+    margin-left: 1rem; // Space between category and creator link
+    .creator-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: $primary-color-light;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover {
+        color: darken($primary-color-light, 10%);
+      }
+    }
+  }
+
   .idea-category {
     background-color: $primary-color-light;
     color: white;
@@ -41,6 +59,7 @@
     border-radius: 999px;
     font-size: 0.9rem;
     text-transform: uppercase;
+    margin-left: 1rem; // Space between creator link and category
   }
 }
 
@@ -56,45 +75,59 @@
   justify-content: space-between;
   align-items: center;
 
-  .creator-info {
-    .creator-link {
-      font-size: 0.9rem;
-      color: $primary-color-light;
-      font-weight: 500;
-      transition: color 0.2s;
-
-      &:hover {
-        color: darken($primary-color-light, 10%);
-      }
-    }
-  }
-
   .interactions {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-right: auto; // Aligns to the left
+  }
 
-    svg {
+  .action-buttons {
+    margin-left: auto; // Aligns to the right
+    position: relative;
+
+    .dots {
+      background: none;
+      border: none;
       cursor: pointer;
-      transition: fill 0.2s;
+      font-size: 1.2rem;
 
       &:hover {
-        fill: $primary-color-light;
+        color: $primary-color-light; // Add hover effect
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 30px; // Adjust the position as needed
+      right: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+
+      button {
+        padding: 10px;
+        border: none;
+        width: 100%;
+        text-align: left;
+
+        &:hover {
+          background-color: $primary-color-light;
+          color: white;
+        }
       }
     }
   }
+}
 
-  .comments-section {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    color: $text-color-light;
-
-    svg {
-      margin-right: 0.3rem;
-    }
-  }
+// Make the comments section take the full width
+.comments-section {
+  margin-top: 20px; // Space above the comments
+  width: 100%; // Ensures full width
+  border-top: 1px solid #eaeaea; // Optional: border for separation
+  padding-top: 15px; // Space between the top border and comments
 }
 
 .loading-message {

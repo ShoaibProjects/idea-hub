@@ -1,72 +1,130 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
-.user-cont{
-    @include middle-style;
+.user-cont {
+  @include middle-style;
+
+  // .idea-item {
+  //     position: relative;
+  //   }
+
+  //   .action-menu {
+  //     position: absolute;
+  //     top: 10px;
+  //     right: 10px;
+  //   }
+
+  //   .dots {
+  //     background: none;
+  //     border: none;
+  //     font-size: 1.5rem;
+  //     cursor: pointer;
+  //   }
+
+  //   .dropdown-menu {
+  //     position: absolute;
+  //     top: 100%;
+  //     right: 0;
+  //     background-color: white;
+  //     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  //     border-radius: 4px;
+  //     padding: 5px;
+  //     display: flex;
+  //     flex-direction: column;
+  //   }
+
+  //   .dropdown-menu button {
+  //     padding: 8px 12px;
+  //     background-color: transparent;
+  //     border: none;
+  //     cursor: pointer;
+  //     text-align: left;
+  //   }
+
+  //   .dropdown-menu button:hover {
+  //     background-color: #f1f1f1;
+  //   }
+
+  //   .modal {
+  //     position: fixed;
+  //     top: 0;
+  //     left: 0;
+  //     right: 0;
+  //     bottom: 0;
+  //     background: rgba(0, 0, 0, 0.5);
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //   }
+
+  //   .modal-content {
+  //     background-color: white;
+  //     padding: 20px;
+  //     border-radius: 8px;
+  //     width: 400px;
+  //     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  //   }
+
+  //   .modal-actions {
+  //     display: flex;
+  //     justify-content: space-between;
+  //   }
+
+  .profile-head {
+    display: flex;
+    flex-direction: column; // Stack items vertically
+    align-items: start; // Center items horizontally
+    justify-content: center; // Center items vertically
+    gap: 1rem; // Space between items
+    padding: 1.5rem;
+    margin-top: 1rem;
+    background-color: $background-color-light; // Soft background for contrast
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Subtle shadow for depth
+
+    p {
+      font-size: 1.1rem;
+      color: $text-color-light; // Darker text for emphasis
+      margin: 0;
+    }
+
+    .desc-cont {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .followers-count {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: $primary-color-light; // Highlight the follower count with primary color
+    }
+
+      .edit-desc-btn {
+        padding: 0.5rem 1rem;
+        background-color: $primary-color-light;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($primary-color-light, 10%);
+        }
+      }
+  }
+
+  .ideas-container {
+    display: grid; // Use grid for layout
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
+    gap: 20px; // Space between cards
+  }
+
+  p {
+    text-align: center;
+    font-size: 1rem;
+    color: $text-color-light; // Use your text color for consistency
+  }
+
 }
-.idea-item {
-    position: relative;
-  }
-  
-  .action-menu {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .dots {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .dropdown-menu button {
-    padding: 8px 12px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .dropdown-menu button:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  

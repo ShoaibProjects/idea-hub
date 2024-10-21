@@ -5,7 +5,7 @@ import './CreateBtn.scss';
 
 function CreateBtn() {
   return (
-    <Link to="/NewIdea">
+    <Link to="/NewIdea" className='link-cont'>
       <button className='btn-cont'>
       <Lightbulb></Lightbulb>
       <span>New Idea</span>

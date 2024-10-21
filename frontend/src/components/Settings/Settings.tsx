@@ -1,38 +1,33 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import './Settings.scss';
+import { IoMdSettings } from "react-icons/io";
+import { MdManageAccounts } from "react-icons/md";
+import { Settings2 } from 'lucide-react';
+import { IoLanguage } from "react-icons/io5";
 
-// Define the interface for your component props
-interface SettingsProps {
-    onClose: () => void;
-}
-
-// Functional component with props typed
 const Settings: React.FC = () => {
-  // Component logic can go here
   const location = useLocation();
-
-  // Check if the current route is the main settings route
   const isMainSettings = location.pathname === '/settings';
+
   return (
     <div className="setting-cont">
-      {/* Conditionally show links only if the user is on the main settings page */}
+      <div className='set-cont'>
+        <h2><IoMdSettings></IoMdSettings>Settings</h2>
       {isMainSettings && (
         <nav className="settings-nav">
-          <Link to="AccountSettings">Account Settings</Link>
-          <Link to="preferences">Preferences</Link>
-          <Link to="language-settings">Language Settings</Link>
+          <Link to="AccountSettings" className="nav-link"><MdManageAccounts size={25}></MdManageAccounts>Account Settings</Link>
+          <Link to="preferences" className="nav-link"><Settings2></Settings2>Preferences</Link>
+          <Link to="language-settings" className="nav-link"><IoLanguage size={25}></IoLanguage>Language Settings</Link>
         </nav>
       )}
 
-      {/* Render the content for the selected setting */}
       <div className="settings-content">
         <Outlet />
+      </div>
       </div>
     </div>
   );
 };
 
 export default Settings;
-
-

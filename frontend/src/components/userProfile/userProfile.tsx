@@ -84,13 +84,19 @@ function UserProfile() {
 
   return (
     <div className='user-prof-cont'>
-      <h2>{userProfile ? `${userProfile.username}'s Profile` : 'Loading Profile...'}</h2>
             {/* Display description and follower count */}
       {userProfile && (
         <>
+          <div className='profile-head'>
+          <h2>{userProfile ? `${userProfile.username}'s Profile` : 'Loading Profile...'}</h2>
+          <div className='follow-cont'>
+          <p className='followers-count'>{userProfile.followersCount} followers</p>
+          {user.username!=userProfile.username && (
+            <span><FollowBtn username={userProfile.username} isFollowed={followed} setFollowed={setFollowed}></FollowBtn></span>
+          )}
+          </div>
           <p>{userProfile.description}</p>
-          <p>{userProfile.followersCount} followers</p>
-          <p><FollowBtn username={userProfile.username} isFollowed={followed} setFollowed={setFollowed}></FollowBtn></p>
+          </div>
         </>
       )}
       {/* Display posted ideas */}

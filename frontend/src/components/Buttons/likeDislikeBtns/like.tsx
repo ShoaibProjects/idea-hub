@@ -4,6 +4,7 @@ import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';
 import { selectUser, addLikedIdea, removeLikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
+import "./likeDislike.scss";
 
 interface IdeaIdProps {
   Id: string;
@@ -78,7 +79,7 @@ const Like: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes, di
   };
 
   return (
-    <button onClick={updateLike}>
+    <button onClick={updateLike} className='lik-btn'>
       {liked?(<FaThumbsUp />):(<FaRegThumbsUp />)} {likes}
     </button>
   );

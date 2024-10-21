@@ -3,105 +3,58 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addPostedContent, selectUser } from '../../components/Auth/userSlice';
 import { selectCategories } from '../../Redux-slices/categories/categorySlices';
 import axios from 'axios';
+import Select from 'react-select';
 import './IdeaForm.scss';
 
-
 const IdeaForm: React.FC = () => {
-    const [title, setTitle] = useState<string>('');  // State for title
-    const [description, setDescription] = useState<string>('');  // State for description
+    const [title, setTitle] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
     const user = useSelector(selectUser);
-    const [category, setCategory] = useState(''); // Can be empty
-    const [tags, setTags] = useState<string[]>([]);
-    const [tagInput, setTagInput] = useState('');
+    const [category, setCategory] = useState<string>('');  // Store category as a string
+    const [tags, setTags] = useState<string[]>([]);  // Store tags as an array of strings
+    const [tagInput, setTagInput] = useState<string>('');
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
     const categories = useSelector(selectCategories);
     
-    const filteredSuggestions = categories.filter((category) =>
-        category.toLowerCase().startsWith(tagInput.toLowerCase())
-      );
-      const dispatch = useDispatch();
-    // You can add more categories here
+    const dispatch = useDispatch();
 
-    // Handle tag input when the user presses ',' or 'Enter'
-    const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === ',' || e.key === 'Enter') {
-            e.preventDefault();
-            if (tagInput.trim() !== '') {
-                if (tags.length >= 5) {
-                    alert("You can only add up to 5 tags.");
-                    return;
-                  }
-                  // Check for duplicate tags
-                  if (tags.includes(tagInput.trim())) {
-                    alert("This tag is already added.");
-                    return;
-                  }
-                setTags([...tags, tagInput.trim()]); // Add tag to the array
-                setTagInput('');  // Clear the input field after adding tag
-            }
+    const handleCategoryChange = (selectedCategory: any) => {
+        setCategory(selectedCategory?.value || '');  // Extract string from selected value
+    };
+
+    const handleTagChange = (selectedTags: any) => {
+        if (selectedTags.length <= 5) {
+            setTags(selectedTags.map((tag: any) => tag.value));  // Extract values from selected tags
+        } else {
+            alert('You can only select up to 5 tags.');
         }
     };
 
-    const handleTagDelete = (tagToDelete: string) => {
-        setTags(tags.filter(tag => tag !== tagToDelete));  // Remove tag from list
+    const validateForm = () => {
+        if (!title.trim() || !description.trim() || !category) {
+            alert('All fields are required.');
+            return false;
+        }
+        return true;
     };
 
-    const handleSuggestionClick = (suggestion: string) => {
-        if (!tags.includes(suggestion) && tags.length <= 5) {
-          setTags([...tags, suggestion]);
-        } else if(tags.includes(suggestion) && tags.length <= 5) {
-            alert("This tag is already added.");
-        } else if(tags.length > 5){
-            alert("You can only add up to 5 tags.");
-          }
-
-        setTagInput(''); // Clear input
-        setShowSuggestions(false); // Hide dropdown
-      };
-
-      // Validation logic for the form
-  const validateForm = () => {
-    if (!title.trim()) {
-      alert('Title is required.');
-      return false;
-    }
-    if (!description.trim()) {
-      alert('Description is required.');
-      return false;
-    }
-    if(category==''){
-      alert('Please select idea category.')
-      return false;
-    }
-    return true;
-  };
-
     const handleSubmit = async (e: React.FormEvent) => {
-
-          if (!validateForm()) {
-            return;
-          } 
         e.preventDefault();
-        try {
-            // Send title and description to the database
-            const response = await axios.post('http://localhost:5000/idea/add', {
-                title,
-                description,
-                creator: user.username,
-                category: category, // Allow category to be empty
-                tags,
-            }, { withCredentials: true });
-            console.log(response.data);
-            const ideaId = response.data._id; // Assuming the response contains the new idea's ID
-            console.log("Idea added:", ideaId);
+        if (!validateForm()) return;
 
-            // Now update the user's postedContent array with this new idea ID
-            await axios.put(`http://localhost:5000/user/${user.username}/add-posted-idea`, {
-                ideaId,
+        try {
+            const response = await axios.post('http://localhost:5000/idea/add', {
+                title, 
+                description, 
+                creator: user.username, 
+                category,  // Send category as a string
+                tags,  // Send tags as an array of strings
             }, { withCredentials: true });
-            
-            // Clear form fields after successful submission
+
+            const ideaId = response.data._id;
+            await axios.put(`http://localhost:5000/user/${user.username}/add-posted-idea`, { ideaId }, { withCredentials: true });
+
             if (response.status === 201) {
                 alert('Idea submitted successfully!');
                 dispatch(addPostedContent(ideaId));
@@ -114,82 +67,99 @@ const IdeaForm: React.FC = () => {
     };
 
     return (
-        <div className="idea-form">
-            <form onSubmit={handleSubmit}>
+        <div className="idea-form-cont">
+            <form className="idea-form" onSubmit={handleSubmit}>
+                <h2>Submit Your Idea</h2>
                 <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Enter a title"
+                    placeholder="Enter title"
                     required
                 />
                 <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Enter a description"
+                    placeholder="Enter description"
                     required
                 />
-                <div>
+                
+                <div className="category-select">
                     <label>Category</label>
-                    <div className="select-container">
-                        <select
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                            className="category-dropdown"
-                            required
-                        >
-                            <option value="">None</option>
-                            {categories.map((cat) => (
-                                <option key={cat} value={cat}>
-                                    {cat}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <Select
+                        options={categories.map(cat => ({ value: cat, label: cat }))}  // Categories still as options with value as string
+                        onChange={handleCategoryChange}
+                        value={category ? { value: category, label: category } : null}  // Display as selected category
+                        placeholder="Select a category"
+                        styles={{
+                            control: (provided) => ({
+                                ...provided,
+                                border: '1px solid #e2e8f0',
+                                borderRadius: '0.75rem',
+                                boxShadow: 'none',
+                                '&:hover': { borderColor: '#3b82f6' },
+                            }),
+                            menu: (provided) => ({
+                                ...provided,
+                                zIndex: 9999,
+                            }),
+                            menuList: (provided) => ({
+                              ...provided,
+                              maxHeight: '150px', // Set max height for the dropdown
+                              overflowY: 'auto', // Enable vertical scrolling
+                            }),
+                        }}
+                        isClearable
+                    />
                 </div>
+
 
                 <div className="tag-input-container">
                     <label>Tags:</label>
-                    <div className="tag-input">
-                        {tags.map((tag, index) => (
-                            <div key={index} className="tag">
-                                {tag}
-                                <span className="tag-close" onClick={() => handleTagDelete(tag)}>
-                                    &times;
-                                </span>
-                            </div>
-                        ))}
-                        <input
-              type="text"
-              value={tagInput}
-              onChange={(e) => {
-                setTagInput(e.target.value);
-                setShowSuggestions(true); // Show suggestions on input
-              }}
-              onKeyDown={handleTagInputKeyDown}
-              placeholder="Add a tag and press ',' or 'Enter'"
-            />
-
-            {/* Show dropdown of tag suggestions */}
-            {showSuggestions && tagInput && (
-              <ul className="suggestion-dropdown">
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((suggestion, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                    >
-                      {suggestion}
-                    </li>
-                  ))
-                ) : (
-                  <li>No suggestions found</li>
-                )}
-              </ul>
-            )}
-          </div>
+                    <Select
+                        options={categories.map(cat => ({ value: cat, label: cat }))}  // Use categories as options for tags too
+                        isMulti
+                        onChange={handleTagChange}
+                        value={tags.map(tag => ({ value: tag, label: tag }))}  // Convert tags to the format expected by react-select
+                        placeholder="Add tags..."
+                        styles={{
+                            control: (provided) => ({
+                                ...provided,
+                                border: '1px solid #e2e8f0',
+                                borderRadius: '0.75rem',
+                                boxShadow: 'none',
+                                '&:hover': { borderColor: '#3b82f6' },
+                            }),
+                            menu: (provided) => ({
+                                ...provided,
+                                zIndex: 9999,
+                            }),
+                            menuList: (provided) => ({
+                              ...provided,
+                              maxHeight: '100px', // Set max height for the dropdown
+                              overflowY: 'auto', // Enable vertical scrolling
+                            }),
+                            multiValue: (provided) => ({
+                                ...provided,
+                                backgroundColor: 'transparent',
+                            }),
+                            multiValueLabel: (provided) => ({
+                                ...provided,
+                                color: '#2563eb',
+                            }),
+                            multiValueRemove: (provided) => ({
+                                ...provided,
+                                color: '#f87171',
+                                cursor: 'pointer',
+                                '&:hover': { color: '#ef4444' },
+                            }),
+                        }}
+                    />
                 </div>
-                <button type="submit">Add Idea</button>
+
+                <div className="submit-button">
+                    <button type="submit">Submit Idea</button>
+                </div>
             </form>
         </div>
     );

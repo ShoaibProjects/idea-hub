@@ -4,6 +4,7 @@ import { FaRegThumbsDown, FaThumbsDown } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';
 import { selectUser, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
+import "./likeDislike.scss";
 
 interface IdeaIdProps {
   Id: string;
@@ -76,7 +77,7 @@ const Dislike: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes,
   };
 
   return (
-    <button onClick={updateDislike}>
+    <button onClick={updateDislike} className='dis-btn'>
       {disliked?(<FaThumbsDown />):(<FaRegThumbsDown />)} {dislikes}
     </button>
   );

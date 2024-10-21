@@ -85,6 +85,8 @@ const Signup = () => {
     }
   };
 
+  const CustomMultiValue = () => null;
+
   return (
     <div className='signup-form-cont'>
       <div className='signup-form'>
@@ -122,6 +124,7 @@ const Signup = () => {
             isMulti
             onChange={handleSelectChange}
             value={selectedPreferences}
+            components={{ MultiValue: CustomMultiValue }}
             placeholder="Select your preferences..."
             styles={{
               control: (provided) => ({
@@ -141,20 +144,6 @@ const Signup = () => {
                 ...provided,
                 maxHeight: '150px', // Set max height for the dropdown
                 overflowY: 'auto', // Enable vertical scrolling
-              }),
-              multiValue: (provided) => ({
-                ...provided,
-                backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'default',
-              }),
-              multiValueLabel: (provided) => ({
-                ...provided,
-                color: 'transparent',
-              }),
-              multiValueRemove: (provided) => ({
-                ...provided,
-                display: 'none',
               }),
             }}
           />

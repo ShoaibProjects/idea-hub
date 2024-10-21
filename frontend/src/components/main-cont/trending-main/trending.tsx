@@ -5,6 +5,7 @@ import { selectUser } from '../../Auth/userSlice';
 import IdeaCard from '../../idea-card/idea-card';
 import './trending.scss';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
+import { FaFireAlt } from "react-icons/fa";
 
 interface Idea {
   _id: string;
@@ -78,34 +79,35 @@ function TrendingIdeas() {
 
   return (
     <div className='trend-cont'>
-      <h2>Trending Ideas</h2>
-
       {/* Filters for period and category */}
-      <div className="filters">
+      <div className="filters sticky">
+      <h2><FaFireAlt size={30}></FaFireAlt>Trending Ideas</h2>
+        <div>
         <label>Time Period: </label>
         <select value={period} onChange={(e) => setPeriod(e.target.value)}>
           <option value="">All Time</option>
           <option value="30days">Last 30 Days</option>
           <option value="7days">Last 7 Days</option>
         </select>
+        </div>
 
+        <div>
         <label>Category: </label>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
           {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
+        </div>
       </div>
 
       <div className="ideas-container">
         {ideas.length > 0 ? (
-          ideas.map((idea) => {
-            
-            return (
-              <IdeaCard
+          ideas.map((idea) => (
+            <IdeaCard
               key={idea._id}
               id={idea._id}
               title={idea.title}
@@ -115,10 +117,9 @@ function TrendingIdeas() {
               downvotes={idea.downvotes}  // Adjust as necessary
               category={idea.category}
               comments={idea.comments.length}  // Adjust as necessary
-              viewer={user.username?user.username:''}
+              viewer={user.username ? user.username : ''}
             />
-            )
-})
+          ))
         ) : (
           <p>Loading ideas...</p>
         )}

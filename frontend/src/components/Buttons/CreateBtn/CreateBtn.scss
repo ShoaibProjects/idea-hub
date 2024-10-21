@@ -1,5 +1,8 @@
 @import '../../../styles/variables';
 
+.link-cont{
+    text-decoration: none;
+}
 .btn-cont{
     background-color: $primary-color-light;
     color: $text-color-dark;
