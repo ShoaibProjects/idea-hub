@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -6,10 +6,10 @@ import { logout } from '../../Auth/userSlice';
 
 interface DeleteButtonProps {
   username: string; // Pass the user ID to delete
+  password: string;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ username }) => {
-  const [password, setPassword] = useState(''); // To store the user's password
+const DeleteButton: React.FC<DeleteButtonProps> = ({ username, password }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,14 +44,8 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ username }) => {
 
   return (
     <div>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-      />
-      <button onClick={handleDelete} className="delete-btn">
-        Delete Account
+      <button onClick={handleDelete} className="danger-btn">
+        Delete
       </button>
     </div>
   );

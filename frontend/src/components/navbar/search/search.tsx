@@ -1,13 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Modal from './modal'; // Import your modal component
-import { Search } from 'lucide-react';
+import { Search, UserCircle } from 'lucide-react';
 import './../navbar.scss';
+import IdeaCard from '../../idea-card/idea-card';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../Auth/userSlice';
+import { Link, useParams } from 'react-router-dom';
+import './searchModal.scss';
 
 interface Idea {
   _id: string;
   title: string;
   description: string;
+  creator: string;
+  category: string[];
+  tags: string[];
+  upvotes: number;
+  downvotes: number;
+  comments: string[]; escription: string;
 }
 
 interface User {
@@ -25,6 +36,7 @@ const SearchComponent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const limit = 10;
+  const ourUser = useSelector(selectUser);
 
   // Search logic encapsulated in a function
   const handleSearch = useCallback(async (isNewSearch = false) => {
@@ -110,9 +122,18 @@ const SearchComponent: React.FC = () => {
             <h3>Ideas</h3>
             {ideas.length > 0 ? (
               ideas.map((idea) => (
-                <div key={idea._id}>
-                  <h4>{idea.title}</h4>
-                  <p>{idea.description}</p>
+                <div key={idea._id} className="idea-items">
+                  <IdeaCard
+                    id={idea._id}
+                    title={idea.title}
+                    content={idea.description}
+                    creator={idea.creator}
+                    upvotes={idea.upvotes}
+                    downvotes={idea.downvotes}
+                    category={idea.category.join(', ')}
+                    comments={idea.comments.length}
+                    viewer={ourUser.username ? ourUser.username : ''}
+                  />
                 </div>
               ))
             ) : (
@@ -125,7 +146,11 @@ const SearchComponent: React.FC = () => {
             {users.length > 0 ? (
               users.map((user) => (
                 <div key={user._id}>
-                  <h4>{user.username}</h4>
+
+                  <Link to={`/user/profile/${user.username}`} className="creator-link">
+                    <UserCircle></UserCircle>
+                    <h4>{user.username}</h4>
+                  </Link>
                 </div>
               ))
             ) : (

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../Auth/userSlice'; // Import the logout action
 import axios from 'axios';
+import './logOut.scss';
 
 const LogoutButton: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const LogoutButton: React.FC = () => {
   };
 
   return (
-    <button onClick={handleLogout}>
+    <button className="logout-btn" onClick={handleLogout}>
       Log Out
     </button>
   );

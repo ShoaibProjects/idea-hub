@@ -53,7 +53,7 @@ const PrefSettings: React.FC = () => {
   const CustomMultiValue = () => null;
 
   return (
-    <div>
+    <div className='pref-cont'>
       <div className="preferences-dropdown">
         <label>Select Preferences (Max 5):</label>
         {/* React Select component */}
@@ -67,6 +67,28 @@ const PrefSettings: React.FC = () => {
           className="react-select-container"
           classNamePrefix="react-select"
           isClearable={false}
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              border: '1px solid #e2e8f0',
+              borderRadius: '0.75rem',
+              marginTop: '.5rem',
+              // boxShadow: 'none',
+              '&:hover': {
+                borderColor: '#3b82f6',
+              },
+              maxWidth: '20rem',
+            }),
+            menu: (provided) => ({
+              ...provided,
+              zIndex: 9999, // Ensure dropdown appears above other elements
+            }),
+            menuList: (provided) => ({
+              ...provided,
+              maxHeight: '250px', // Set max height for the dropdown
+              overflowY: 'auto', // Enable vertical scrolling
+            }),
+          }}
           
         />
         <div className="selected-preferences">
@@ -82,7 +104,7 @@ const PrefSettings: React.FC = () => {
           ))}
         </div>
       </div>
-      <button onClick={changePreferences}>Save</button>
+      <button className='pref-save-btn' onClick={changePreferences}>Save</button>
     </div>
   );
 };

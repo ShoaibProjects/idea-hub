@@ -1,35 +1,45 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LogoutButton from '../../Buttons/LogOutBtn/LogOutBtn';
+import './AccountModal.scss'; // Import for the styles
 
 interface AccountModalProps {
-  onClose: () => void; // Prop to close modal
+  onClose: () => void;
 }
 
 const AccountModal: React.FC<AccountModalProps> = ({ onClose }) => {
-  // Get the user data from Redux store
   const user = useSelector(selectUser);
 
-  return (
-    <div className="modal">
-      <div className="modal-content">
-        {/* Close button */}
-        <button onClick={onClose}>Close</button>
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose(); // Close the modal if the backdrop is clicked
+    }
+  };
 
-        {/* Display user info or a placeholder */}
+  return (
+    <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <div className="modal-content">
+        {/* Close Button */}
+        <button className="close-btn" onClick={onClose}>
+          &times;
+        </button>
+
+        {/* User Info */}
         {user.username ? (
-          <div>
+          <div className="user-info">
             <h2>{user.username}</h2>
             <p>Account: {user.username}</p>
-            <Link to={`/signin`}>Switch Account</Link>
-            <LogoutButton></LogoutButton>
+            <div className='ac-btns'>
+            <Link to={`/signin`} className="switch-link">Switch Account</Link>
+            <LogoutButton />
+            </div>
           </div>
         ) : (
-          <div>
+          <div className="user-info">
             <p>You are not Logged in</p>
-            <Link to={`/signin`}>Please Login First</Link>
+            <Link to={`/signin`} className="login-link" onClick={onClose}>Please Login First</Link>
           </div>
         )}
       </div>

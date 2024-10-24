@@ -27,7 +27,7 @@
     padding: 10px 20px; // Padding around the filters
     border-radius: 5px; // Rounded corners
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Soft shadow for depth
-    z-index: 10;  // Ensure it appears above other content
+    z-index: 9;  // Ensure it appears above other content
     top: 5.25rem;   // Adjust the position from the top
     position: fixed;  // Make the filters fixed to the viewport
 

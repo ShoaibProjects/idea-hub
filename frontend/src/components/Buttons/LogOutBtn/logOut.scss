@@ -1,0 +1,55 @@
+@import '../../../styles/variables';
+
+// .logout-btn {
+//     padding: 0.75rem 1.5rem;
+//     background-color: #ff6b6b; // Bright and modern color for the button
+//     color: white;
+//     font-size: 1rem;
+//     font-weight: 600;
+//     border: none;
+//     border-radius: 25px; // Gives the button a pill shape
+//     cursor: pointer;
+//     transition: background-color 0.3s ease, transform 0.2s ease;
+//     box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4); // Soft shadow for depth
+  
+//     &:hover {
+//       background-color: #e74c3c; // Darken on hover
+//       transform: translateY(-2px); // Slight raise effect on hover
+//       box-shadow: 0 6px 16px rgba(231, 76, 60, 0.5); // Enhance shadow on hover
+//     }
+  
+//     &:active {
+//       background-color: #ff6b6b; // Original color on click
+//       transform: translateY(0); // Reset transform on click
+//       box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3); // Subtle shadow on click
+//     }
+  
+//     &:focus {
+//       outline: none; // Remove default outline
+//       box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3); // Custom focus shadow
+//     }
+//   }
+  
+.logout-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 25px; // Pill shape
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  text-align: center;
+  background-color: $primary-color-light;
+  color: white;
+
+  &:hover {
+    background-color: lighten($primary-color-light, 10%);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    background-color: darken($primary-color-light, 10%);
+  }
+}

@@ -3,7 +3,8 @@
 
 .setting-cont {
   @include middle-style;
-  .set-cont{
+
+  .set-cont {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,13 +12,13 @@
     height: 100%;
 
     h2 {
-        font-size: 2.5rem;
-        color: $primary-color-dark; // Use your primary color for consistency
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-      }
-  
+      font-size: 2.5rem;
+      color: $primary-color-dark; // Use your primary color for consistency
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
     .settings-nav {
       display: flex;
       flex-direction: column;
@@ -28,7 +29,7 @@
       border-radius: 1rem;
       margin-top: 3rem;
       background-color: white;
-  
+
       .nav-link {
         padding: 0.75rem 1.5rem;
         background-color: $primary-color-light;
@@ -38,19 +39,19 @@
         font-weight: 500;
         font-size: 1.25rem;
         transition: background-color 0.3s ease, transform 0.2s;
-  
+
         &:hover {
           background-color: darken($primary-color-light, 10%);
           transform: translateY(-3px);
         }
-  
+
         &:active {
           background-color: lighten($primary-color-light, 5%);
         }
-        
+
       }
     }
-  
+
     // .settings-content {
     //   width: 100%;
     //   max-width: 800px;
@@ -60,30 +61,218 @@
     //   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     // }
 
+    .preferences-dropdown {
+      margin-top: 1rem;
+      text-align: center;
+
+      label {
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: $primary-color-dark;
+      }
+
+      // .react-select-container{
+      //   margin-top: 1rem;
+      //   width: 150%;
+      //   border: 1px solid #e2e8f0;
+      //   border-radius: .75rem;
+      // }
+    }
+
     .selected-preferences {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 20rem;
+      margin-top: 0.5rem;
+
+      .preference-bubble {
+        background-color: #e0f2fe;
+        color: #2563eb;
+        border: 1px solid #3b82f6;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
         display: flex;
-        flex-wrap: wrap;
-        margin-top: 0.5rem;
-    
-        .preference-bubble {
-          background-color: #e0f2fe;
-          color: #2563eb;
-          border: 1px solid #3b82f6;
-          border-radius: 0.5rem;
-          padding: 0.5rem 1rem;
-          margin-right: 0.5rem;
-          margin-bottom: 0.5rem;
-          font-size: 0.9rem;
-          display: flex;
-          align-items: center;
+        align-items: center;
+        cursor: pointer;
+
+        span {
+          margin-left: 0.5rem;
+          color: #f87171;
           cursor: pointer;
-    
-          span {
-            margin-left: 0.5rem;
-            color: #f87171;
-            cursor: pointer;
-          }
         }
       }
+    }
+
+    .pref-cont {
+      text-align: center;
+    }
+
+    .pref-save-btn {
+      padding: 0.5rem 1rem;
+      background-color: $primary-color-light;
+      color: white;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      transition: transform 0.3s ease;
+      transition: outline 0.3s ease;
+
+      &:hover {
+        background-color: darken($primary-color-light, 10%);
+        transform: scale(1.05);
+        outline: 1px solid rgb(0, 217, 255);
+      }
+    }
+
+
+    .account-settings {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+
+      .log-out{
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      h3 {
+        font-size: 1.8rem;
+        color: $primary-color-dark;
+        margin-bottom: 1rem;
+      }
+
+      .settings-buttons {
+        display: flex;
+        flex-direction: column;
+        // gap: 1rem;
+        width: 100%;
+      }
+
+      .primary-btn,
+      .danger-btn {
+        flex: 1;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 25px; // Pill shape
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+        text-align: center;
+      }
+
+      .primary-btn {
+        background-color: $primary-color-light;
+        color: white;
+
+        &:hover {
+          background-color: lighten($primary-color-light, 10%);
+          transform: translateY(-3px);
+        }
+
+        &:active {
+          background-color: darken($primary-color-light, 10%);
+        }
+      }
+
+      .danger-btn {
+        background-color: #e74c3c;
+        color: white;
+
+        &:hover {
+          background-color: darken(#e74c3c, 10%);
+          transform: translateY(-3px);
+        }
+
+        &:active {
+          background-color: lighten(#e74c3c, 10%);
+        }
+      }
+
+      .pwc-btn-group{
+        display: flex;
+        width: 100%;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        .del-btn{
+          flex: 1.6;
+        }
+      }
+
+      .form-container {
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        width: 100%;
+        margin-bottom: 0.5rem;
+
+        .form-group {
+
+          label {
+            margin-top: 0.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+          }
+
+          input {
+            flex: 1;
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            padding-right: 40px;
+
+            &:focus {
+              border-color: $primary-color-light;
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2); // Subtle shadow for focus
+            }
+          }
+        }
+
+        .error {
+          color: #e74c3c;
+          font-size: 0.9rem;
+          margin-top: 0.25rem;
+        }
+
+        .success {
+          color: #2ecc71;
+          font-size: 0.9rem;
+          margin-top: 0.25rem;
+        }
+     
+      
+        .password-input {
+          position: relative; // Position relative to contain the absolute icon
+          display: flex; // Use flexbox for better alignment
+          align-items: center; // Center items vertically
+        }
+        
+        
+        .toggle-password {
+          position: absolute; // Absolute positioning for the icon
+          right: 15px; // Move inward from the right edge (adjust as needed)
+          cursor: pointer; // Pointer cursor for better UX
+          color: #3b82f6; // Color to match your theme
+          font-size: 1.2rem; // Size of the icon
+          padding-top: 5px;
+        }
+      }
+    }
+
   }
 }
