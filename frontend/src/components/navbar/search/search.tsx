@@ -8,6 +8,10 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
 import { Link, useParams } from 'react-router-dom';
 import './searchModal.scss';
+import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
+import LoadingSpinner from '../../noIdeas/spinners';
+import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
+import Skeleton from 'react-loading-skeleton';
 
 interface Idea {
   _id: string;
@@ -118,48 +122,69 @@ const SearchComponent: React.FC = () => {
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div onScroll={handleScroll} style={{ maxHeight: '400px', overflowY: 'auto' }}>
-          <div>
-            <h3>Ideas</h3>
-            {ideas.length > 0 ? (
-              ideas.map((idea) => (
-                <div key={idea._id} className="idea-items">
-                  <IdeaCard
-                    id={idea._id}
-                    title={idea.title}
-                    content={idea.description}
-                    creator={idea.creator}
-                    upvotes={idea.upvotes}
-                    downvotes={idea.downvotes}
-                    category={idea.category.join(', ')}
-                    comments={idea.comments.length}
-                    viewer={ourUser.username ? ourUser.username : ''}
-                  />
+          <h2 className='search-heading'>Search Results</h2>
+          <div className='search-modal'>
+            <div>
+              <h3>Ideas</h3>
+              {loading ? (
+                // Show skeletons while loading
+                Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />)
+              ) : ideas.length > 0 ? (
+                ideas.map((idea) => (
+                  <div key={idea._id} className="idea-items">
+                    <IdeaCard
+                      id={idea._id}
+                      title={idea.title}
+                      content={idea.description}
+                      creator={idea.creator}
+                      upvotes={idea.upvotes}
+                      downvotes={idea.downvotes}
+                      category={idea.category.join(', ')}
+                      comments={idea.comments.length}
+                      viewer={ourUser.username ? ourUser.username : ''}
+                    />
+                  </div>
+                ))
+              ) : (
+                <NoIdeasPlaceholder dataStat='' />
+              )}
+            </div>
+
+            <div>
+              <h3>Creators</h3>
+              {loading ? (
+                // Show skeletons while loading
+                Array.from({ length: 5 }).map((_, index) => <div key={index} className="creator-link" data-status="loading">
+                  <Skeleton circle width={35} height={35} />
+                  <h4><Skeleton width={60} height={20} /></h4>
+                </div>)
+              ) : users.length > 0 ? (
+                users.map((user) => (
+                  <div key={user._id}>
+
+                    <Link to={`/user/profile/${user.username}`} className="creator-link">
+                      <UserCircle></UserCircle>
+                      <h4>{user.username}</h4>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div className="no-creators">
+                  <UserCircle className="no-creators-icon" size={50} />
+                  <p className="no-creators-message">No creators found</p>
+                  <p className="no-creators-suggestion">Try a different search term or adjust your filters.</p>
                 </div>
-              ))
-            ) : (
-              <p>No ideas found</p>
-            )}
+              )}
+            </div>
           </div>
 
-          <div>
-            <h3>Creators</h3>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <div key={user._id}>
-
-                  <Link to={`/user/profile/${user.username}`} className="creator-link">
-                    <UserCircle></UserCircle>
-                    <h4>{user.username}</h4>
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p>No creators found</p>
-            )}
+          {loading && <LoadingSpinner />}
+          {!hasMoreIdeas && !hasMoreUsers && <div className="end-of-results">
+            <hr className="end-divider" />
+            <UserCircle className="end-icon" size={40} />
+            <p className="end-message">No more results to display</p>
           </div>
-
-          {loading && <p>Loading more results...</p>}
-          {!hasMoreIdeas && !hasMoreUsers && <p>No more results to display.</p>}
+          }
         </div>
       </Modal>
     </div>

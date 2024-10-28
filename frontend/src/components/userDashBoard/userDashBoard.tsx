@@ -4,6 +4,8 @@ import axios from 'axios';
 import IdeaCard from '../idea-card/idea-card';
 import './user-cont.scss';
 import { removePostedContent, selectUser, updateDesc } from '../Auth/userSlice';
+import IdeaCardSkeleton from '../cardSkeleton/cardSkeleton';
+import NoIdeasPlaceholder from '../noIdeas/noIdeas';
 
 interface Idea {
   _id: string;
@@ -77,10 +79,10 @@ const UserCont: React.FC = () => {
               </div>
             ) : (
               <>
-              <div className='desc-cont'>
-              <p>{user.description || 'No description'}</p>
-              <button className='edit-desc-btn' onClick={() => setEditingDescription(true)}>Edit Description</button>
-              </div>
+                <div className='desc-cont'>
+                  <p>{user.description || 'No description'}</p>
+                  <button className='edit-desc-btn' onClick={() => setEditingDescription(true)}>Edit Description</button>
+                </div>
               </>
             )}
             <p className='followers-count'>{user.followers.length} followers</p>
@@ -109,7 +111,7 @@ const UserCont: React.FC = () => {
               </div>
             ))
         ) : (
-          loading ? <p>Loading ideas...</p> : <p>No ideas to display.</p>
+          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoIdeasPlaceholder dataStat=''/>
         )}
       </div>
     </div>
@@ -117,3 +119,4 @@ const UserCont: React.FC = () => {
 };
 
 export default UserCont;
+

@@ -1,5 +1,5 @@
 // Signup.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../userSlice';
@@ -20,6 +20,11 @@ const Signup = () => {
   const [error, setError] = useState('');
   const dispatch: AppDispatch = useDispatch();
   const categories = useSelector(selectCategories);
+
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const signupButtonRef = useRef(null);
+  const prefRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -67,7 +72,11 @@ const Signup = () => {
       }
     } catch (error) {
       console.error('Signup error:', error);
-      setError('Signup failed. Please try again.');
+      if (axios.isAxiosError(error) && error.response?.status === 422) {
+        setError(error.response.data.message || 'Password validation failed.');
+      } else {
+        setError('Signup failed. Please try again.');
+      }
     }
   };
 
@@ -87,6 +96,15 @@ const Signup = () => {
 
   const CustomMultiValue = () => null;
 
+  const handleKeyDown = (
+    event: React.KeyboardEvent,
+    nextRef: React.RefObject<HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter' && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+
   return (
     <div className='signup-form-cont'>
       <div className='signup-form'>
@@ -99,6 +117,8 @@ const Signup = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, passwordRef)}
+              ref={usernameRef}
             />
             <div className="password-input">
               <input
@@ -106,6 +126,8 @@ const Signup = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, prefRef)}
+                ref={passwordRef}
               />
               <span 
                 className="toggle-password" 
@@ -124,6 +146,8 @@ const Signup = () => {
             isMulti
             onChange={handleSelectChange}
             value={selectedPreferences}
+            onKeyDown={(e) => handleKeyDown(e, signupButtonRef)}
+            ref={prefRef}
             components={{ MultiValue: CustomMultiValue }}
             placeholder="Select your preferences..."
             styles={{
@@ -168,7 +192,7 @@ const Signup = () => {
           <label htmlFor="rememberMe">Remember Me</label>
         </div>
         <div className="signup-buttons">
-          <button onClick={handleSignup}>Sign Up</button>
+          <button onClick={handleSignup} ref={signupButtonRef}>Sign Up</button>
           <button onClick={() => { setIsGuest(true); }}>Continue as Guest</button>
         </div>
       </div>

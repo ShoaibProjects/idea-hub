@@ -6,7 +6,7 @@ const LoginButton: React.FC = () => {
 
   return (
     <Link to={'/signin'}>
-    <button >
+    <button className='primary-btn'>
       Log in
     </button></Link>
   );

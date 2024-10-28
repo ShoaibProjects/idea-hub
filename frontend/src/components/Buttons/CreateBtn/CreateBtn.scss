@@ -2,25 +2,55 @@
 
 .link-cont{
     text-decoration: none;
+    width: 100%;
+    padding: 0rem 3rem;
 }
+// .btn-cont{
+//     background-color: $primary-color-light;
+//     color: $text-color-dark;
+//     height: fit-content;
+//     border-radius: 2rem;
+//     padding: .5rem 1rem;
+//     border: none;
+//     display: flex;
+//     align-items: center;
+//     font-weight: bold;
+//     gap: .5rem;
+//     cursor: pointer;
+//     transition: 0ms ease;
+//     span{
+//         font-size: larger;
+//     }
+//     &:hover{
+//         filter: brightness(110%);
+//         filter: contrast(2);
+//     }
+// }
 .btn-cont{
     background-color: $primary-color-light;
-    color: $text-color-dark;
-    height: fit-content;
-    border-radius: 2rem;
-    padding: .5rem 1rem;
+    color: white;
+    flex: 1;
+    margin-top: 0.5rem;
+    padding: 1rem 1.5rem;
     border: none;
+    border-radius: 10px; // Pill shape
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
     display: flex;
     align-items: center;
-    font-weight: bold;
+    justify-content: center;
     gap: .5rem;
-    cursor: pointer;
-    transition: 0ms ease;
-    span{
-        font-size: larger;
+
+    &:hover {
+      background-color: darken($primary-color-light, 5%);
+      outline: 5px solid $background-color-light;
+      // transform: translateY(-3px);
     }
-    &:hover{
-        filter: brightness(110%);
-        filter: contrast(2);
+
+    &:active {
+      background-color: darken($primary-color-light, 10%);
     }
-}
+  }

@@ -24,7 +24,7 @@
 
 .logo-outer-cont {
   @include flex-center();
-  width: 20%;
+  width: 25%;
   background-color: white;
   height: 100%;
   padding: .5rem 0rem;
@@ -45,7 +45,7 @@
 .search-outer-cont {
   @include flex-center();
   background: transparent;
-  width: 60%;
+  width: 50%;
   background: transparentize($color: #ffffff, $amount: 0.5);
   backdrop-filter: blur(10px);
   height: 100%;

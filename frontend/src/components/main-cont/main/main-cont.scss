@@ -7,7 +7,7 @@
     .ideas-container {
         display: grid; // Use grid for layout
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
-        gap: 20px; // Space between cards
+        // gap: 20px; // Space between cards
       }
     
       p {

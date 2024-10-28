@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './main-cont.scss';
 import IdeaCard from '../../idea-card/idea-card';
+import 'react-loading-skeleton/dist/skeleton.css';
+import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
+import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
+import LoadingSpinner from '../../noIdeas/spinners';
+import NoMoreIdeas from '../../noIdeas/noMoreIdeas';
 
 interface Idea {
   _id: string;
@@ -25,6 +30,7 @@ function MainCont() {
   const [hasMore, setHasMore] = useState<boolean>(true);  // To check if more ideas are available
   const [shownIdeas, setShownIdeas] = useState<string[]>([]);  // Track all shown idea IDs
   const user = useSelector(selectUser);
+  const [everLoaded, setEverLoaded] = useState<boolean>(false); 
 
   const navigate = useNavigate();
 
@@ -69,6 +75,11 @@ function MainCont() {
       // Update loading state and check if there are more ideas to load
       setLoading(false);
       setHasMore(newIdeas.length > 0); // Check if there are more ideas to load
+      if(ideas.length>0){
+        setEverLoaded(true);
+      } else{
+        setEverLoaded(false);
+      }
   
     } catch (error) {
       console.error('Error fetching ideas:', error);
@@ -107,7 +118,10 @@ function MainCont() {
   return (
     <div className='main-cont'>
       <div className="ideas-container">
-        {ideas.length > 0 ? (
+        {loading ? ( // Check if loading is true
+          // Show skeletons while loading
+          Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />)
+        ) : ideas.length > 0 ? (
           ideas.map((idea) => {
             return (
               <IdeaCard 
@@ -120,16 +134,16 @@ function MainCont() {
                 downvotes={idea.downvotes} 
                 category={idea.category} 
                 comments={idea.comments.length}
-                viewer={user.username?user.username:''}
+                viewer={user?.username || ''} // Using optional chaining
               />
             );
           })
         ) : (
-          <p>Loading ideas...</p>
+          <NoIdeasPlaceholder dataStat='main'/>// Handle case where there are no ideas  
         )}
-  
-        {loading && <p>Loading more ideas...</p>}
-        {!hasMore && <p>No more ideas to display.</p>}
+
+        {loading && <LoadingSpinner />}
+        {!hasMore && everLoaded && <NoMoreIdeas dataStat='main'/>}
       </div>
     </div>
   );

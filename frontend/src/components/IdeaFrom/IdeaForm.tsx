@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostedContent, selectUser } from '../../components/Auth/userSlice';
 import { selectCategories } from '../../Redux-slices/categories/categorySlices';
@@ -14,6 +14,12 @@ const IdeaForm: React.FC = () => {
     const [tags, setTags] = useState<string[]>([]);  // Store tags as an array of strings
     const [tagInput, setTagInput] = useState<string>('');
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+
+    const titleRef = useRef(null);
+    const descRef = useRef(null);
+    const submitButtonRef = useRef(null);
+    const tagRef = useRef(null);
+    const catRef = useRef(null);
 
     const categories = useSelector(selectCategories);
     
@@ -66,6 +72,15 @@ const IdeaForm: React.FC = () => {
         }
     };
 
+    const handleKeyDown = (
+        event: React.KeyboardEvent,
+        nextRef: React.RefObject<HTMLInputElement>
+      ) => {
+        if (event.key === 'Enter' && nextRef.current) {
+          nextRef.current.focus();
+        }
+      };
+
     return (
         <div className="idea-form-cont">
             <form className="idea-form" onSubmit={handleSubmit}>
@@ -76,12 +91,16 @@ const IdeaForm: React.FC = () => {
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter title"
                     required
+                    onKeyDown={(e) => handleKeyDown(e, descRef)}
+                    ref={titleRef}
                 />
                 <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Enter description"
                     required
+                    onKeyDown={(e) => handleKeyDown(e, catRef)}
+                    ref={descRef}
                 />
                 
                 <div className="category-select">

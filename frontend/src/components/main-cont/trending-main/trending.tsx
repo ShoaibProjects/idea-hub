@@ -6,6 +6,12 @@ import IdeaCard from '../../idea-card/idea-card';
 import './trending.scss';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 import { FaFireAlt } from "react-icons/fa";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
+import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
+import LoadingSpinner from '../../noIdeas/spinners';
+import NoMoreIdeas from '../../noIdeas/noMoreIdeas';
 
 interface Idea {
   _id: string;
@@ -23,10 +29,11 @@ function TrendingIdeas() {
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);  // For tracking if more ideas are available
-  const [period, setPeriod] = useState<string>("7days");  // Default to last 30 days
+  const [period, setPeriod] = useState<string>("");  // Default to last 30 days
   const [category, setCategory] = useState<string>('');  // Default to all categories
   const user = useSelector(selectUser);
   const categories = useSelector(selectCategories);
+  const [everLoaded, setEverLoaded] = useState<boolean>(false); 
 
   // Fetch trending ideas with pagination and filters
   const fetchTrendingIdeas = async (page: number) => {
@@ -48,6 +55,11 @@ function TrendingIdeas() {
       }
       setLoading(false);
       setHasMore(newIdeas.length > 0);  // Check if there are more ideas to load
+      if(ideas.length>0){
+        setEverLoaded(true);
+      } else{
+        setEverLoaded(false);
+      }
     } catch (error) {
       console.error('Error fetching trending ideas:', error);
       setLoading(false);
@@ -81,31 +93,36 @@ function TrendingIdeas() {
     <div className='trend-cont'>
       {/* Filters for period and category */}
       <div className="filters sticky">
-      <h2><FaFireAlt size={30}></FaFireAlt>Trending Ideas</h2>
+        <h2>
+          <FaFireAlt size={30} /> Trending Ideas
+        </h2>
         <div>
-        <label>Time Period: </label>
-        <select value={period} onChange={(e) => setPeriod(e.target.value)}>
-          <option value="">All Time</option>
-          <option value="30days">Last 30 Days</option>
-          <option value="7days">Last 7 Days</option>
-        </select>
+          <label>Time Period: </label>
+          <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+            <option value="">All Time</option>
+            <option value="30days">Last 30 Days</option>
+            <option value="7days">Last 7 Days</option>
+          </select>
         </div>
 
         <div>
-        <label>Category: </label>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All Categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          <label>Category: </label>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="">All Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div className="ideas-container">
-        {ideas.length > 0 ? (
+        {loading ? (
+          // Show skeletons while loading
+          Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />)
+        ) : ideas.length > 0 ? (
           ideas.map((idea) => (
             <IdeaCard
               key={idea._id}
@@ -114,18 +131,18 @@ function TrendingIdeas() {
               content={idea.description}
               creator={idea.creator}
               upvotes={idea.upvotes}
-              downvotes={idea.downvotes}  // Adjust as necessary
+              downvotes={idea.downvotes} // Adjust as necessary
               category={idea.category}
-              comments={idea.comments.length}  // Adjust as necessary
-              viewer={user.username ? user.username : ''}
+              comments={idea.comments.length} // Adjust as necessary
+              viewer={user?.username || ''}
             />
           ))
         ) : (
-          <p>Loading ideas...</p>
+          <NoIdeasPlaceholder dataStat='main'/>// Handle case where there are no ideas   
         )}
 
-        {loading && <p>Loading more ideas...</p>}
-        {!hasMore && <p>No more ideas to display.</p>}
+        {loading && <LoadingSpinner />}
+        {!hasMore && everLoaded && <NoMoreIdeas dataStat='main'/>}
       </div>
     </div>
   );

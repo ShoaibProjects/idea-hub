@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../userSlice';
@@ -16,6 +16,10 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const signinButtonRef = useRef(null);
 
   const validateForm = () => {
     setError('');
@@ -60,6 +64,16 @@ const Signin = () => {
     }
   };
 
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    nextRef: React.RefObject<HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter' && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+  
+
   return (
     <div className='signin-form-cont'>
       <div className='signin-form'>
@@ -75,6 +89,8 @@ const Signin = () => {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, passwordRef)}
+            ref={usernameRef}
           />
         </div>
 
@@ -87,6 +103,8 @@ const Signin = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, signinButtonRef)}
+              ref={passwordRef}
             />
             <span 
               className="toggle-password" 
@@ -106,7 +124,7 @@ const Signin = () => {
           <span> </span>Remember Me
         </label>
 
-        <button onClick={handleSignin}>Login</button>
+        <button onClick={handleSignin} ref={signinButtonRef}>Login</button>
 
         <p className='signup-prompt'>Doesn't have an Account yet?</p>
 

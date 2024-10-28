@@ -8,6 +8,10 @@ import UserBtn from '../Buttons/UserBtn/UserBtn';
 import { selectUser } from '../Auth/userSlice';
 import { useSelector } from 'react-redux';
 import LoginButton from '../Buttons/loginBtn/LoginBtn';
+import { FaFacebook } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6"; 
+import { FaGithub } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
 
 function LeftAside() {
     const user = useSelector(selectUser);
@@ -38,6 +42,15 @@ function LeftAside() {
           <LoginButton></LoginButton>
         )
       }
+    </div>
+    <div className='footer'>
+      <p>&copy; 2024 Shoaib Akhtar</p>
+      <div className='social-icons'>
+        <a href=""><FaFacebook></FaFacebook></a>
+        <a href=""><FaSquareXTwitter></FaSquareXTwitter></a>
+        <a href=""><FaLinkedin></FaLinkedin></a>
+        <a href=""><FaGithub></FaGithub></a>
+      </div>
     </div>
     </div>
   )

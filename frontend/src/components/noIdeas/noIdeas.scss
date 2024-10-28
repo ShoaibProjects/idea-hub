@@ -1,0 +1,69 @@
+
+.no-ideas-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+    color: #6b7280; // Neutral gray tone for the text
+    text-align: center;
+    &[data-status="main"] {
+      width: 200%;
+      margin-top: 5rem;
+    }
+  }
+  
+  .no-ideas-icon {
+    color: #3b82f6; // Accent color, like blue
+    margin-bottom: 1rem;
+  }
+  
+  .no-ideas-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+  }
+  
+  .no-ideas-suggestion {
+    font-size: .9rem;
+    color: #4b5563; // Slightly lighter gray for suggestion
+  }
+  
+
+  .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  
+    p {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #6b7280;
+    }
+  }
+  
+  .no-more-ideas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    color: #6b7280;
+  
+    svg {
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+  
+    p {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    &[data-status="main"] {
+      width: 200%;
+    }
+  }
+  
