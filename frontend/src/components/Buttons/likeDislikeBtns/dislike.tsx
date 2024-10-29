@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';
 import { selectUser, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
 import "./likeDislike.scss";
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../LogOutBtn/LogOutUser';
 
 interface IdeaIdProps {
   Id: string;
@@ -21,6 +23,9 @@ interface IdeaIdProps {
 const Dislike: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes, dislikes, setDislikes, disliked, setDisliked }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
 
   const isDisliked = async () =>{
     try {
@@ -71,8 +76,44 @@ const Dislike: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes,
           setDisliked(false)
           dispatch(removeDislikedIdea(Id));
       } // Update local likes count after successful API response
-    } catch (error) {
-      console.error("Error updating dislikes:", error);
+    } catch (error: unknown) {
+      console.error('Error updating dislikes:', error);
+    
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      } else {
+        console.error('Network error or request failed without response');
+        alert("Network error. Please check your connection.");
+      }
+
     }
   };
 

@@ -6,6 +6,8 @@ import './user-cont.scss';
 import { removePostedContent, selectUser, updateDesc } from '../Auth/userSlice';
 import IdeaCardSkeleton from '../cardSkeleton/cardSkeleton';
 import NoIdeasPlaceholder from '../noIdeas/noIdeas';
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../Buttons/LogOutBtn/LogOutUser';
 
 interface Idea {
   _id: string;
@@ -26,6 +28,7 @@ const UserCont: React.FC = () => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false); // State for editing user description
   const [description, setDescription] = useState<string>(user.description || ''); // State for user description
   const dispatch = useDispatch(); // Add useDispatch hook
+  const navigate = useNavigate();
 
   const fetchIdeas = async () => {
     try {
@@ -55,6 +58,36 @@ const UserCont: React.FC = () => {
       }
     } catch (error) {
       console.error('Error updating description:', error);
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again then try.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      }
     }
   };
 
@@ -111,7 +144,7 @@ const UserCont: React.FC = () => {
               </div>
             ))
         ) : (
-          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoIdeasPlaceholder dataStat=''/>
+          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoIdeasPlaceholder dataStat='main'/>
         )}
       </div>
     </div>

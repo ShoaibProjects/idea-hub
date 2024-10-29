@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import './main-cont.scss';
 import IdeaCard from '../../idea-card/idea-card';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -10,6 +10,7 @@ import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
 import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
 import LoadingSpinner from '../../noIdeas/spinners';
 import NoMoreIdeas from '../../noIdeas/noMoreIdeas';
+import { handleLogout } from '../../Buttons/LogOutBtn/LogOutUser';
 
 interface Idea {
   _id: string;
@@ -33,6 +34,7 @@ function MainCont() {
   const [everLoaded, setEverLoaded] = useState<boolean>(false); 
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   
@@ -60,6 +62,7 @@ function MainCont() {
           withCredentials: true,  // Include cookies in the request
         }
       );
+      
   
       const newIdeas: Idea[] = response.data;
       console.log(newIdeas, 'ni');
@@ -81,17 +84,47 @@ function MainCont() {
         setEverLoaded(false);
       }
   
-    } catch (error) {
-      console.error('Error fetching ideas:', error);
-  
-      // // Handle token-related errors (e.g., 401 Unauthorized)
-      // if (error.response && error.response.status === 401) {
-      //   console.error('Unauthorized. Redirecting to login.');
-      //   navigate('/login');  // Redirect to login if unauthorized
-      // }
-  
-      setLoading(false);
-    }
+    } catch (error: unknown) {
+        console.error('Error fetching ideas:', error);
+      
+        // Check if the error is an AxiosError
+        if (axios.isAxiosError(error) && error.response) {
+          const status = error.response.status;
+      
+          switch (status) {
+            case 401:
+              console.error('Unauthorized. Redirecting to login.');
+              navigate('/signin');
+              break;
+      
+            case 440:
+              console.log('Session expired. Redirecting to login.');
+              alert("Session expired. Please log in again.");
+              await handleLogout(dispatch, navigate);
+              break;
+      
+            case 403:
+              console.error('Access forbidden. Invalid token.');
+              alert("Invalid token. Please log in again.");
+              await handleLogout(dispatch, navigate);
+              break;
+      
+            case 500:
+              console.error('Server error. Please try again later.');
+              alert("A server error occurred. Please try again later.");
+              break;
+      
+            default:
+              console.error(`Unhandled error with status ${status}`);
+          }
+        } else {
+          console.error('Network error or request failed without response');
+          alert("Network error. Please check your connection.");
+        }
+      
+        setLoading(false);
+      }
+    
   };
   
 

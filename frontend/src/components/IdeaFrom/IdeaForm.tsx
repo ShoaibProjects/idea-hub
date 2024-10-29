@@ -5,6 +5,8 @@ import { selectCategories } from '../../Redux-slices/categories/categorySlices';
 import axios from 'axios';
 import Select from 'react-select';
 import './IdeaForm.scss';
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../Buttons/LogOutBtn/LogOutUser';
 
 const IdeaForm: React.FC = () => {
     const [title, setTitle] = useState<string>('');
@@ -24,6 +26,7 @@ const IdeaForm: React.FC = () => {
     const categories = useSelector(selectCategories);
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleCategoryChange = (selectedCategory: any) => {
         setCategory(selectedCategory?.value || '');  // Extract string from selected value
@@ -67,9 +70,45 @@ const IdeaForm: React.FC = () => {
             } else {
                 alert('Error submitting idea');
             }
-        } catch (err) {
-            console.error(err);
-        }
+        }  catch (error: unknown) {
+            console.error('Error submitting idea:', error);
+          
+            // Check if the error is an AxiosError
+            if (axios.isAxiosError(error) && error.response) {
+              const status = error.response.status;
+          
+              switch (status) {
+                case 401:
+                  console.error('Unauthorized. Redirecting to login.');
+                  navigate('/signin');
+                  break;
+          
+                case 440:
+                  console.log('Session expired. Redirecting to login.');
+                  alert("Session expired. Please log in again.");
+                  await handleLogout(dispatch, navigate);
+                  break;
+          
+                case 403:
+                  console.error('Access forbidden. Invalid token.');
+                  alert("Invalid token. Please log in again.");
+                  await handleLogout(dispatch, navigate);
+                  break;
+          
+                case 500:
+                  console.error('Server error. Please try again later.');
+                  alert("A server error occurred. Please try again later.");
+                  break;
+          
+                default:
+                  console.error(`Unhandled error with status ${status}`);
+              }
+            } else {
+              console.error('Network error or request failed without response');
+              alert("Network error. Please check your connection.");
+            }
+      
+          }
     };
 
     const handleKeyDown = (

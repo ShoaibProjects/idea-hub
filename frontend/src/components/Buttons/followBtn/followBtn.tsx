@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
 import axios from 'axios';
+import { NavigateFunction, useNavigate } from 'react-router';
+
 
 // Props interface for the FollowBtn component
 interface FollowBtnProps {
@@ -10,7 +12,7 @@ interface FollowBtnProps {
   setFollowed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const followBtnHandler = async (currentUser: string, followedUser: string, isFollowed: boolean, setFollowed: React.Dispatch<React.SetStateAction<boolean>>) => {
+const followBtnHandler = async (currentUser: string, followedUser: string, isFollowed: boolean, setFollowed: React.Dispatch<React.SetStateAction<boolean>>, navigate: NavigateFunction) => {
   try {
     // Call the API to follow the user
         if(!isFollowed){
@@ -38,19 +40,52 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
             console.error('Failed to unfollow the user');
           }
         }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in follow operation:', error);
+  
+    // Check if the error is an AxiosError
+    if (axios.isAxiosError(error) && error.response) {
+      const status = error.response.status;
+  
+      switch (status) {
+        case 401:
+          console.error('Unauthorized. Redirecting to login.');
+          navigate('/login');
+          break;
+  
+        case 440:
+          navigate('/')
+          break;
+  
+        case 403:
+          console.error('Access forbidden. Invalid token.');
+          alert("Invalid token. Please log in again.");
+          break;
+  
+        case 500:
+          console.error('Server error. Please try again later.');
+          alert("A server error occurred. Please try again later.");
+          break;
+  
+        default:
+          console.error(`Unhandled error with status ${status}`);
+      }
+    } else {
+      console.error('Network error or request failed without response');
+      alert("Network error. Please check your connection.");
+    }
   }
 };
 
 const FollowBtn: React.FC<FollowBtnProps> = ({ username, isFollowed, setFollowed }) => {
   const currentUser = useSelector(selectUser)?.username; // Get the logged-in user
+  const navigate = useNavigate();
 
   const handleFollow = () => {
     if (currentUser) {
-      followBtnHandler(currentUser, username, isFollowed, setFollowed);
+      followBtnHandler(currentUser, username, isFollowed, setFollowed, navigate);
     } else {
-      console.log('User not logged in');
+      alert('You need to login in first');
     }
   };
 

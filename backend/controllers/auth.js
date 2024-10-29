@@ -34,6 +34,10 @@ export const signupform = async (req, res) => {
       username = `guest_${uuidv4().slice(0, 8)}`;  // Generate random guest username
       ReqPassword = `guest_${uuidv4().slice(0, 8)}`;  // Generate random password for guest
     }
+    const ISuser = await User.findOne({ username});
+    if (ISuser) {
+      return res.status(409).json({ message: "Username taken" });
+    }
 
     // Hash the password before saving
     const hashedPassword = await bcrypt.hash(ReqPassword, 10);
@@ -107,7 +111,7 @@ export const signin = async (req, res) => {
 
     // Create a JWT token
     const token = jwt.sign({ username: user.username }, JWT_SECRET, {
-      expiresIn: req.body.rememberMe ? '7d' : '30m'  // 7 days for remember me, 30 minutes otherwise
+      expiresIn: req.body.rememberMe ? '7d' : '5s'  // 7 days for remember me, 30 minutes otherwise
     });
 
     // Set the JWT cookie expiration based on "Remember Me" checkbox

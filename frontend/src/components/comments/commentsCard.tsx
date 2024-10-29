@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './comments.scss'; // Import your SCSS file
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../Buttons/LogOutBtn/LogOutUser';
 
 const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, reader }) => {
   const [comments, setComments] = useState<any[]>([]);
@@ -12,6 +15,9 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
   const [activeComment, setActiveComment] = useState<string | null>(null);
   const [editingComment, setEditingComment] = useState<string | null>(null);
   const [editText, setEditText] = useState<string>('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Fetch comments from API
   const fetchComments = async () => {
@@ -40,9 +46,42 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
       setComments([response.data, ...comments]);
       setNewComment('');
       setIsAddingComment(false);
-    } catch (err) {
+    } catch (err: unknown) {
       setSubmitError('Error adding comment');
       console.error(err);
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      } else {
+        console.error('Network error or request failed without response');
+        alert("Network error. Please check your connection.");
+      }
     }
   };
 
@@ -63,9 +102,45 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
       );
       setEditingComment(null);
       setEditText('');
-    } catch (err) {
-      console.error('Error editing comment:', err);
+    } catch (error: unknown) {
+      console.error('Error updating Comment:', error);
+    
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      } else {
+        console.error('Network error or request failed without response');
+        alert("Network error. Please check your connection.");
+      }
     }
+    
   };
 
   // Handle comment deletion
@@ -76,9 +151,45 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
         withCredentials: true,
       });
       setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));
-    } catch (err) {
-      console.error('Error deleting comment:', err);
+    } catch (error: unknown) {
+      console.error('Error deleting comment:', error);
+    
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      } else {
+        console.error('Network error or request failed without response');
+        alert("Network error. Please check your connection.");
+      }
     }
+    
   };
 
   // Toggle options for a specific comment

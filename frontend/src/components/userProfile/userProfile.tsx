@@ -126,7 +126,7 @@ function UserProfile() {
             );
           })
         ) : (
-          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoMoreIdeas dataStat='' />
+          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoMoreIdeas dataStat='main' />
         )}
       </div>
     </div>

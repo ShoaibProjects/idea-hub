@@ -74,6 +74,8 @@ const Signup = () => {
       console.error('Signup error:', error);
       if (axios.isAxiosError(error) && error.response?.status === 422) {
         setError(error.response.data.message || 'Password validation failed.');
+      } else if (axios.isAxiosError(error) && error.response?.status === 409) {
+        setError(error.response.data.message || 'This username is not avaiblable.');
       } else {
         setError('Signup failed. Please try again.');
       }

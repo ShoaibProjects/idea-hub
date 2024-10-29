@@ -1,31 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../Auth/userSlice'; // Import the logout action
-import axios from 'axios';
+import { handleLogout } from './LogOutUser';
 import './logOut.scss';
 
 const LogoutButton: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      // Call the backend API to handle logout and clear cookies
-      await axios.post('http://localhost:5000/user/logout', {}, { withCredentials: true });
-
-      // Dispatch the logout action to clear the Redux state
-      dispatch(logout());
-
-      // Redirect to the login page
-      navigate('/signin');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  // Call handleLogout with dispatch and navigate
+  const onLogoutClick = () => handleLogout(dispatch, navigate);
 
   return (
-    <button className="logout-btn" onClick={handleLogout}>
+    <button className="logout-btn" onClick={onLogoutClick}>
       Log Out
     </button>
   );

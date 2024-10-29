@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { selectUser } from '../../Auth/userSlice';
 import LogoutButton from '../../Buttons/LogOutBtn/LogOutBtn';
 import DeleteButton from '../../Buttons/DeleteAccountBtn/DeleteAccountBtn';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import '../Settings.scss';
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../../Buttons/LogOutBtn/LogOutUser';
 
 const AccountSettings: React.FC = () => {
   const user = useSelector(selectUser);
@@ -20,6 +22,9 @@ const AccountSettings: React.FC = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlePasswordChange = async () => {
     if (newPassword !== confirmPassword) {
@@ -48,8 +53,38 @@ const AccountSettings: React.FC = () => {
       } else {
         setError('Error changing password');
       }
-    } catch (err) {
+    } catch (error) {
       setError('Invalid original password or request failed');
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again then try.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      }
     }
   };
 

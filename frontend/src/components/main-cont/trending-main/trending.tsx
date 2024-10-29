@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { selectUser } from '../../Auth/userSlice';
 import IdeaCard from '../../idea-card/idea-card';
@@ -12,6 +12,8 @@ import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
 import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
 import LoadingSpinner from '../../noIdeas/spinners';
 import NoMoreIdeas from '../../noIdeas/noMoreIdeas';
+import { handleLogout } from '../../Buttons/LogOutBtn/LogOutUser';
+import { useNavigate } from 'react-router';
 
 interface Idea {
   _id: string;
@@ -34,6 +36,9 @@ function TrendingIdeas() {
   const user = useSelector(selectUser);
   const categories = useSelector(selectCategories);
   const [everLoaded, setEverLoaded] = useState<boolean>(false); 
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Fetch trending ideas with pagination and filters
   const fetchTrendingIdeas = async (page: number) => {
@@ -60,8 +65,44 @@ function TrendingIdeas() {
       } else{
         setEverLoaded(false);
       }
-    } catch (error) {
-      console.error('Error fetching trending ideas:', error);
+    }  catch (error: unknown) {
+      console.error('Error fetching ideas:', error);
+    
+      // Check if the error is an AxiosError
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/login');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      } else {
+        console.error('Network error or request failed without response');
+        alert("Network error. Please check your connection.");
+      }
+    
       setLoading(false);
     }
   };

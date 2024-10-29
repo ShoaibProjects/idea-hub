@@ -5,12 +5,15 @@ import { selectUser, updatePref } from '../../Auth/userSlice';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 import Select from 'react-select';
 import "../Settings.scss"
+import { useNavigate } from 'react-router';
+import { handleLogout } from '../../Buttons/LogOutBtn/LogOutUser';
 
 const PrefSettings: React.FC = () => {
   const user = useSelector(selectUser);
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>(user.preferences);
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Convert categories into a format compatible with react-select options
   const categoryOptions = categories.map((category: string) => ({
@@ -47,6 +50,36 @@ const PrefSettings: React.FC = () => {
     } catch (error) {
       console.error('Error updating preferences:', error);
       alert('Failed to update preferences');
+      if (axios.isAxiosError(error) && error.response) {
+        const status = error.response.status;
+    
+        switch (status) {
+          case 401:
+            console.error('Unauthorized. Redirecting to login.');
+            navigate('/signin');
+            break;
+    
+          case 440:
+            console.log('Session expired. Redirecting to login.');
+            alert("Session expired. Please log in again then try.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 403:
+            console.error('Access forbidden. Invalid token.');
+            alert("Invalid token. Please log in again.");
+            await handleLogout(dispatch, navigate);
+            break;
+    
+          case 500:
+            console.error('Server error. Please try again later.');
+            alert("A server error occurred. Please try again later.");
+            break;
+    
+          default:
+            console.error(`Unhandled error with status ${status}`);
+        }
+      }
     }
   };
 
