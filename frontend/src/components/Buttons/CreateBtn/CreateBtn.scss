@@ -1,4 +1,4 @@
-@import '../../../styles/variables';
+@import './../../../styles/variables';
 
 .link-cont{
     text-decoration: none;
@@ -27,7 +27,7 @@
 //     }
 // }
 .btn-cont{
-    background-color: $primary-color-light;
+    background-color: var(--primary-color);
     color: white;
     flex: 1;
     margin-top: 0.5rem;
@@ -46,7 +46,7 @@
 
     &:hover {
       background-color: darken($primary-color-light, 5%);
-      outline: 5px solid $background-color-light;
+      outline: 5px solid whitesmoke;
       // transform: translateY(-3px);
     }
 

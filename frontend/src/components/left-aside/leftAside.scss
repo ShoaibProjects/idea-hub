@@ -4,8 +4,8 @@
     width: 25%;
     height: 100vh;
     position: fixed;
-    background-color: white;
-    color: $text-color-light;
+    background-color: var(--background-color-sec);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;  
 }
@@ -29,14 +29,15 @@
 .rightAside-cont-imp{
     flex: 1;
     text-align: center;
-    margin-top: 1rem; 
+    margin-top: 1rem;
+    padding-top: 5rem; 
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: .5rem;
+    gap: .8rem;
     .primary-btn {
-      background-color: $primary-color-light;
+      background-color: var(--primary-color);
       color: white;
       flex: 1;
       margin-top: 0.5rem;
@@ -60,7 +61,7 @@
       }
     }
     .user-btn{
-      background-color: $secondary-color-light;
+      background-color: var(--secondary-color);
       color: white;
       flex: 1;
       padding: 1rem 1.5rem;
@@ -78,7 +79,7 @@
 
       &:hover {
         background-color: darken($secondary-color-light, 5%);
-        outline: 5px solid $background-color-light;
+        outline: 5px solid whitesmoke;
         // transform: translateY(-3px);
       }
 
@@ -97,14 +98,14 @@
     p{
         margin-bottom: 0.7rem;
         font-weight: 600;
-        color: #64748b;
+        color: #7486a0;
 
     }
   }
   
   .social-icons a {
     margin: 0 0.5rem;
-    color: #6c757d; /* Optional: color for icons */
+    color: #7d8790; /* Optional: color for icons */
     font-size: 1.5rem; /* Adjust icon size */
     transition: color 0.3s;
   }

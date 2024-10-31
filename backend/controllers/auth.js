@@ -111,7 +111,7 @@ export const signin = async (req, res) => {
 
     // Create a JWT token
     const token = jwt.sign({ username: user.username }, JWT_SECRET, {
-      expiresIn: req.body.rememberMe ? '7d' : '5s'  // 7 days for remember me, 30 minutes otherwise
+      expiresIn: req.body.rememberMe ? '7d' : '30m'  // 7 days for remember me, 30 minutes otherwise
     });
 
     // Set the JWT cookie expiration based on "Remember Me" checkbox

@@ -102,14 +102,32 @@ const UserCont: React.FC = () => {
         {user && (
           <>
             {editingDescription ? (
-              <div>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <button onClick={handleDescriptionEdit}>Save Description</button>
-                <button onClick={() => setEditingDescription(false)}>Cancel</button>
+              <div className="description-edit">
+              <label className="description-edit__label">Edit Description</label>
+              
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="description-edit__textarea"
+              />
+            
+              <div className="description-edit__buttons">
+                <button
+                  onClick={handleDescriptionEdit}
+                  className="description-edit__button description-edit__button--save"
+                >
+                  Save Description
+                </button>
+            
+                <button
+                  onClick={() => setEditingDescription(false)}
+                  className="description-edit__button description-edit__button--cancel"
+                >
+                  Cancel
+                </button>
               </div>
+            </div>
+            
             ) : (
               <>
                 <div className='desc-cont'>

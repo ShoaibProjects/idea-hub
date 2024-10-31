@@ -16,7 +16,7 @@
   }
   
   .modal-content {
-    background-color: white;
+    background-color: var(--background-color);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -34,7 +34,7 @@
     position: absolute;
     top: -.7rem;
     right: -.7rem;
-    background: $secondary-color-light;
+    background: var(--secondary-color);
     border: none;
     font-size: 2rem;
     color: #333;
@@ -70,7 +70,7 @@
   
   .user-info p {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--text-color);
     margin-bottom: 1.5rem;
   }
   
@@ -86,7 +86,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%;
     text-align: center;
-    background-color: $primary-color-light;
+    background-color: var(--primary-color);
     color: white;
   
     &:hover {

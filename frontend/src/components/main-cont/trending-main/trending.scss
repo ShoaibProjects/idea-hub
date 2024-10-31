@@ -23,7 +23,7 @@
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px; // Space below the filters
-    background: rgba(255, 255, 255, 0.8); // Light background
+    background: var(--bg-filter-color); // Light background
     padding: 10px 20px; // Padding around the filters
     border-radius: 5px; // Rounded corners
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Soft shadow for depth

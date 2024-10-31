@@ -1,12 +1,109 @@
-// index.scss or styles.scss
+// // index.scss or styles.scss
+// @import './styles/reboot';
 @import './styles/reboot';
 @import './styles/variables';
 
-// Your other styles here
+
+// // Your other styles here
+// @import './variables.scss';
+
+// index.scss or styles.scss
+
+// Define color variables for light and dark modes as CSS custom properties
+
+:root {
+  // --primary-color-light: ;    // A calm, professional blue for primary elements
+  // --secondary-color-light: ;  // A soft green for secondary actions or accents
+  // --background-color-light: ;
+  // --text-color-light: ;       // Dark gray for readable text on a light background
+  // --accent-color-light: ;     // A bright yellow for highlights
+  // --border-color-light: ;     // Light gray for borders
+  // --card-bg-light: ;          // Pure white for cards
+
+  // // Define dark mode colors
+  // --primary-color-dark: #2196F3;     // Intense blue for primary elements in dark mode
+  // --secondary-color-dark: #4CAF50;   // Vibrant green for secondary elements
+  // --background-color-dark: #121212;
+  // --text-color-dark: #EEEEEE;        // Light gray for readable text on a dark background
+  // --accent-color-dark: #FFC107;      // Warm yellow-orange for accents
+  // --border-color-dark: #444444;      // Darker gray for borders
+  // --card-bg-dark: #1E1E1E;
+
+  // --primary-color: #4A90E2;    // A calm, professional blue for primary elements
+  // --secondary-color: #50e3c2;  // A soft green for secondary actions or accents
+  // --background-color: #F5F7FA;
+  // --text-color: #333333;       // Dark gray for readable text on a light background
+  // --accent-color: #F8E71C;     // A bright yellow for highlights
+  // --border-color: #E1E1E1;     // Light gray for borders
+  // --card-bg: #FFFFFF;  
+  --primary-color: #{$primary-color-light};
+  --secondary-color: #{$secondary-color-light};
+  --background-color: #{$background-color-light};
+  --text-color: #{$text-color-light};
+  --muted-text: #{$muted-text-light};
+  --accent-color: #{$accent-color-light};
+  --border-color: #{rgba($color: $border-color-light, $alpha: 0.25)};
+  --border-color-sec: #{rgba($color: $border-color-light, $alpha: 0.1)};
+  --background-color-sec: #{$background-color-sec-light};
+  --bg-filter-color: #{rgba($background-color-sec-light, 0.8)};
+  --card-bg: #{$card-bg-light};
+   &.dark{
+    --primary-color: #{$primary-color-dark};
+    --secondary-color: #{$secondary-color-dark};
+    --background-color: #{$background-color-dark};
+    --background-color-sec: #{$background-color-sec-dark};
+    --bg-filter-color: #{rgba($background-color-sec-dark, 0.8)};
+    --text-color: #{$text-color-dark};
+    --muted-text: #{$muted-text-dark};
+    --accent-color: #{$accent-color-dark};
+    --border-color: #{rgba($color: $border-color-dark, $alpha: 0.25)};
+    --border-color-sec: #{rgba($color: $border-color-dark, $alpha: 0.1)};
+    --card-bg: #{$card-bg-dark};
+  }
+}
+
+// Define themes with CSS custom properties for light and dark modes
+// .light-mode {
+//   --primary-color: var(--primary-color-light);
+//   --secondary-color: var(--secondary-color-light);
+//   --background-color: var(--background-color-light);
+//   --text-color: var(--text-color-light);
+//   --accent-color: var(--accent-color-light);
+//   --border-color: var(--border-color-light);
+//   --card-bg: var(--card-bg-light);
+// }
+
+// .dark-mode {
+//   --primary-color: var(--primary-color-dark);
+//   --secondary-color: var(--secondary-color-dark);
+//   --background-color: var(--background-color-dark);
+//   --text-color: var(--text-color-dark);
+//   --accent-color: var(--accent-color-dark);
+//   --border-color: var(--border-color-dark);
+//   --card-bg: var(--card-bg-dark);
+// }
+
+
+
+// // Mixin to dynamically apply theme variables
+// @mixin apply-theme($mode) {
+//   .#{$mode} & {
+//     color: $text-color;
+//     background-color: $background-color;
+//     border-color: $border-color;
+//   }
+// }
+
+// // Example usage of the mixin in a component
+// .component-wrapper {
+//   @include apply-theme(light-mode);
+//   @include apply-theme(dark-mode);
+// }
+
 body {
     font-family: sans-serif;
-    color: $text-color-light;
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    background-color: $background-color-light;
+    background-color: var(--background-color);
   }

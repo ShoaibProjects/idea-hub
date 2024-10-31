@@ -11,7 +11,7 @@
   margin: 20px auto;
   padding: 20px;
   border-radius: 1.5rem;
-  background-color: $card-bg-light;
+  background-color: var(--card-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   overflow-wrap: break-word;
@@ -32,7 +32,7 @@
   .idea-title {
     font-size: 1.6rem;
     font-weight: 600;
-    color: $text-color-light;
+    color: var(--text-color);
   }
 
   .creator-info {
@@ -42,7 +42,7 @@
       align-items: center;
       gap: 0.5rem;
       font-size: 0.9rem;
-      color: $primary-color-light;
+      color: var(--primary-color);
       font-weight: 500;
       transition: color 0.2s;
 
@@ -53,8 +53,8 @@
   }
 
   .idea-category {
-    background-color: $primary-color-light;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     padding: 0.4rem 1rem;
     border-radius: 999px;
     font-size: 0.9rem;
@@ -64,7 +64,7 @@
 }
 
 .idea-description {
-  color: $text-color-light;
+  color: var(--text-color);
   font-size: 1rem;
   line-height: 1.6;
   margin: 15px 0 20px;
@@ -93,7 +93,7 @@
       font-size: 1.2rem;
 
       &:hover {
-        color: $primary-color-light; // Add hover effect
+        color: var(--primary-color); // Add hover effect
       }
     }
 
@@ -101,7 +101,7 @@
       position: absolute;
       top: 30px; // Adjust the position as needed
       right: 0;
-      background: white;
+      background: var(--background-color-sec);
       border: 1px solid #ccc;
       border-radius: 5px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -114,8 +114,8 @@
         text-align: left;
 
         &:hover {
-          background-color: $primary-color-light;
-          color: white;
+          background-color: var(--primary-color);
+          color: var(--text-color);
         }
       }
     }
@@ -133,5 +133,5 @@
 .loading-message {
   text-align: center;
   font-size: 1.2rem;
-  color: $text-color-light;
+  color: var(--text-color);
 }

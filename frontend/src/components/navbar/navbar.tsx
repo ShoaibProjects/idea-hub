@@ -3,6 +3,7 @@ import SearchComponent from "./search/search";
 import './Navbar.scss';
 import Logo from './logo';
 import AccountBtn from "../accountStuff/accountBtnFolder/accountBtn";
+import ModeToggleButton from "../Buttons/ModeBtn/ModeToggleButton";
 
 const Navbar = () => {
   return (
@@ -11,6 +12,7 @@ const Navbar = () => {
         <div className="logo-outer-cont">
           <div className='logo-inner-cont'><Logo className='logo'></Logo><span>IdeaHub</span></div>
         </div>
+        <div className="transparent-cont">
         <div className="search-outer-cont">
         {/* <div className="search-cont">
           <input type="search" placeholder='Search ideas...' className="searchBar"/>
@@ -21,7 +23,8 @@ const Navbar = () => {
         <div className="h-icons-cont">
           {/* <button><Bell/></button> */}
           <AccountBtn></AccountBtn>
-          <button><Moon/></button>
+          <ModeToggleButton/>
+        </div>
         </div>
       </div>
     </>

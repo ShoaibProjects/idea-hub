@@ -8,12 +8,12 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f8fafc;
+  background-color: var(--background-color);
 }
 
 .signin-form {
   font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
+  background-color: var(--background-color-sec);
   border-radius: 1.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 1.5rem 2rem;
@@ -23,14 +23,14 @@
 
   h2 {
     font-size: 2.2rem;
-    color: #1f2937;
+    color: var(--text-color);
     margin-bottom: 1rem;
     font-weight: 600;
   }
 
   p {
     font-size: 1rem;
-    color: #64748b;
+    color: var(--muted-text);
     margin-bottom: 2rem;
   }
 
@@ -48,7 +48,7 @@
     text-align: left;
     font-size: 1rem;
     margin-bottom: 0.5rem;
-    color: #374151;
+    color: var(--text-color);
   }
 
   input[type="text"],
@@ -97,7 +97,7 @@
     align-items: center;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
-    color: #475569;
+    color: var(--muted-text);
 
     input[type="checkbox"] {
       margin-right: 0.5rem;
@@ -125,19 +125,19 @@
 
   .signup-prompt {
     font-size: 1rem;
-    color: #64748b;
+    color: var(--muted-text);
     margin-bottom: 0.8rem;
   }
 
   a {
     font-size: 1.1rem;
-    color: #3b82f6;
+    color: var(--primary-color);
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 
-    &:hover {
-      color: #2563eb;
-    }
+    // &:hover {
+    //   color: #2563eb;
+    // }
   }
 
   .guest-signup {

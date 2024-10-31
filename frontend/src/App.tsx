@@ -1,11 +1,14 @@
 import React from 'react';
-import './App.scss';
+// import './App.scss';
+// import './index.scss';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setUser, selectUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
 import { AppDispatch } from './store';
+import { selectIsDarkMode, setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
+import Cookies from 'js-cookie';
 
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -21,10 +24,12 @@ import SettingsPage from './pages/settingsPage/settingsPage';
 import AccountSettings from './components/Settings/AccSettings/AccSettings';
 import PrefSettings from './components/Settings/preferencesSettings/preferencesSettings';
 
+
 const App: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector(selectUser);
+  const isDarkMode = useSelector(selectIsDarkMode);
   // Check if "rememberMe" or "token" cookies exist
   const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
 
@@ -56,6 +61,11 @@ const App: React.FC = () => {
     if (rememberMeCookie) {
       fetchUserData();
     }
+    const theme = Cookies.get('theme'); // Read theme from cookie
+    if (theme) {
+      dispatch(setTheme(theme === 'dark')); // Set theme state in Redux
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -74,6 +84,7 @@ const App: React.FC = () => {
 
   return (
     <>
+    <div>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -92,6 +103,7 @@ const App: React.FC = () => {
         <Route path="/faq" element={<FAQ />} /> */}
       </Routes>
     </BrowserRouter>
+    </div>
     </>
   );
 };

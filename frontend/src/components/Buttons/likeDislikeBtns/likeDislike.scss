@@ -5,9 +5,9 @@
     padding: .25rem .5rem;
     border: none;
     gap: .1rem;
-    background-color: $secondary-color-light;
+    background-color: whitesmoke;
     &:hover{
-        background-color: lighten($color: $secondary-color-light, $amount: 10);
+        background-color: darken($color: whitesmoke, $amount: 10);
     }
     }
 
