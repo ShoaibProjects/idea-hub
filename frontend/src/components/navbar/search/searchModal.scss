@@ -2,11 +2,11 @@
 
 .search-heading{
   margin-bottom: 2rem;
-  color: $primary-color-light;
+  color: var(--primary-color);
   font-size: 1.5rem;
   position: sticky;
   top: 0;
-  background-color: whitesmoke;
+  background-color: var(--background-color);
   padding: 1rem;
   z-index: 99;
 }
@@ -15,6 +15,9 @@
     display: flex;
     gap: 1rem;
 
+    h3{
+      color: var(--text-color);
+    }
     >*{
       flex: auto;
     }
@@ -23,9 +26,11 @@
       flex-direction: column;
       align-items: start;
       gap: .5rem;
+      border-left: 1px solid var(--border-color-sec);
       h3{
         width: 100%;
-        text-align: center;
+        text-align: start;
+        padding-left: 2rem;
       }
       // >div{
       //   margin-left: 4.5rem;
@@ -36,7 +41,7 @@
         align-items: center;
         text-align: center;
         padding: 20px;
-        color: #6b7280; // Muted gray color for text
+        color: hsl(220, 9%, 56%); // Muted gray color for text
       
         .no-creators-icon {
           margin-bottom: 10px;
@@ -51,20 +56,26 @@
       
         .no-creators-suggestion {
           font-size: 0.9rem;
-          color: #4b5563; // Slightly darker text for the suggestion
+          color: hsl(216, 15%, 60%); // Slightly darker text for the suggestion
         }
+      }
+      .creator-h3{
+        text-align: center;
+        padding-left: 0;
       }
       
     }
+
 }
 
-.creator-link {
-    padding-left: .5rem;
+.creator-link-search {
+    padding-left: 1rem;
+    margin-left: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    color: $primary-color-light;
+    color: var(--primary-color);
     font-weight: 500;
     transition: color 0.2s;
 
@@ -74,6 +85,9 @@
     &[data-status="loading"] {
       margin-left: 4.5rem;
     }
+    h4{
+      text-align: start;
+    }
   }
 
   .end-of-results {
@@ -82,7 +96,7 @@
     align-items: center;
     text-align: center;
     padding: 15px;
-    color: #6b7280; // Muted gray color for text
+    color: hsl(222, 9%, 56%); // Muted gray color for text
   
     .end-divider {
       width: 60%;

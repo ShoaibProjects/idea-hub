@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { removePostedContent } from '../Auth/userSlice'; // Assuming this action is used for deleting from the Redux store
 import './idea-card.scss';
+import { selectIsDarkMode } from '../../Redux-slices/themeSlice/themeSlice';
 
 interface IdeaCardProps {
   id: string;
@@ -41,6 +42,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const user = useSelector((state: any) => state.user); // Assuming user is stored in Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isDarkMode = useSelector(selectIsDarkMode);
 
   const handleCardClick = () => {
     navigate(`/idea/${id}`);
@@ -126,7 +128,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
             <div className="action-buttons" onClick={(e) => e.stopPropagation()}>
               <button className="dots" onClick={(e) => { e.stopPropagation(); toggleActionMenu(); }}>⋮</button>
               {showActionMenu && (
-                <div className="dropdown-menu">
+                <div className={isDarkMode?"dropdown-menu dark-drop":"dropdown-menu"}>
                   <button onClick={(e) => { e.stopPropagation(); setEditingIdea({ title, content }) }}>Edit</button>
                   <button onClick={(e) => { e.stopPropagation(); handleDelete() }}>Delete</button>
                 </div>

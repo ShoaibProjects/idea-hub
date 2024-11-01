@@ -151,10 +151,10 @@ const SearchComponent: React.FC = () => {
             </div>
 
             <div>
-              <h3>Creators</h3>
+              <h3 className={users.length==0 || loading ?'creator-h3':''}>Creators</h3>
               {loading ? (
                 // Show skeletons while loading
-                Array.from({ length: 5 }).map((_, index) => <div key={index} className="creator-link" data-status="loading">
+                Array.from({ length: 5 }).map((_, index) => <div key={index} className="creator-link-search" data-status="loading">
                   <Skeleton circle width={35} height={35} />
                   <h4><Skeleton width={60} height={20} /></h4>
                 </div>)
@@ -162,7 +162,7 @@ const SearchComponent: React.FC = () => {
                 users.map((user) => (
                   <div key={user._id}>
 
-                    <Link to={`/user/profile/${user.username}`} className="creator-link">
+                    <Link to={`/user/profile/${user.username}`} className="creator-link-search">
                       <UserCircle></UserCircle>
                       <h4>{user.username}</h4>
                     </Link>

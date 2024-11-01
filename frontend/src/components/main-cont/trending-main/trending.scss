@@ -42,7 +42,9 @@
       border-radius: 5px; // Rounded corners for selects
       border: 2px solid $secondary-color-light; // Border color
       transition: border-color 0.2s;
-
+      background: none;
+      color: var(--text-color);
+      background: var(--bg-filter-color);;
       &:hover {
         border-color: $primary-color-light; // Change border color on hover
       }

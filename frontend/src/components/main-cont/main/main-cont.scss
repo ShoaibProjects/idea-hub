@@ -13,6 +13,6 @@
       p {
         text-align: center;
         font-size: 1rem;
-        color: $text-color-light; // Use your text color for consistency
+        color: var(--text-color); // Use your text color for consistency
       }
 }

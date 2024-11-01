@@ -168,8 +168,15 @@ const Signup = () => {
               }),
               menuList: (provided) => ({
                 ...provided,
+                background: 'var(--background-color-sec)',
                 maxHeight: '150px', // Set max height for the dropdown
                 overflowY: 'auto', // Enable vertical scrolling
+              }),
+              option: (provided, state) => ({
+                ...provided,
+                color: state.isFocused
+                  ? '#333' 
+                  : 'var(--text-color)',
               }),
             }}
           />

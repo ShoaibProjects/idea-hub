@@ -6,7 +6,7 @@
     align-items: center;
     width: 100%;
     padding: 2rem;
-    color: #6b7280; // Neutral gray tone for the text
+    color: hsl(220, 9%, 56%); // Neutral gray tone for the text
     text-align: center;
     &[data-status="main"] {
       width: 200%;
@@ -27,7 +27,7 @@
   
   .no-ideas-suggestion {
     font-size: .9rem;
-    color: #4b5563; // Slightly lighter gray for suggestion
+    color: hsl(216, 15%, 60%); // Slightly lighter gray for suggestion
   }
   
 
@@ -50,11 +50,11 @@
     flex-direction: column;
     align-items: center;
     margin: 2rem 0;
-    color: #6b7280;
+    color: hsl(222, 9%, 56%);
   
     svg {
       margin-bottom: 0.5rem;
-      color: #4b5563;
+      color: hsl(215, 14%, 44%);
     }
   
     p {

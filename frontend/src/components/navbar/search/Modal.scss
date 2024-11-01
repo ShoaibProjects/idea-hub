@@ -14,7 +14,7 @@
   z-index: 1000; // Ensure it appears above other elements
   // Modal content
 .modal-content {
-  background-color: white;
+  background-color: var(--background-color-sec);
   padding: 2rem;
   border-radius: 1rem;
   width: 90%;
@@ -27,13 +27,13 @@
   border: 1px solid $primary-color-light;
 
   .modal-cont{
-    background-color: whitesmoke;
+    background-color: var(--background-color);
     overflow: hidden;
     border-radius: .5rem;
     
 
   >div {
-    padding: 2rem;
+    padding: 1rem;
     padding-top: 0;
   }
   }
@@ -47,7 +47,7 @@
     font-size: 20px;
     cursor: pointer;
     &:hover{
-      color: $primary-color-light;
+      color: var(--primary-color);
     }
   }
 
