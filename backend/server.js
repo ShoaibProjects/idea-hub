@@ -33,7 +33,10 @@ app.use('/idea', ideaRouter);
 import UserRouter from './api/user.js';
 app.use('/user', UserRouter);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+// // Start server
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port: ${PORT}`);
+// });
+
+// Export the app instead of starting the server
+export default app;
