@@ -63,6 +63,12 @@
     align-items: center;
     position: relative;
     width: fit-content;
+input[type="search"]::-webkit-search-cancel-button {
+  filter: invert(39%) sepia(82%) saturate(328%) hue-rotate(182deg) brightness(92%) contrast(92%);
+  cursor: pointer;
+}
+
+    
   }
   
   .searchBar {

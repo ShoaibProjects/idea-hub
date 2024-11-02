@@ -27,7 +27,7 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid var(--border-color);
 
   .idea-title {
     font-size: 1.6rem;
@@ -126,7 +126,7 @@
 .comments-section {
   margin-top: 20px; // Space above the comments
   width: 100%; // Ensures full width
-  border-top: 1px solid #eaeaea; // Optional: border for separation
+  border-top: 1px solid var(--border-color); // Optional: border for separation
   padding-top: 15px; // Space between the top border and comments
 }
 

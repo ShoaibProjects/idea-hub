@@ -2,7 +2,7 @@
 
 // Define light mode colors
 $primary-color-light: rgb(74, 144, 226);    // A calm, professional blue for primary elements
-$secondary-color-light: #50e3c2;  // A soft green for secondary actions or accents
+$secondary-color-light: hsl(167, 72%, 45%);  // A soft green for secondary actions or accents
 $background-color-light: whitesmoke;
 $background-color-sec-light: white;
 $text-color-light: #333333;       // Dark gray for readable text on a light background
@@ -13,7 +13,7 @@ $card-bg-light: #FFFFFF;          // Pure white for cards
 
 // Define dark mode colors
 $primary-color-dark: #2196F3;     // Intense blue for primary elements in dark mode
-$secondary-color-dark: #50e3c2;   // Vibrant green for secondary elements
+$secondary-color-dark: hsl(167, 72%, 55%);   // Vibrant green for secondary elements
 $background-color-dark: #1e293b;
 $background-color-sec-dark: #475569;
 $text-color-dark: #f1f5f9;        // Light gray for readable text on a dark background

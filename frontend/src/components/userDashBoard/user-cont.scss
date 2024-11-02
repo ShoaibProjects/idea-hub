@@ -78,7 +78,9 @@
     gap: 1rem; // Space between items
     padding: 1.5rem;
     margin-top: 1rem;
+    color: var(--secondary-color);
     background-color: var(--background-color); // Soft background for contrast
+    border: 1px solid var(--border-color-sec);
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Subtle shadow for depth
 
@@ -124,20 +126,20 @@
         font-weight: bold;
     
         &--save {
-          background-color: #4caf50;
+          background-color: $primary-color-dark;
           color: #fff;
     
           &:hover {
-            background-color: #45a049;
+            background-color: $primary-color-light;
           }
         }
     
         &--cancel {
-          background-color: #f44336;
+          background-color: $secondary-color-dark;
           color: #fff;
     
           &:hover {
-            background-color: #d73833;
+            background-color: $secondary-color-light;
           }
         }
       }

@@ -31,6 +31,10 @@ const AccountSettings: React.FC = () => {
       setError('New password and confirmation do not match');
       return;
     }
+    if (newPassword == '' || currentPassword == '' || confirmPassword == '') {
+      setError('Please fill all entries');
+      return;
+    }
 
     try {
       const response = await axios.patch(
