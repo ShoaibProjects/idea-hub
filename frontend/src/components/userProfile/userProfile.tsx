@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'; // To get username from URL
 import { selectUser } from '../Auth/userSlice';
@@ -7,7 +7,6 @@ import './userProfile.scss';
 import IdeaCard from '../idea-card/idea-card';
 import FollowBtn from '../Buttons/followBtn/followBtn';
 import IdeaCardSkeleton from '../cardSkeleton/cardSkeleton';
-import NoIdeasPlaceholder from '../noIdeas/noIdeas';
 import NoMoreIdeas from '../noIdeas/noMoreIdeas';
 
 // Define interfaces for Idea and UserProfile

@@ -1,4 +1,3 @@
-import { Bell, Home, Lightbulb, MessageSquare, Search, Settings, X, Moon } from "lucide-react";
 import SearchComponent from "./search/search";
 import './Navbar.scss';
 import Logo from './logo';

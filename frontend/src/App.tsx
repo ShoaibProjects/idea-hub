@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setUser, selectUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
 import { AppDispatch } from './store';
-import { selectIsDarkMode, setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
+import { setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
 import Cookies from 'js-cookie';
 
 import { BrowserRouter } from "react-router-dom";
@@ -29,7 +29,7 @@ const App: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector(selectUser);
-  const isDarkMode = useSelector(selectIsDarkMode);
+  // const isDarkMode = useSelector(selectIsDarkMode);
   // Check if "rememberMe" or "token" cookies exist
   const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
 

@@ -14,13 +14,13 @@ const IdeaForm: React.FC = () => {
     const user = useSelector(selectUser);
     const [category, setCategory] = useState<string>('');  // Store category as a string
     const [tags, setTags] = useState<string[]>([]);  // Store tags as an array of strings
-    const [tagInput, setTagInput] = useState<string>('');
-    const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+    // const [tagInput, setTagInput] = useState<string>('');
+    // const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
     const titleRef = useRef(null);
     const descRef = useRef(null);
-    const submitButtonRef = useRef(null);
-    const tagRef = useRef(null);
+    // const submitButtonRef = useRef(null);
+    // const tagRef = useRef(null);
     const catRef = useRef(null);
 
     const categories = useSelector(selectCategories);

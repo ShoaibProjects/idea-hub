@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MessageSquare, UserCircle } from 'lucide-react';
+import { UserCircle } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import Like from '../Buttons/likeDislikeBtns/like';
 import Dislike from '../Buttons/likeDislikeBtns/dislike';

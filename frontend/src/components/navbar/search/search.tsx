@@ -6,7 +6,7 @@ import './../navbar.scss';
 import IdeaCard from '../../idea-card/idea-card';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './searchModal.scss';
 import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
 import LoadingSpinner from '../../noIdeas/spinners';

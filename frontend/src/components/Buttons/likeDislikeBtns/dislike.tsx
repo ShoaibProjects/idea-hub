@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { ThumbsDown } from 'lucide-react';
+import React, {  useEffect } from 'react';
+// import { ThumbsDown } from 'lucide-react';
 import { FaRegThumbsDown, FaThumbsDown } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';
-import { selectUser, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
+import { selectUser, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
 import "./likeDislike.scss";
 import { useNavigate } from 'react-router';
 import { handleLogout } from '../LogOutBtn/LogOutUser';

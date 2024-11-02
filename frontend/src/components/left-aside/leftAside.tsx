@@ -1,5 +1,4 @@
-import React from 'react'
-import { Bell, Home, Lightbulb, MessageSquare, Search, Settings,  User, X, Moon, TrendingUp } from "lucide-react";
+import { Home, Settings,  TrendingUp } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import './leftAside.scss';
 

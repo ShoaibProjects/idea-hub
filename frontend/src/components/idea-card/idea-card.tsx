@@ -39,7 +39,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const [editingIdea, setEditingIdea] = useState<{ title: string; content: string } | null>(null);
   const [showActionMenu, setShowActionMenu] = useState<boolean>(false);
 
-  const user = useSelector((state: any) => state.user); // Assuming user is stored in Redux
+  // const user = useSelector((state: any) => state.user); // Assuming user is stored in Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isDarkMode = useSelector(selectIsDarkMode);

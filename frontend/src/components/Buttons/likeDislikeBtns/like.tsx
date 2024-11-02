@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ThumbsUp } from 'lucide-react';
+import React, { useEffect } from 'react';
+// import { ThumbsUp } from 'lucide-react';
 import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';

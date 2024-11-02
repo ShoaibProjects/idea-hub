@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
 import { useNavigate } from 'react-router-dom';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import './main-cont.scss';
 import IdeaCard from '../../idea-card/idea-card';
 import 'react-loading-skeleton/dist/skeleton.css';

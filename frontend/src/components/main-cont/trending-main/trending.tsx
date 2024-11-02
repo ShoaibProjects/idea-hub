@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { selectUser } from '../../Auth/userSlice';
@@ -6,7 +6,6 @@ import IdeaCard from '../../idea-card/idea-card';
 import './trending.scss';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 import { FaFireAlt } from "react-icons/fa";
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
 import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
