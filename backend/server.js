@@ -27,10 +27,10 @@ app.get('/', (req, res) => {
   res.send('Welcome to the MERN CRUD app!');
 });
 
-import ideaRouter from './routes/idea.js';
+import ideaRouter from './api/idea.js';
 app.use('/idea', ideaRouter);
 
-import UserRouter from './routes/user.js';
+import UserRouter from './api/user.js';
 app.use('/user', UserRouter);
 
 // Start server
