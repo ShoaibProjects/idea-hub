@@ -1,5 +1,5 @@
 import SearchComponent from "./search/search";
-import './Navbar.scss';
+import './navbar.scss';
 import Logo from './logo';
 import AccountBtn from "../accountStuff/accountBtnFolder/accountBtn";
 import ModeToggleButton from "../Buttons/ModeBtn/ModeToggleButton";
