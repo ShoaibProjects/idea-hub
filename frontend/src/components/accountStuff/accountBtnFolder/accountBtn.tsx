@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
 import { User } from "lucide-react";
 import AccountModal from '../accountModal/accountModal';
 

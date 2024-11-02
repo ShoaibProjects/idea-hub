@@ -65,7 +65,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   // API call to update idea
   const handleUpdateIdea = async () => {
     try {
-      const response = await axios.put(`http://localhost:5000/idea/update/${id}`, editingIdea, { withCredentials: true });
+      await axios.put(`http://localhost:5000/idea/update/${id}`, editingIdea, { withCredentials: true });
       alert('Idea updated successfully!');
       setEditingIdea(null);
     } catch (error) {
