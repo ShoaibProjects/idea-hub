@@ -119,7 +119,7 @@ export const signin = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
-      sameSite: 'Lax'
+      sameSite: 'None',
     });
 
     // Set the "Remember Me" cookie if the option is checked
@@ -128,7 +128,7 @@ export const signin = async (req, res) => {
         httpOnly: false, // Can be accessed from the frontend
         secure: process.env.NODE_ENV === 'production',
         maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
-        sameSite: 'Lax'
+        sameSite: 'None',
       });
     }
     
