@@ -59,6 +59,7 @@ const App: React.FC = () => {
     
     // If either the "rememberMe" cookie or the JWT token exists, fetch the user data
     if (rememberMeCookie) {
+      console.log('ok bro');
       fetchUserData();
     }
     const theme = Cookies.get('theme'); // Read theme from cookie
