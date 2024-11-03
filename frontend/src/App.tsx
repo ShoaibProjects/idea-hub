@@ -72,19 +72,19 @@ const rememberMeCookie = Cookies.get('rememberMe');
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    // Call the logout API if user state becomes empty
-    if (!user.username && !rememberMeCookie) {
-      const logout = async () => {
-        try {
-          await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
-        } catch (error) {
-          console.error('Logout error:', error);
-        }
-      };
-      logout();
-    }
-  }, [user]); // This effect will run whenever user state changes
+  // useEffect(() => {
+  //   // Call the logout API if user state becomes empty
+  //   if (!user.username && !rememberMeCookie) {
+  //     const logout = async () => {
+  //       try {
+  //         await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
+  //       } catch (error) {
+  //         console.error('Logout error:', error);
+  //       }
+  //     };
+  //     logout();
+  //   }
+  // }, [user]); // This effect will run whenever user state changes
 
   return (
     <>
