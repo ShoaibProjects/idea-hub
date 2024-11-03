@@ -22,7 +22,7 @@ router.delete('/delete/:id', verifyToken, deleteIdea);
 
 router.get('/recommendations/:userId', verifyToken, recomm);
 
-router.get('/trending', getTrendingIdeas);
+router.get('/trending/ideas', getTrendingIdeas);
 
 router.put('/update/:id/likes/update', verifyToken, updateLikes);
 

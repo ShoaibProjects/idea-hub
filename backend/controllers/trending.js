@@ -7,6 +7,7 @@ export const getTrendingIdeas = async (req, res) => {
     const limit = parseInt(req.query.limit) || 20; // Default to 20 ideas per request
     const page = parseInt(req.query.page) || 1;    // Current page (default 1)
 
+    console.log(category, period)
     let filter = {};
     let sort = { upvotes: -1, _id: 1  }; // Sort by upvotes in descending order
 
