@@ -38,7 +38,7 @@ const IdeaArea: React.FC = () => {
   const fetchIdea = async (idea: string) => {
     try {
       setLoading(true);
-      const ideaResponse = await axios.get(`http://localhost:5000/idea/${idea}`);
+      const ideaResponse = await axios.get(`https://idea-hub-api.vercel.app/idea/${idea}`);
       const ideaData = ideaResponse.data;
 
       setIdeaDetails({
@@ -63,7 +63,7 @@ const IdeaArea: React.FC = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/idea/delete/${ideaDetails?._id}`, { withCredentials: true });
+      const response = await axios.delete(`https://idea-hub-api.vercel.app/idea/delete/${ideaDetails?._id}`, { withCredentials: true });
       if (response.status === 201) {
         alert('Idea deleted successfully!');
         dispatch(removePostedContent(ideaDetails?._id || ''));
@@ -79,7 +79,7 @@ const IdeaArea: React.FC = () => {
 
   const handleUpdateIdea = async () => {
     try {
-      const response = await axios.put(`http://localhost:5000/idea/update/${editingIdea?._id}`, editingIdea, { withCredentials: true });
+      const response = await axios.put(`https://idea-hub-api.vercel.app/idea/update/${editingIdea?._id}`, editingIdea, { withCredentials: true });
       setIdeaDetails(response.data);
       setEditingIdea(null);
     } catch (error) {

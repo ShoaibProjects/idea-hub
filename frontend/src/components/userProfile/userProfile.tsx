@@ -43,7 +43,7 @@ function UserProfile() {
     try {
       setLoading(true);
       // Step 1: Fetch user profile data by username
-      const profileResponse = await axios.get(`http://localhost:5000/user/${username}`);
+      const profileResponse = await axios.get(`https://idea-hub-api.vercel.app/user/${username}`);
       const userData = profileResponse.data;
       
 
@@ -58,7 +58,7 @@ function UserProfile() {
      
       // Step 2: Fetch each posted idea based on the idea IDs from profile
       const ideaPromises = userData.postedContent.map(async (ideaId: string) =>
-        await axios.get<Idea>(`http://localhost:5000/idea/${ideaId}`)
+        await axios.get<Idea>(`https://idea-hub-api.vercel.app/idea/${ideaId}`)
       );
 
       // Step 3: Await all idea fetches

@@ -53,7 +53,7 @@ const IdeaForm: React.FC = () => {
         if (!validateForm()) return;
 
         try {
-            const response = await axios.post('http://localhost:5000/idea/add', {
+            const response = await axios.post('https://idea-hub-api.vercel.app/idea/add', {
                 title, 
                 description, 
                 creator: user.username, 
@@ -62,7 +62,7 @@ const IdeaForm: React.FC = () => {
             }, { withCredentials: true });
 
             const ideaId = response.data._id;
-            await axios.put(`http://localhost:5000/user/${user.username}/add-posted-idea`, { ideaId }, { withCredentials: true });
+            await axios.put(`https://idea-hub-api.vercel.app/user/${user.username}/add-posted-idea`, { ideaId }, { withCredentials: true });
 
             if (response.status === 201) {
                 alert('Idea submitted successfully!');
