@@ -34,6 +34,7 @@ const App: React.FC = () => {
   // Check if "rememberMe" cookie exists
 const rememberMeCookie = Cookies.get('rememberMe');
 
+  
 
   // Function to fetch user data if cookies exist
   const fetchUserData = async () => {
