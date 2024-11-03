@@ -31,7 +31,9 @@ const App: React.FC = () => {
   const user = useSelector(selectUser);
   // const isDarkMode = useSelector(selectIsDarkMode);
   // Check if "rememberMe" or "token" cookies exist
-  const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
+  // Check if "rememberMe" cookie exists
+const rememberMeCookie = Cookies.get('rememberMe');
+
 
   // Function to fetch user data if cookies exist
   const fetchUserData = async () => {
