@@ -4,6 +4,9 @@ import { connect } from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
+import dotenv from 'dotenv'; 
+
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;

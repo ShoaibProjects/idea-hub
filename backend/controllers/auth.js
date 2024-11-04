@@ -2,6 +2,10 @@ import User from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';  // For generating random guest usernames
+import dotenv from 'dotenv';
+
+// Load environment variables from the .env file in the parent directory
+dotenv.config({ path: '../.env' });
 
 const JWT_SECRET = process.env.JWT_SECRET || 'yourSecretKey';  // Use a secure key in production
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;  // 7 days in milliseconds
