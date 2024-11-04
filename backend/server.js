@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 // app.use(cors());
 app.use(cors({
-  // origin: 'http://localhost:5173',  // Frontend URL
-  origin: 'https://idea-hub-project.vercel.app',
+  origin: 'http://localhost:5173',  // Frontend URL
+  // origin: 'https://idea-hub-project.vercel.app',
   credentials: true,                // Allow cookies
 }));
 app.use(json());
@@ -28,16 +28,16 @@ app.get('/', (req, res) => {
   res.send('Welcome to the MERN CRUD app!');
 });
 
-import ideaRouter from './api/idea.js';
+import ideaRouter from './routes/idea.js';
 app.use('/idea', ideaRouter);
 
-import UserRouter from './api/user.js';
+import UserRouter from './routes/user.js';
 app.use('/user', UserRouter);
 
-// // Start server
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port: ${PORT}`);
-// });
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
+});
 
-// Export the app instead of starting the server
-export default app;
+// // Export the app instead of starting the server
+// export default app;

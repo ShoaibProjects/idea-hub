@@ -16,7 +16,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
   try {
     // Call the API to follow the user
         if(!isFollowed){
-          const response = await axios.post(`https://idea-hub-api.vercel.app/user/follow/add`, {
+          const response = await axios.post(`http://localhost:5000/user/follow/add`, {
             currentUser,
             followedUser
           }, { withCredentials: true });
@@ -28,7 +28,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
             console.error('Failed to follow the user');
           }
         } else{
-          const response = await axios.post(`https://idea-hub-api.vercel.app/user/follow/remove`, {
+          const response = await axios.post(`http://localhost:5000/user/follow/remove`, {
             currentUser,
             followedUser
           }, { withCredentials: true });

@@ -38,7 +38,7 @@ const AccountSettings: React.FC = () => {
 
     try {
       const response = await axios.patch(
-        `https://idea-hub-api.vercel.app/user/update/password`,
+        `http://localhost:5000/user/update/password`,
         {
           username: user.username,
           password: currentPassword,

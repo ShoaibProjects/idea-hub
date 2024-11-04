@@ -33,7 +33,7 @@ const PrefSettings: React.FC = () => {
   const changePreferences = async () => {
     try {
       const response = await axios.patch(
-        `https://idea-hub-api.vercel.app/user/update/preferences`,
+        `http://localhost:5000/user/update/preferences`,
         { 
           username: user.username,
           preferences: selectedPreferences

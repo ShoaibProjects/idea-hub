@@ -47,7 +47,7 @@ const Signup = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('https://idea-hub-api.vercel.app/user/signup', {
+      const response = await axios.post('http://localhost:5000/user/signup', {
         username,
         password,
         preferences: selectedPreferences.map(option => option.value),
