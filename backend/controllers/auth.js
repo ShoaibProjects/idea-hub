@@ -117,18 +117,20 @@ export const signin = async (req, res) => {
     // Set the JWT cookie expiration based on "Remember Me" checkbox
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
-      sameSite: 'Strict'
+      sameSite: 'None',
+      domain: 'idea-hub-project.vercel.app'
     });
 
     // Set the "Remember Me" cookie if the option is checked
     if (req.body.rememberMe) {
       res.cookie('rememberMe', 'true', {
         httpOnly: false, // Can be accessed from the frontend
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
-        sameSite: 'Strict'
+        sameSite: 'None',
+        domain: 'idea-hub-project.vercel.app'
       });
     }
     

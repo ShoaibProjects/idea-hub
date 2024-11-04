@@ -3,9 +3,9 @@ import React from 'react';
 // import './index.scss';
 
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { setUser, selectUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
+import { setUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
 import { AppDispatch } from './store';
 import { setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
 import Cookies from 'js-cookie';
@@ -28,10 +28,13 @@ import PrefSettings from './components/Settings/preferencesSettings/preferencesS
 const App: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   // const isDarkMode = useSelector(selectIsDarkMode);
   // Check if "rememberMe" or "token" cookies exist
-  const rememberMeCookie = document.cookie.split('; ').find(row => row.startsWith('rememberMe='));
+  // Check if "rememberMe" cookie exists
+const rememberMeCookie = Cookies.get('rememberMe');
+
+  
 
   // Function to fetch user data if cookies exist
   const fetchUserData = async () => {
@@ -59,6 +62,7 @@ const App: React.FC = () => {
     
     // If either the "rememberMe" cookie or the JWT token exists, fetch the user data
     if (rememberMeCookie) {
+      console.log('ok bro');
       fetchUserData();
     }
     const theme = Cookies.get('theme'); // Read theme from cookie
@@ -68,19 +72,19 @@ const App: React.FC = () => {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    // Call the logout API if user state becomes empty
-    if (!user.username && !rememberMeCookie) {
-      const logout = async () => {
-        try {
-          await axios.post('http://localhost:5000/user/logout', {}, { withCredentials: true });
-        } catch (error) {
-          console.error('Logout error:', error);
-        }
-      };
-      logout();
-    }
-  }, [user]); // This effect will run whenever user state changes
+  // useEffect(() => {
+  //   // Call the logout API if user state becomes empty
+  //   if (!user.username && !rememberMeCookie) {
+  //     const logout = async () => {
+  //       try {
+  //         await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
+  //       } catch (error) {
+  //         console.error('Logout error:', error);
+  //       }
+  //     };
+  //     logout();
+  //   }
+  // }, [user]); // This effect will run whenever user state changes
 
   return (
     <>
