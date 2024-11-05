@@ -22,7 +22,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
   // Fetch comments from API
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/idea/${ideaId}/comments`);
+      const response = await axios.get(`https://idea-hub-api.vercel.app/idea/${ideaId}/comments`);
       setComments(response.data);
     } catch (err) {
       setError('Error fetching comments');
@@ -39,7 +39,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/idea/comment/add`,
+        `https://idea-hub-api.vercel.app/idea/comment/add`,
         { ideaId, creator: reader, description: newComment },
         { withCredentials: true }
       );
@@ -91,7 +91,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
 
     try {
       const response = await axios.patch(
-        `http://localhost:5000/idea/comment/update`,
+        `https://idea-hub-api.vercel.app/idea/comment/update`,
         { commentId, creator: reader, description: editText },
         { withCredentials: true }
       );
@@ -146,7 +146,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
   // Handle comment deletion
   const handleDelete = async (commentId: string) => {
     try {
-      await axios.delete(`http://localhost:5000/idea/comment/delete`, {
+      await axios.delete(`https://idea-hub-api.vercel.app/idea/comment/delete`, {
         params: { commentId, creator: reader, ideaId },
         withCredentials: true,
       });

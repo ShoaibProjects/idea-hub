@@ -57,7 +57,7 @@ function MainCont() {
   
       // Make the request with the Authorization header
       const response = await axios.get(
-        `http://localhost:5000/idea/recommendations/${user.username}?page=${page}&limit=20&shown=${shownIdeas.join(',')}`,
+        `https://idea-hub-api.vercel.app/idea/recommendations/${user.username}?page=${page}&limit=20&shown=${shownIdeas.join(',')}`,
         {
           withCredentials: true,  // Include cookies in the request
         }

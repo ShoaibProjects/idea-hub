@@ -51,7 +51,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   // API call to delete idea
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/idea/delete/${id}`, { withCredentials: true });
+      const response = await axios.delete(`https://idea-hub-api.vercel.app/idea/delete/${id}`, { withCredentials: true });
       if (response.status === 201) {
         alert('Idea deleted successfully!');
         dispatch(removePostedContent(id)); // Remove idea from Redux store
@@ -65,7 +65,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   // API call to update idea
   const handleUpdateIdea = async () => {
     try {
-      await axios.put(`http://localhost:5000/idea/update/${id}`, editingIdea, { withCredentials: true });
+      await axios.put(`https://idea-hub-api.vercel.app/idea/update/${id}`, editingIdea, { withCredentials: true });
       alert('Idea updated successfully!');
       setEditingIdea(null);
     } catch (error) {
