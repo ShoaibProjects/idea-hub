@@ -43,7 +43,7 @@ function TrendingIdeas() {
   const fetchTrendingIdeas = async (page: number) => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://idea-hub-api.vercel.app/idea/trending/ideas`, {
+      const response = await axios.get(`https://idea-hub-app.vercel.app/idea/trending/ideas`, {
         params: {
           page,
           limit: 20,
