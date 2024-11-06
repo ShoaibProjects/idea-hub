@@ -107,7 +107,7 @@ const IdeaArea: React.FC = () => {
         <div className="header-section">
           <span className="idea-title">{ideaDetails.title}</span>
           <div className="creator-info">
-            <Link to={`/user/profile/${ideaDetails.creator}`} className="creator-link">
+            <Link to={`/userinfo/profile/${ideaDetails.creator}`} className="creator-link">
               <UserCircle></UserCircle>
               {ideaDetails.creator}
             </Link>

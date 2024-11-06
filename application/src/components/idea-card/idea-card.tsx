@@ -45,7 +45,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const isDarkMode = useSelector(selectIsDarkMode);
 
   const handleCardClick = () => {
-    navigate(`/idea/${id}`);
+    navigate(`/ideainfo/${id}`);
   }
 
   // API call to delete idea
@@ -91,7 +91,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
       <p className="content">{content}</p>
       <div className="lower-card">
         <div className="creator">
-          <Link to={`/user/profile/${creator}`} className="creator-link" onClick={(e) => e.stopPropagation()}>
+          <Link to={`/userinfo/profile/${creator}`} className="creator-link" onClick={(e) => e.stopPropagation()}>
             <UserCircle />
             {creator}
           </Link>

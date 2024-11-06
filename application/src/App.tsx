@@ -93,7 +93,7 @@ const rememberMeCookie = Cookies.get('rememberMe');
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/user" element={<UserPage />} />
+        <Route path="/userinfo" element={<UserPage />} />
         <Route path="/NewIdea" element={<IdeaPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
@@ -102,8 +102,8 @@ const rememberMeCookie = Cookies.get('rememberMe');
           <Route path="AccountSettings" element={<AccountSettings />} />
           <Route path="Preferences" element={<PrefSettings />} />
         </Route>
-        <Route path="/user/profile/:lookedUpUsername" element={<ProfilePage />} />
-        <Route path="/idea/:lookedUpIdea" element={<IdeaOpen />} />
+        <Route path="/userinfo/profile/:lookedUpUsername" element={<ProfilePage />} />
+        <Route path="/ideainfo/:lookedUpIdea" element={<IdeaOpen />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} /> */}
       </Routes>
