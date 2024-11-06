@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Modal from './modal'; // Import your modal component
 import { Search, UserCircle } from 'lucide-react';
-import './../navbar.scss';
+import '../navbar.scss';
 import IdeaCard from '../../idea-card/idea-card';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Auth/userSlice';
