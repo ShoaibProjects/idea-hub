@@ -123,7 +123,7 @@ export const signin = async (req, res) => {
       httpOnly: true,
       secure: true,
       maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
-      sameSite: 'None',
+      sameSite: 'Lax',
       domain: 'https://idea-hub-app.vercel.app'
     });
 
@@ -133,7 +133,7 @@ export const signin = async (req, res) => {
         httpOnly: false, // Can be accessed from the frontend
         secure: true,
         maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
-        sameSite: 'None',
+        sameSite: 'Lax',
         domain: 'https://idea-hub-app.vercel.app'
       });
     }
