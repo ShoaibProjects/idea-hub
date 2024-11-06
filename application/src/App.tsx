@@ -40,7 +40,7 @@ const rememberMeCookie = Cookies.get('rememberMe');
   const fetchUserData = async () => {
     try {
       // const response = await axios.get('http://localhost:5000/user/getUser/current', { withCredentials: true });
-      const response = await axios.get('https://idea-hub-api.vercel.app/user/getUser/current', { withCredentials: true });
+      const response = await axios.get('https://idea-hub-app.vercel.app/user/getUser/current', { withCredentials: true });
 
       if (response.status === 200) {
         dispatch(setUser({

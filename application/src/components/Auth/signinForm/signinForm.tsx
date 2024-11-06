@@ -38,7 +38,7 @@ const Signin = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('https://idea-hub-project.vercel.app/api/user/signin', {
+      const response = await axios.post('https://idea-hub-app.vercel.app/api/user/signin', {
         username,
         password,
         rememberMe,
