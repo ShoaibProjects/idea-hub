@@ -3,9 +3,9 @@ import React from 'react';
 // import './index.scss';
 
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { setUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
+import { selectUser, setUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
 import { AppDispatch } from './store';
 import { setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
 import Cookies from 'js-cookie';
@@ -28,7 +28,7 @@ import PrefSettings from './components/Settings/preferencesSettings/preferencesS
 const App: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
-  // const user = useSelector(selectUser);
+  const user = useSelector(selectUser);
   // const isDarkMode = useSelector(selectIsDarkMode);
   // Check if "rememberMe" or "token" cookies exist
   // Check if "rememberMe" cookie exists
@@ -73,19 +73,19 @@ const rememberMeCookie = Cookies.get('rememberMe');
     }
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   // Call the logout API if user state becomes empty
-  //   if (!user.username && !rememberMeCookie) {
-  //     const logout = async () => {
-  //       try {
-  //         await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
-  //       } catch (error) {
-  //         console.error('Logout error:', error);
-  //       }
-  //     };
-  //     logout();
-  //   }
-  // }, [user]); // This effect will run whenever user state changes
+  useEffect(() => {
+    // Call the logout API if user state becomes empty
+    if (!user.username && !rememberMeCookie) {
+      const logout = async () => {
+        try {
+          await axios.post('https://idea-hub-app.vercel.app/user/logout', {}, { withCredentials: true });
+        } catch (error) {
+          console.error('Logout error:', error);
+        }
+      };
+      logout();
+    }
+  }, [user]); // This effect will run whenever user state changes
 
   return (
     <>

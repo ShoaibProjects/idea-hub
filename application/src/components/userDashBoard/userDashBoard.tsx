@@ -34,7 +34,7 @@ const UserCont: React.FC = () => {
     try {
       setLoading(true);
       const ideaPromises = user.postedContent.map(async (ideaId: string) =>
-        await axios.get<Idea>(`https://idea-hub-api.vercel.app/idea/${ideaId}`)
+        await axios.get<Idea>(`https://idea-hub-app.vercel.app/idea/${ideaId}`)
       );
       const ideasResponses = await Promise.all(ideaPromises);
       const fetchedIdeas = ideasResponses.map((res) => res.data);
@@ -48,7 +48,7 @@ const UserCont: React.FC = () => {
 
   const handleDescriptionEdit = async () => {
     try {
-      const response = await axios.patch(`https://idea-hub-api.vercel.app/user/update/description`,
+      const response = await axios.patch(`https://idea-hub-app.vercel.app/user/update/description`,
         { username: user.username, description },
         { withCredentials: true });
       if (response.status === 200) {

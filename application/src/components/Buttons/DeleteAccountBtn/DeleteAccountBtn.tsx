@@ -23,14 +23,14 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ username, password }) => {
     if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try {
         // Send a DELETE request with the user ID and password in the body
-        await axios.delete(`https://idea-hub-api.vercel.app/user/delete/${username}`, {
+        await axios.delete(`https://idea-hub-app.vercel.app/user/delete/${username}`, {
           data: { username, password }, // Send password in the request body
           withCredentials: true,
         });
 
         alert('User deleted successfully');
 
-        await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
+        await axios.post('https://idea-hub-app.vercel.app/user/logout', {}, { withCredentials: true });
 
         // Dispatch the logout action to clear the Redux state
         dispatch(logout());

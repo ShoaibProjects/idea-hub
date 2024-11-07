@@ -6,7 +6,7 @@ import { NavigateFunction } from 'react-router-dom';
 export const handleLogout = async (dispatch: AppDispatch, navigate: NavigateFunction): Promise<void> => {
   try {
     // Call the backend API to handle logout and clear cookies
-    await axios.post('https://idea-hub-api.vercel.app/user/logout', {}, { withCredentials: true });
+    await axios.post('https://idea-hub-app.vercel.app/user/logout', {}, { withCredentials: true });
 
 
 

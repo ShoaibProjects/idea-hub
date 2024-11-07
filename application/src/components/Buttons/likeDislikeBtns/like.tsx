@@ -43,34 +43,34 @@ const Like: React.FC<IdeaIdProps> = ({ Id , liked, setLiked, likes, setLikes, di
   const updateLike = async () => {
     try {
       if(!liked){
-        const response = await axios.put(`https://idea-hub-api.vercel.app/idea/update/${Id}/likes/update`, {
+        const response = await axios.put(`https://idea-hub-app.vercel.app/idea/update/${Id}/likes/update`, {
             likes: likes + 1,
           }, { withCredentials: true });
           if(response){
             setLikes(response.data);
           }
-          await axios.put(`https://idea-hub-api.vercel.app/user/${user.username}/liked/add`,{
+          await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/liked/add`,{
             ideaId : Id
           }, { withCredentials: true })
           setLiked(true)
           dispatch(addLikedIdea(Id));
           if(disliked){
-            const response = await axios.put(`https://idea-hub-api.vercel.app/idea/update/${Id}/dislikes/update`, {
+            const response = await axios.put(`https://idea-hub-app.vercel.app/idea/update/${Id}/dislikes/update`, {
               dislikes: dislikes - 1,
             }, { withCredentials: true });
             setDislikes(response.data);
-            await axios.put(`https://idea-hub-api.vercel.app/user/${user.username}/disliked/remove`,{
+            await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/disliked/remove`,{
               ideaId : Id
             }, { withCredentials: true })
             setDisliked(false)
             dispatch(removeDislikedIdea(Id));
           }
       }else{
-        const response = await axios.put(`https://idea-hub-api.vercel.app/idea/update/${Id}/likes/update`, {
+        const response = await axios.put(`https://idea-hub-app.vercel.app/idea/update/${Id}/likes/update`, {
             likes: likes - 1,
           }, { withCredentials: true });
           setLikes(response.data);
-          await axios.put(`https://idea-hub-api.vercel.app/user/${user.username}/liked/remove`,{
+          await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/liked/remove`,{
             ideaId : Id
           }, { withCredentials: true })
           setLiked(false)
