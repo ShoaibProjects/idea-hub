@@ -124,7 +124,6 @@ export const signin = async (req, res) => {
       secure: true,
       maxAge: req.body.rememberMe ? COOKIE_MAX_AGE : COOKIE_MAX_AGE_30_MINUTES,
       sameSite: 'Lax',
-      domain: 'https://idea-hub-app.vercel.app'
     });
 
     // Set the "Remember Me" cookie if the option is checked
@@ -134,7 +133,6 @@ export const signin = async (req, res) => {
         secure: true,
         maxAge: COOKIE_MAX_AGE, // 7 days expiration for the rememberMe cookie
         sameSite: 'Lax',
-        domain: 'https://idea-hub-app.vercel.app'
       });
     }
     
