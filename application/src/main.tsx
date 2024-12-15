@@ -12,8 +12,10 @@ createRoot(document.getElementById('root')!).render(
   //    <App />
   //   </Provider>
   // </StrictMode>,
-  <Provider store={store}>
-    <Analytics/>
+   <>
+     <Provider store={store}>
      <App />
-    </Provider>,
+    </Provider>
+    <Analytics/>
+   </>
 )
