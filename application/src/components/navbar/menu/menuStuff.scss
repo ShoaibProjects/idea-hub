@@ -1,0 +1,33 @@
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    gap: 1rem;
+    background-color: #312e81; /* indigo-950 */
+    padding: 3rem;
+    border-radius: 0.5rem;
+    border: 1px solid white;
+    width: fit-content;
+    margin: auto;
+}
+
+.menu-container:focus,
+.menu-container:hover {
+    border-color: #0ea5e9; /* sky-500 */
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), filter 0.3s ease;
+    transform-origin: left;
+    filter: brightness(0.65);
+}
+
+// .menu-link.active {
+//     filter: brightness(1.1);
+//     transform: scale(1.1);
+// }

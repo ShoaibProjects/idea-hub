@@ -113,3 +113,9 @@
   .social-icons a:hover {
     color: #007bff; /* Change color on hover */
   }
+
+  @media (max-width: 768px) {
+    .leftAside-cont{
+      display: none;
+    }
+  }

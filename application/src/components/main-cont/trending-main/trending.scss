@@ -27,13 +27,14 @@
     padding: 10px 20px; // Padding around the filters
     border-radius: 5px; // Rounded corners
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Soft shadow for depth
-    z-index: 9;  // Ensure it appears above other content
-    top: 5.25rem;   // Adjust the position from the top
-    position: fixed;  // Make the filters fixed to the viewport
+    z-index: 9; // Ensure it appears above other content
+    top: 5.25rem; // Adjust the position from the top
+    position: fixed; // Make the filters fixed to the viewport
 
     label {
       margin: 0 10px; // Space around labels
       color: $primary-color-dark;
+      font-weight: bold;
     }
 
     select {
@@ -44,7 +45,9 @@
       transition: border-color 0.2s;
       background: none;
       color: var(--text-color);
-      background: var(--bg-filter-color);;
+      background: var(--bg-filter-color);
+      ;
+
       &:hover {
         border-color: $primary-color-light; // Change border color on hover
       }
@@ -55,7 +58,7 @@
     display: grid; // Use grid for layout
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
     // gap: 20px; // Space between cards
-    padding-top: 9rem;  // Add padding to avoid content being hidden behind the fixed filters
+    padding-top: 9rem; // Add padding to avoid content being hidden behind the fixed filters
   }
 
   // p {
@@ -63,4 +66,67 @@
   //   font-size: 1rem;
   //   color: $text-color-light; // Use your text color for consistency
   // }
+}
+
+@media (max-width: 768px) {
+  .trend-cont {
+    @include middle-style;
+    padding: 0%;
+    margin: 0%;
+
+    .filters {
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: .25rem;
+      // background-color: red;
+      left: 0%;
+      padding: .25rem;
+      flex-wrap: wrap;
+      border-radius: 10px;
+
+      >h2 {
+        flex-basis: 100%; 
+        display: flex;
+        justify-content: center;
+        margin-bottom: .5rem;
+      }
+      >div{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: .5rem;
+        width: 100%;
+      }
+
+      
+      // .filter-cont1 {
+      //   background-color: blue;
+      //   text-align: center;
+      //   flex: content;
+      //   padding: 0%;
+      //   // display: flex;
+      //   // flex-direction: column;
+      // }
+      // .filter-cont2 {
+      //   background-color: blue;
+      //   text-align: center;
+      //   flex: auto;
+      //   padding: 0%;
+      //   // display: flex;
+      //   // flex-direction: column;
+      // }
+      select{
+        font-size: .75rem;
+        margin: 0;
+        flex: auto;
+      }
+    }
+
+    .ideas-container {
+      grid-template-columns: none;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }

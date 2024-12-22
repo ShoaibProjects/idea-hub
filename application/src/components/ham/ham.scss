@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+.hamburger-button {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    // svg {
+    //   width: 24px;
+    //   height: 24px;
+    //   // transition: transform 0.5s ease-in-out;
+    // }
+  }
+  .imp-icon{
+    // fill: var(--primary-color);
+    stroke: var(--primary-color);
+    // stroke-width: 5px;
+  }
+  
+  @media (min-width: 768px) {
+    .hamburger-button {
+      display: none; /* Hide button on medium screens and above */
+    }
+  }
+  
+  

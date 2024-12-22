@@ -3,6 +3,8 @@ import './navbar.scss';
 import Logo from './logo';
 import AccountBtn from "../accountStuff/accountBtnFolder/accountBtn";
 import ModeToggleButton from "../Buttons/ModeBtn/ModeToggleButton";
+import Ham from "../ham/ham";
+
 
 const Navbar = () => {
   return (
@@ -23,6 +25,7 @@ const Navbar = () => {
           {/* <button><Bell/></button> */}
           <AccountBtn></AccountBtn>
           <ModeToggleButton/>
+          <Ham/>
         </div>
         </div>
       </div>

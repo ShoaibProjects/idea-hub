@@ -136,7 +136,7 @@ function TrendingIdeas() {
         <h2>
           <FaFireAlt size={30} /> Trending Ideas
         </h2>
-        <div>
+        <div className='filter-cont1'>
           <label>Time Period: </label>
           <select value={period} onChange={(e) => setPeriod(e.target.value)}>
             <option value="">All Time</option>
@@ -145,7 +145,7 @@ function TrendingIdeas() {
           </select>
         </div>
 
-        <div>
+        <div className='filter-cont2'>
           <label>Category: </label>
           <select className='select-class' value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">All Categories</option>

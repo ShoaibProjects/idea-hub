@@ -11,6 +11,9 @@
     &[data-status="main"] {
       width: 200%;
       margin-top: 5rem;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
   
