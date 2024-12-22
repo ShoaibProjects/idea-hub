@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store'; // Import RootState & AppDispatch types
 import { toggleMenu } from './../../Redux-slices/hamSlice/hamSlice'; // Import toggleMenu action
