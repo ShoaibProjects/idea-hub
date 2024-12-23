@@ -1,9 +1,10 @@
 @import '../../styles/variables';
 
 
-a{
+a {
   text-decoration: none;
 }
+
 .card-container {
   width: 90%;
   margin: 20px auto;
@@ -27,6 +28,7 @@ a{
 .title-category {
   display: flex;
   justify-content: space-between;
+  gap: .2rem;
   align-items: center;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color-sec);
@@ -43,6 +45,7 @@ a{
     padding: 0.3rem 0.75rem;
     border-radius: 999px;
     font-size: 0.85rem;
+    text-align: center;
     text-transform: uppercase;
   }
 }
@@ -52,11 +55,11 @@ a{
   font-size: 1rem;
   line-height: 1.6;
   margin: 10px 0 20px;
-  
+
   /* Truncate to 3 lines */
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -164,9 +167,10 @@ a{
       }
     }
   }
-  .dark-drop{
-    button{
-      &:hover{
+
+  .dark-drop {
+    button {
+      &:hover {
         background-color: var(--background-color-sec);
       }
     }
@@ -193,7 +197,7 @@ a{
     width: 400px;
     max-width: 90%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    
+
     h3 {
       font-size: 1.25rem;
       margin-bottom: 1rem;
@@ -241,6 +245,62 @@ a{
             background-color: $secondary-color-light;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    padding: 1rem;
+    .upper-card {
+      .title-category {
+        .title {
+          font-size: 1.2rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          /* Limit to 3 lines */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+          text-align: center;
+        }
+
+        .category {
+          font-size: .75rem;
+          padding: .3rem .5rem;
+        }
+      }
+    }
+
+    .content {
+      font-size: .9rem;
+    }
+
+    .lower-card {
+      .creator {
+
+        .creator-link {
+          font-size: .85rem;
+          white-space: nowrap;
+          /* Prevent text from wrapping */
+          overflow: hidden;
+          /* Hide overflowing text */
+          text-overflow: ellipsis;
+          /* Add ellipsis at the end */
+          max-width: 100%;
+        }
+      }
+    }
+    .comments{
+      font-size: .75rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      padding: .05rem;
+      border-radius: .5rem;
+      svg{
+        margin-right: 0.1rem;
       }
     }
   }

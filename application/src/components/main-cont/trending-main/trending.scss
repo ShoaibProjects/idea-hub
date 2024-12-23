@@ -127,6 +127,10 @@
       grid-template-columns: none;
       display: flex;
       flex-direction: column;
+      padding-top: 10rem;
+      >div{
+        margin-bottom: 0;
+      }
     }
   }
 }
