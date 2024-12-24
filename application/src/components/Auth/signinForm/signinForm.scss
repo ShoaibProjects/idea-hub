@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--background-color);
 }
 
@@ -18,7 +18,7 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 1.5rem 2rem;
   width: 80%;
-  min-height: 90%;
+  max-height: 90%;
   text-align: center;
 
   h2 {

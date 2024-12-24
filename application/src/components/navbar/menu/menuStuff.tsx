@@ -1,11 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHome } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaHome, FaLinkedin } from "react-icons/fa";
 import { SiBuzzfeed } from "react-icons/si";
 import { Settings } from 'lucide-react';
 import './menuStuff.scss'; // Import the CSS file
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../Auth/userSlice';
+import { FaSquareXTwitter } from 'react-icons/fa6';
+import CreateBtn from '../../Buttons/CreateBtn/CreateBtn';
+import LoginButton from '../../Buttons/loginBtn/LoginBtn';
+import UserBtn from '../../Buttons/UserBtn/UserBtn';
 
 const MEnuStuff: React.FC = () => {
+    const user = useSelector(selectUser);
     return (
         <div>
             <nav className="menu-container" tabIndex={0}>
@@ -46,6 +53,27 @@ const MEnuStuff: React.FC = () => {
                     <FcFaq className="icon" /> FAQ
                 </NavLink> */}
             </nav>
+            <div className='rightAside-cont-imp'>
+      {
+        user.username?(
+          <>
+            <CreateBtn></CreateBtn>
+            <UserBtn></UserBtn>
+          </>
+        ):(
+          <LoginButton></LoginButton>
+        )
+      }
+    </div>
+    <div className='footer'>
+      <p>&copy; 2024 Shoaib Akhtar</p>
+      <div className='social-icons'>
+        <a href=""><FaFacebook></FaFacebook></a>
+        <a href=""><FaSquareXTwitter></FaSquareXTwitter></a>
+        <a href=""><FaLinkedin></FaLinkedin></a>
+        <a href=""><FaGithub></FaGithub></a>
+      </div>
+    </div>
         </div>
     );
 };

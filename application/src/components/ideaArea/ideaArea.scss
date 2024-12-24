@@ -136,3 +136,25 @@
   font-size: 1.2rem;
   color: var(--text-color);
 }
+@media (max-width: 768px){
+  .idea-page-cont{
+    .idea-container{
+      .header-section{
+        flex-wrap: wrap;
+        .idea-title{
+          width: 100%;
+          text-align: center;
+          font-size: 1.3rem;
+          margin-bottom: .5rem;
+        }
+        .creator-info{
+          margin-left: 0;
+
+        }
+        .idea-category{
+          font-size: .75rem;
+        }
+      }
+    }
+  }
+}

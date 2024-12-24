@@ -163,9 +163,16 @@ const IdeaForm: React.FC = () => {
                             }),
                             menuList: (provided) => ({
                               ...provided,
+                              background: 'var(--background-color-sec)',
                               maxHeight: '150px', // Set max height for the dropdown
                               overflowY: 'auto', // Enable vertical scrolling
                             }),
+                            option: (provided, state) => ({
+                                ...provided,
+                                color: state.isFocused
+                                  ? '#333' 
+                                  : 'var(--text-color)',
+                              }),
                         }}
                         isClearable
                     />
@@ -194,12 +201,13 @@ const IdeaForm: React.FC = () => {
                             }),
                             menuList: (provided) => ({
                               ...provided,
+                              background: 'var(--background-color-sec)',
                               maxHeight: '100px', // Set max height for the dropdown
                               overflowY: 'auto', // Enable vertical scrolling
                             }),
                             multiValue: (provided) => ({
                                 ...provided,
-                                backgroundColor: 'transparent',
+                                backgroundColor: 'whitesmoke',
                             }),
                             multiValueLabel: (provided) => ({
                                 ...provided,
@@ -211,6 +219,12 @@ const IdeaForm: React.FC = () => {
                                 cursor: 'pointer',
                                 '&:hover': { color: '#ef4444' },
                             }),
+                            option: (provided, state) => ({
+                                ...provided,
+                                color: state.isFocused
+                                  ? '#333' 
+                                  : 'var(--text-color)',
+                              }),
                         }}
                     />
                 </div>

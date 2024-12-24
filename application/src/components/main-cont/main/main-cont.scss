@@ -8,6 +8,15 @@
         display: grid; // Use grid for layout
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
         // gap: 20px; // Space between cards
+        @media (max-width: 768px){
+          grid-template-columns: none;
+          display: flex;
+          flex-direction: column;
+          // padding-top: 1rem;
+          >div{
+            margin-bottom: 0;
+          }
+        }
       }
     
       p {
