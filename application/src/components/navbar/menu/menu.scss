@@ -1,15 +1,19 @@
 .menu-overlay {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: 100vh;
     width: 100vw;
     padding-top: 7rem; /* Matches pt-28 */
-    background-color: #334155; /* bg-slate-700 */
+    // background-color: #334155; /* bg-slate-700 */
+    background-color: var(--background-color-ter);
     position: fixed;
     z-index: 30;
     transition: transform 0.5s ease-in-out;
     transform: translateX(0); /* Default to hidden off-screen */
+    >div{
+        flex: auto;
+    }
 }
 
 .menu-overlay.active {

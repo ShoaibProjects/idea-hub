@@ -12,6 +12,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000; // Ensure it appears above other elements
+  // background-color: red;
   // Modal content
 .modal-content {
   background-color: var(--background-color-sec);
@@ -32,10 +33,10 @@
     border-radius: .5rem;
     
 
-  >div {
-    padding: 1rem;
-    padding-top: 0;
-  }
+  // >div {
+  //   padding: 1rem;
+  //   padding-top: 0;
+  // }
   }
 
   >button {
@@ -46,6 +47,7 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+    color: var(--text-color);
     &:hover{
       color: var(--primary-color);
     }
@@ -53,5 +55,30 @@
 
 }
 }
+@media (max-width: 768px){
 
+  .modal-overlay{
+    width: 100vw;
+    height: 100vh;
+    .modal-content{
+      top: 0rem;
+      width: 95%;
+      right: 25%;
+      padding: 1.25rem;
+
+      .modal-cont{
+        
+      }
+
+      >button {
+        top: .2rem;
+        right: .4rem;
+        color: var(--text-color);
+        &:focus{
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
 

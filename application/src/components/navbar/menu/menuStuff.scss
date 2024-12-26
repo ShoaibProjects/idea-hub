@@ -1,10 +1,12 @@
+@import './../../../styles/variables';
 .menu-container {
     display: flex;
     flex-direction: column;
     font-weight: 600;
     gap: 1rem;
-    background-color: #312e81; /* indigo-950 */
-    padding: 3rem;
+    // background-color: #312e81; /* indigo-950 */
+    background-color: $background-color-sec-dark;
+    padding: 2rem;
     border-radius: 0.5rem;
     border: 1px solid white;
     width: fit-content;
@@ -31,3 +33,37 @@
 //     filter: brightness(1.1);
 //     transform: scale(1.1);
 // }
+.rightAside-cont-imp{
+    padding: 0%;
+}
+.footer-menu{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.h-icons-cont {
+    display: flex;
+    justify-content: center;
+    // background-color: white;
+    background: none;
+    padding: 1.5rem;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 2rem;
+  
+    >button{
+      background-color: var(--background-color);
+      border: none;
+      color: var(--primary-color);
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      outline: 1.5px solid var(--border-color);
+      &:hover{
+        background-color: var(--background-color-sec);
+        // outline: 2px solid var(--primary-color);
+      }
+    }
+  }

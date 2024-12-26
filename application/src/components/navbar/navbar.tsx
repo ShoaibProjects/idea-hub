@@ -4,13 +4,15 @@ import Logo from './logo';
 import AccountBtn from "../accountStuff/accountBtnFolder/accountBtn";
 import ModeToggleButton from "../Buttons/ModeBtn/ModeToggleButton";
 import Ham from "../ham/ham";
+import { useSelector } from "react-redux";
 
 
 const Navbar = () => {
+  const isModalOpen = useSelector((state: any) => state.search.isOpen);
   return (
     <>
       <div className='nav-cont'>
-        <div className="logo-outer-cont">
+        <div className={`logo-outer-cont ${isModalOpen ? '' : ''}`}>
           <div className='logo-inner-cont'><Logo className='logo'></Logo><span>IdeaHub</span></div>
         </div>
         <div className="transparent-cont">

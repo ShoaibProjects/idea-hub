@@ -18,7 +18,7 @@ const Settings: React.FC = () => {
         <nav className="settings-nav">
           <Link to="AccountSettings" className="nav-link"><MdManageAccounts size={25}></MdManageAccounts>Account Settings</Link>
           <Link to="preferences" className="nav-link"><Settings2></Settings2>Preferences</Link>
-          <Link to="language-settings" className="nav-link"><IoLanguage size={25}></IoLanguage>Language Settings</Link>
+          {/* <Link to="language-settings" className="nav-link"><IoLanguage size={25}></IoLanguage>Language Settings</Link> */}
         </nav>
       )}
 

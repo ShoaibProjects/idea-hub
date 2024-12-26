@@ -9,6 +9,7 @@
   background-color: var(--background-color);
   padding: 1rem;
   z-index: 99;
+  box-shadow: 0px -10px 1px black;
 }
 
 .search-modal{
@@ -114,6 +115,15 @@
       font-size: 1rem;
       font-weight: 500;
       margin-top: 5px;
+    }
+  }
+  @media (max-width: 768px){
+    .search-heading{
+      width: 100%;
+    }
+    .search-modal{
+      flex-direction: column;
+      
     }
   }
   

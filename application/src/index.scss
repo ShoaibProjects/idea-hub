@@ -45,6 +45,7 @@
   --border-color: #{rgba($color: $border-color-light, $alpha: 0.25)};
   --border-color-sec: #{rgba($color: $border-color-light, $alpha: 0.1)};
   --background-color-sec: #{$background-color-sec-light};
+  --background-color-ter: #{$background-color-ter-light};
   --bg-filter-color: #{rgba($background-color-sec-light, 0.8)};
   --card-bg: #{$card-bg-light};
    &.dark{
@@ -52,6 +53,7 @@
     --secondary-color: #{$secondary-color-dark};
     --background-color: #{$background-color-dark};
     --background-color-sec: #{$background-color-sec-dark};
+    --background-color-ter: #{$background-color-ter-dark};
     --bg-filter-color: #{rgba($background-color-sec-dark, 0.8)};
     --text-color: #{$text-color-dark};
     --muted-text: #{$muted-text-dark};

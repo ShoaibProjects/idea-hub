@@ -186,3 +186,12 @@
   }
 
 }
+@media (max-width: 768px){
+  .user-cont{
+    .ideas-container{
+      grid-template-columns: none;
+            display: flex;
+            flex-direction: column;
+    }
+  }
+}

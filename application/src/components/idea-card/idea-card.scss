@@ -69,6 +69,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .creator {
@@ -90,6 +91,7 @@ a {
 }
 
 .interaction {
+  flex: auto;
   display: flex;
   align-items: center;
   gap: .7rem;
@@ -124,6 +126,8 @@ a {
 /* Action buttons for creator (edit/delete) */
 .action-buttons {
   position: relative;
+  flex: auto;
+  text-align: end;
 
   .dots {
     background: none;
@@ -279,6 +283,7 @@ a {
     }
 
     .lower-card {
+      gap: .5rem;
       .creator {
 
         .creator-link {

@@ -12,6 +12,8 @@ import NoIdeasPlaceholder from '../../noIdeas/noIdeas';
 import LoadingSpinner from '../../noIdeas/spinners';
 import IdeaCardSkeleton from '../../cardSkeleton/cardSkeleton';
 import Skeleton from 'react-loading-skeleton';
+import { useDispatch} from 'react-redux';
+import { closeModal, openModal } from '../../../Redux-slices/searchSlice/searchSlice';
 
 interface Idea {
   _id: string;
@@ -38,16 +40,19 @@ const SearchComponent: React.FC = () => {
   const [hasMoreIdeas, setHasMoreIdeas] = useState<boolean>(true);
   const [hasMoreUsers, setHasMoreUsers] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  //  
   const limit = 10;
   const ourUser = useSelector(selectUser);
+
+  const isModalOpen = useSelector((state: any) => state.search.isOpen);
+  const dispatch = useDispatch();
 
   // Search logic encapsulated in a function
   const handleSearch = useCallback(async (isNewSearch = false) => {
     try {
       setLoading(true);
 
-      const response = await axios.get('https://idea-hub-app.vercel.app/idea/explore/search', {
+      const response = await axios.get('http://localhost:5000/idea/explore/search', {
         params: { query, page, limit },
       });
 
@@ -68,7 +73,7 @@ const SearchComponent: React.FC = () => {
       }
 
       setLoading(false);
-      setIsModalOpen(true); // Open modal when search results are fetched
+      dispatch(openModal());  // Open modal when search results are fetched
     } catch (error) {
       console.error('Search failed:', error);
       setLoading(false);
@@ -76,8 +81,8 @@ const SearchComponent: React.FC = () => {
   }, [query, page]);
 
   // Close modal handler
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = () => {
+    dispatch(closeModal());
   };
 
   // Handle key down for searching
@@ -120,7 +125,7 @@ const SearchComponent: React.FC = () => {
         <Search onClick={() => handleSearch(true)} className="mag-glass" />
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div onScroll={handleScroll} style={{ maxHeight: '400px', overflowY: 'auto' }}>
           <h2 className='search-heading'>Search Results</h2>
           <div className='search-modal'>
