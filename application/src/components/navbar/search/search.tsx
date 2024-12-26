@@ -52,7 +52,7 @@ const SearchComponent: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get('http://localhost:5000/idea/explore/search', {
+      const response = await axios.get('https://idea-hub-app.vercel.app/idea/explore/search', {
         params: { query, page, limit },
       });
 
