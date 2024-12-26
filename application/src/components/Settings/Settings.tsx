@@ -4,7 +4,7 @@ import './Settings.scss';
 import { IoMdSettings } from "react-icons/io";
 import { MdManageAccounts } from "react-icons/md";
 import { Settings2 } from 'lucide-react';
-import { IoLanguage } from "react-icons/io5";
+// import { IoLanguage } from "react-icons/io5";
 
 const Settings: React.FC = () => {
   const location = useLocation();
