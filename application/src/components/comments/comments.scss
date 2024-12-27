@@ -113,6 +113,11 @@
     .comment-input {
       margin-bottom: 0.5rem; // Space between textarea and buttons
     }
+    .comment-edit-btns{
+      display: flex;
+      gap: .5rem;
+      padding: .1rem;
+    }
 
     .submit-btn {
       background-color: #007bff; // Success color
@@ -129,7 +134,7 @@
     }
   
     .cancel-btn {
-      background-color: #dc3545; // Success color
+      background-color: #de5a68; // Success color
       color: white;
       border: none;
       border-radius: 5px;

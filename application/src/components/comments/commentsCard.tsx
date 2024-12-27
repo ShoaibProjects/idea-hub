@@ -236,14 +236,13 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
                 <span className="dots-menu" onClick={() => toggleOptions(comment._id)}>•••</span>
                 {activeComment === comment._id && (
                   <div className="options-dropdown">
-                    <button className="option-btn" onClick={() => setEditingComment(comment._id)}>Edit</button>
+                    <button className="option-btn" onClick={() => {setEditingComment(comment._id),setEditText(comment.description)}}>Edit</button>
                     <button className="option-btn" onClick={() => handleDelete(comment._id)}>Delete</button>
                   </div>
                 )}
               </div>
             )}
             {editingComment === comment._id ? (
-              setEditText(comment.description),
               <div className="edit-comment">
                 <textarea
                   value={editText}
@@ -251,8 +250,10 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
                   rows={2}
                   className="comment-input"
                 />
+                <div className='comment-edit-btns'>
                 <button className="submit-btn" onClick={() => handleEdit(comment._id)}>Save</button>
                 <button className="cancel-btn" onClick={() => setEditingComment(null)}>Cancel</button>
+                </div>
               </div>
             ) : (
               <p>
