@@ -74,10 +74,10 @@ const MEnuStuff: React.FC = () => {
     <div className='footer footer-menu'>
       <p>&copy; 2024 Shoaib Akhtar</p>
       <div className='social-icons'>
-        <a href=""><FaFacebook></FaFacebook></a>
-        <a href=""><FaSquareXTwitter></FaSquareXTwitter></a>
-        <a href=""><FaLinkedin></FaLinkedin></a>
-        <a href=""><FaGithub></FaGithub></a>
+        <a href="https://www.facebook.com/profile.php?id=100086582017751"><FaFacebook></FaFacebook></a>
+        <a href="https://x.com/ShoaibSDE"><FaSquareXTwitter></FaSquareXTwitter></a>
+        <a href="https://www.linkedin.com/in/shoaib-akhtar-117329252/"><FaLinkedin></FaLinkedin></a>
+        <a href="https://github.com/ShoaibProjects"><FaGithub></FaGithub></a>
       </div>
     </div>
         </div>
