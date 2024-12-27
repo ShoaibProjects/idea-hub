@@ -113,16 +113,32 @@
     .comment-input {
       margin-bottom: 0.5rem; // Space between textarea and buttons
     }
-  
-    .cancel-btn {
-      background: none;
+
+    .submit-btn {
+      background-color: #007bff; // Success color
+      color: white;
       border: none;
-      color: #dc3545; // Danger color
+      border-radius: 5px;
+      padding: 0.5rem;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: background-color 0.3s;
   
       &:hover {
-        text-decoration: underline; // Underline on hover
+        background-color: #0056b3; // Darker shade on hover
+      }
+    }
+  
+    .cancel-btn {
+      background-color: #dc3545; // Success color
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #c72636; // Darker shade on hover
       }
     }
   }

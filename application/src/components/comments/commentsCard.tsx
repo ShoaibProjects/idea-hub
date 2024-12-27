@@ -245,7 +245,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
             {editingComment === comment._id ? (
               <div className="edit-comment">
                 <textarea
-                  value={editText}
+                  value={comment.description}
                   onChange={(e) => setEditText(e.target.value)}
                   rows={2}
                   className="comment-input"

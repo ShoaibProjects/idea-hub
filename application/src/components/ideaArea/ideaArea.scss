@@ -131,6 +131,14 @@
   padding-top: 15px; // Space between the top border and comments
 }
 
+.modal{
+  .modal-content{
+    textarea{
+      height: 10rem;
+    }
+  }
+}
+
 .loading-message {
   text-align: center;
   font-size: 1.2rem;
