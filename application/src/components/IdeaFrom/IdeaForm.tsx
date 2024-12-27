@@ -67,8 +67,9 @@ const IdeaForm: React.FC = () => {
             if (response.status === 201) {
                 alert('Idea submitted successfully!');
                 dispatch(addPostedContent(ideaId));
+                navigate('/userinfo');
             } else {
-                alert('Error submitting idea');
+                alert(response.data.message);
             }
         }  catch (error: unknown) {
             console.error('Error submitting idea:', error);
@@ -78,6 +79,9 @@ const IdeaForm: React.FC = () => {
               const status = error.response.status;
           
               switch (status) {
+                case 400:
+                    alert(error.response.data.message);
+                    break;
                 case 401:
                   console.error('Unauthorized. Redirecting to login.');
                   navigate('/signin');
