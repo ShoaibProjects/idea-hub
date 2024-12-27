@@ -236,7 +236,7 @@ const IdeaComments: React.FC<{ ideaId: string; reader: string }> = ({ ideaId, re
                 <span className="dots-menu" onClick={() => toggleOptions(comment._id)}>•••</span>
                 {activeComment === comment._id && (
                   <div className="options-dropdown">
-                    <button className="option-btn" onClick={() => {setEditingComment(comment._id),setEditText(comment.description)}}>Edit</button>
+                    <button className="option-btn" onClick={() => {setEditingComment(comment._id),setEditText(comment.description),toggleOptions(comment._id)}}>Edit</button>
                     <button className="option-btn" onClick={() => handleDelete(comment._id)}>Delete</button>
                   </div>
                 )}
