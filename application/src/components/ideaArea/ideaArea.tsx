@@ -63,7 +63,7 @@ const IdeaArea: React.FC = () => {
 
   const handleDelete = async () => {
     try {
-      
+      console.log(ideaDetails)
       const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${ideaDetails?._id}`, { withCredentials: true });
       if (response.status === 201) {
         alert('Idea deleted successfully!');
