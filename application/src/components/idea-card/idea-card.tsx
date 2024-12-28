@@ -56,7 +56,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${id}`, { withCredentials: true });
-      await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { id }, { withCredentials: true });
+      await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { ideaId: id }, { withCredentials: true });
       if (response.status === 201) {
         dispatch(removePostedContent(id)); // Remove idea from Redux store
         alert('Idea deleted successfully!');
