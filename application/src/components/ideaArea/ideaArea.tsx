@@ -69,8 +69,8 @@ const IdeaArea: React.FC = () => {
       const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${ideaDetails?._id}`, { withCredentials: true });
       await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { ideaId: ideaDetails?._id }, { withCredentials: true });
       if (response.status === 201) {
-        alert('Idea deleted successfully!');
         dispatch(removePostedContent(ideaDetails?._id || ''));
+        alert('Idea deleted successfully!');
         navigate('/userinfo');
       }
     } catch (error) {

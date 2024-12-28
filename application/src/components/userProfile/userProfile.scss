@@ -65,3 +65,12 @@
         color: var(--text-color); // Use your text color for consistency
       }
 }
+@media (max-width: 768px){
+    .user-prof-cont{
+      .ideas-container{
+        grid-template-columns: none;
+              display: flex;
+              flex-direction: column;
+      }
+    }
+  }

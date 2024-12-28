@@ -46,6 +46,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const isDarkMode = useSelector(selectIsDarkMode);
 
   const user = useSelector(selectUser);
+  
 
   const handleCardClick = () => {
     navigate(`/ideainfo/${id}`);
@@ -57,9 +58,9 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
       const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${id}`, { withCredentials: true });
       await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { id }, { withCredentials: true });
       if (response.status === 201) {
-        alert('Idea deleted successfully!');
         dispatch(removePostedContent(id)); // Remove idea from Redux store
-        navigate('/userinfo');
+        alert('Idea deleted successfully!');
+        navigate('/');
       }
     } catch (error) {
       console.error('Error deleting idea:', error);
@@ -71,8 +72,9 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const handleUpdateIdea = async () => {
     try {
       await axios.put(`https://idea-hub-app.vercel.app/idea/update/${id}`, editingIdea, { withCredentials: true });
-      alert('Idea updated successfully!');
       setEditingIdea(null);
+      alert('Idea updated successfully!');
+      navigate('/');
     } catch (error) {
       console.error('Error updating idea:', error);
       alert('Failed to update idea.');
