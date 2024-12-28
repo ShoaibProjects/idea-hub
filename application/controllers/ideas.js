@@ -81,7 +81,7 @@ export const deleteIdea = async (req, res) => {
     
     // Check if the idea exists
     if (!idea) {
-      return res.status(404).json({ message: "Idea not found" });
+      return res.status(404).json({ message: "oh no" });
     }
 
     // Check if the logged-in user is the creator of the idea
