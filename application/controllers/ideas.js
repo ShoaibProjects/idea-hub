@@ -91,7 +91,7 @@ export const deleteIdea = async (req, res) => {
 
     // Perform the deletion
     await Idea.findByIdAndDelete(req.params.id);
-    res.json({ message: "Idea deleted" });
+    res.status(201).json({ message: "Idea deleted" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
