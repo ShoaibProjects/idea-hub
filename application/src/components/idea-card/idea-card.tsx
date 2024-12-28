@@ -8,6 +8,7 @@ import axios from 'axios';
 import { removePostedContent } from '../Auth/userSlice'; // Assuming this action is used for deleting from the Redux store
 import './idea-card.scss';
 import { selectIsDarkMode } from '../../Redux-slices/themeSlice/themeSlice';
+import { selectUser } from '../Auth/userSlice';
 
 interface IdeaCardProps {
   id: string;
@@ -44,6 +45,8 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const navigate = useNavigate();
   const isDarkMode = useSelector(selectIsDarkMode);
 
+  const user = useSelector(selectUser);
+
   const handleCardClick = () => {
     navigate(`/ideainfo/${id}`);
   }
@@ -52,9 +55,11 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const handleDelete = async () => {
     try {
       const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${id}`, { withCredentials: true });
+      await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { id }, { withCredentials: true });
       if (response.status === 201) {
         alert('Idea deleted successfully!');
         dispatch(removePostedContent(id)); // Remove idea from Redux store
+        navigate('/userinfo');
       }
     } catch (error) {
       console.error('Error deleting idea:', error);

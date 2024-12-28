@@ -8,6 +8,7 @@ import { selectUser, removePostedContent } from '../Auth/userSlice';
 import IdeaComments from '../comments/commentsCard';
 import axios from 'axios';
 import './ideaArea.scss';
+import { useNavigate } from 'react-router';
 
 interface Idea {
   _id: string;
@@ -34,6 +35,8 @@ const IdeaArea: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { lookedUpIdea } = useParams<{ lookedUpIdea: string }>();
+
+  const navigate = useNavigate();
 
   const fetchIdea = async (idea: string) => {
     try {
@@ -68,6 +71,7 @@ const IdeaArea: React.FC = () => {
       if (response.status === 201) {
         alert('Idea deleted successfully!');
         dispatch(removePostedContent(ideaDetails?._id || ''));
+        navigate('/userinfo');
       }
     } catch (error) {
       console.error('Error deleting idea:', error);
@@ -83,6 +87,7 @@ const IdeaArea: React.FC = () => {
       const response = await axios.put(`https://idea-hub-app.vercel.app/idea/update/${editingIdea?._id}`, editingIdea, { withCredentials: true });
       setIdeaDetails(response.data);
       setEditingIdea(null);
+      alert('Idea updated successfully!');
     } catch (error) {
       console.error('Error updating idea:', error);
     }
