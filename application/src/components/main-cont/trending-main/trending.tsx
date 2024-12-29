@@ -178,7 +178,7 @@ function TrendingIdeas() {
             />
           ))
         ) : (
-          <NoIdeasPlaceholder dataStat='main'/>// Handle case where there are no ideas   
+          <NoIdeasPlaceholder dataStat={ideas.length%2==0?'main':''}/>// Handle case where there are no ideas   
         )}
 
         {loading && <LoadingSpinner />}
