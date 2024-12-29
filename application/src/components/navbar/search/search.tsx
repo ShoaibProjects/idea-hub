@@ -167,7 +167,7 @@ const SearchComponent: React.FC = () => {
                 users.map((user) => (
                   <div key={user._id}>
 
-                    <Link to={`/user/profile/${user.username}`} className="creator-link-search">
+                    <Link to={`/userinfo/profile/${user.username}`} className="creator-link-search">
                       <UserCircle></UserCircle>
                       <h4>{user.username}</h4>
                     </Link>
