@@ -83,11 +83,19 @@ export const userSlice = createSlice({
     updatePref: (state, action) => {
       state.preferences = action.payload
     },
+    addToFollowing: (state, action) => {
+      state.following.push(action.payload);
+    },
+    removeFromFollowing: (state, action) => {
+      state.following = state.following.filter(
+        (fusername) => fusername !== action.payload
+      );
+    },
   },
 });
 
 // Export actions
-export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent, updateDesc, updatePref } = userSlice.actions;
+export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent, updateDesc, updatePref, addToFollowing, removeFromFollowing } = userSlice.actions;
 
 // Selector to get the user state
 export const selectUser = (state: { user: UserState }) => state.user; // Return the entire user state

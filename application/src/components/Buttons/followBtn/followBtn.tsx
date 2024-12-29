@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToFollowing, removeFromFollowing, selectUser } from '../../Auth/userSlice';
 import axios from 'axios';
 import { NavigateFunction, useNavigate } from 'react-router';
 
@@ -12,7 +12,7 @@ interface FollowBtnProps {
   setFollowed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const followBtnHandler = async (currentUser: string, followedUser: string, isFollowed: boolean, setFollowed: React.Dispatch<React.SetStateAction<boolean>>, navigate: NavigateFunction) => {
+const followBtnHandler = async (currentUser: string, followedUser: string, isFollowed: boolean, setFollowed: React.Dispatch<React.SetStateAction<boolean>>, navigate: NavigateFunction, dispatch: Function) => {
   try {
     // Call the API to follow the user
         if(!isFollowed){
@@ -23,6 +23,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
           
           if (response.status === 200) {
             console.log(`Successfully followed ${followedUser}`);
+            dispatch(addToFollowing(followedUser));
             setFollowed(true)
           } else {
             console.error('Failed to follow the user');
@@ -35,6 +36,7 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
           
           if (response.status === 200) {
             console.log(`Successfully unfollowed ${followedUser}`);
+            dispatch(removeFromFollowing(followedUser));
             setFollowed(false)
           } else {
             console.error('Failed to unfollow the user');
@@ -80,10 +82,11 @@ const followBtnHandler = async (currentUser: string, followedUser: string, isFol
 const FollowBtn: React.FC<FollowBtnProps> = ({ username, isFollowed, setFollowed }) => {
   const currentUser = useSelector(selectUser)?.username; // Get the logged-in user
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleFollow = () => {
     if (currentUser) {
-      followBtnHandler(currentUser, username, isFollowed, setFollowed, navigate);
+      followBtnHandler(currentUser, username, isFollowed, setFollowed, navigate, dispatch);
     } else {
       alert('You need to login in first');
     }
