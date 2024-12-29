@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({  children }) => {
     <div className="modal-overlay" onClick={() => dispatch(closeModal())}>
       <div
         className="modal-content"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+        // onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
         <button className="close-button" onClick={() => dispatch(closeModal())}>
           &times;
