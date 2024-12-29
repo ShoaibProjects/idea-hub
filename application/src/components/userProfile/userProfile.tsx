@@ -7,7 +7,7 @@ import './userProfile.scss';
 import IdeaCard from '../idea-card/idea-card';
 import FollowBtn from '../Buttons/followBtn/followBtn';
 import IdeaCardSkeleton from '../cardSkeleton/cardSkeleton';
-import NoMoreIdeas from '../noIdeas/noMoreIdeas';
+import NoIdeasPlaceholder from '../noIdeas/noIdeas';
 
 // Define interfaces for Idea and UserProfile
 interface Idea {
@@ -125,7 +125,7 @@ function UserProfile() {
             );
           })
         ) : (
-          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoMoreIdeas dataStat='main' />
+          loading ? Array.from({ length: 5 }).map((_, index) => <IdeaCardSkeleton key={index} />) : <NoIdeasPlaceholder dataStat='main' />
         )}
       </div>
     </div>
