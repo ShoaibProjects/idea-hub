@@ -182,7 +182,7 @@ function TrendingIdeas() {
         )}
 
         {loading && <LoadingSpinner />}
-        {!hasMore && everLoaded && <NoMoreIdeas dataStat='main'/>}
+        {!hasMore && everLoaded && <NoMoreIdeas dataStat={ideas.length%2==0?'main':''}/>}
       </div>
     </div>
   );
