@@ -13,7 +13,7 @@ const initialState = {
     "Education & Research",
     "Invention/Innovation",
     "Entertainment & Media",
-    "Startu/Bussiness",
+    "Startup/Bussiness",
     "Saas/app ideas",
     "Music/Song",
     "Art & Creativity",
