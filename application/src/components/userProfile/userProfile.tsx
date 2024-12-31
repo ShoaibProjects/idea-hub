@@ -97,7 +97,7 @@ function UserProfile() {
             <span><FollowBtn username={userProfile.username} isFollowed={followed} setFollowed={setFollowed}></FollowBtn></span>
           )}
           </div>
-          <p className='ph-p'>{userProfile.description}</p>
+          <p>{userProfile.description}</p>
           </div>
         </>
       )}

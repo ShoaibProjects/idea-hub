@@ -131,7 +131,7 @@ const UserCont: React.FC = () => {
             ) : (
               <>
                 <div className='desc-cont'>
-                  <p>{user.description || 'No description'}</p>
+                  <p style={{backgroundColor:'red'}}>{user.description || 'No description'}</p>
                   <button className='edit-desc-btn' onClick={() => setEditingDescription(true)}>Edit Description</button>
                 </div>
               </>
