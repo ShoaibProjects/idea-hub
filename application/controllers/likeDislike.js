@@ -1,51 +1,42 @@
-
-import Idea from '../models/Idea.js';
+import {
+  updateUpvotes,
+  updateDownvotes,
+  getUpvotes,
+  getDownvotes,
+} from "../services/voteService.js";
 
 export const updateLikes = async (req, res) => {
-    const likes = req.body.likes;
-    try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
-      console.log(likes,'ln')
-      idea.upvotes = likes;
-      await idea.save();
-      console.log(idea.upvotes)
-      res.json(idea.upvotes);
-    } catch (err) {
-      res.status(400).json('Error: ' + err);
-    }
+  try {
+    const count = await updateUpvotes(req.params.id, req.body.likes);
+    res.json(count);
+  } catch (err) {
+    res.status(err.status || 400).json({ message: err.message });
   }
+};
 
-  export const updateDislikes = async (req, res) => {
-    const dislikes = req.body.dislikes;
-    try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
-      
-      idea.downvotes = dislikes;
-      await idea.save();
-      res.json(idea.downvotes);
-    } catch (err) {
-      res.status(400).json('Error: ' + err);
-    }
+export const updateDislikes = async (req, res) => {
+  try {
+    const count = await updateDownvotes(req.params.id, req.body.dislikes);
+    res.json(count);
+  } catch (err) {
+    res.status(err.status || 400).json({ message: err.message });
   }
+};
 
-  export const getLikes = async (req, res) => {
-    try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
-      res.json(idea.upvotes);
-    } catch (err) {
-      res.status(400).json('Error: ' + err);
-    }
+export const getLikes = async (req, res) => {
+  try {
+    const count = await getUpvotes(req.params.id);
+    res.json(count);
+  } catch (err) {
+    res.status(err.status || 400).json({ message: err.message });
   }
+};
 
-  export const getDislikes = async (req, res) => {
-    try {
-      const idea = await Idea.findById(req.params.id);
-      if (!idea) return res.status(404).json('Idea not found');
-      res.json(idea.downvotes);
-    } catch (err) {
-      res.status(400).json('Error: ' + err);
-    }
+export const getDislikes = async (req, res) => {
+  try {
+    const count = await getDownvotes(req.params.id);
+    res.json(count);
+  } catch (err) {
+    res.status(err.status || 400).json({ message: err.message });
   }
+};

@@ -1,10 +1,6 @@
 import jwt from 'jsonwebtoken';
-// import dotenv from 'dotenv';
 
-// // Load environment variables from the .env file in the parent directory
-// dotenv.config({ path: '../.env' });
-
-const JWT_SECRET = process.env.JWT_SECRET || 'yourSecretKey';
+const JWT_SECRET = process.env.JWT_SECRET || 'mySecretKey';
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
