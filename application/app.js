@@ -21,8 +21,8 @@ app.use(cors({
 app.use(json());
 app.use(cookieParser());
 
-app.use('/api/ideas', ideaRoutes);
-app.use('/api/users', userRoutes);
+app.use('/idea', ideaRoutes);
+app.use('/user', userRoutes);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
