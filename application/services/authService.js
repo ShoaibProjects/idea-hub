@@ -7,7 +7,7 @@ import { validatePassword, sanitizeInput } from "../utils/validation.js";
 
 dotenv.config({ path: "../.env" });
 
-const JWT_SECRET = process.env.JWT_SECRET;
+export const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   console.error("FATAL ERROR: JWT_SECRET is not defined.");
   process.exit(1);

@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../services/authService.js";
+
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 const COOKIE_MAX_AGE_30_MINUTES = 30 * 60 * 1000; // 30 minutes
 
