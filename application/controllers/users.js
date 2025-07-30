@@ -166,7 +166,7 @@ export const deleteUserByUsername = async (req, res, next) => {
     try {
         const { username, password } = req.body;
         const result = await userService.deleteUserAndCleanup(username, password);
-        res.json(result);
+        res.status(204).json(result);
     } catch (err) {
         next(err);
     }

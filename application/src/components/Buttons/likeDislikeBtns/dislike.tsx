@@ -3,7 +3,7 @@ import React, {  useEffect } from 'react';
 import { FaRegThumbsDown, FaThumbsDown } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch} from 'react-redux';
-import { selectUser, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../Auth/userSlice';
+import { selectUser, removeLikedIdea, addDislikedIdea, removeDislikedIdea } from '../../../hooks/auth/userSlice';
 import "./likeDislike.scss";
 import { useNavigate } from 'react-router';
 import { handleLogout } from '../LogOutBtn/LogOutUser';

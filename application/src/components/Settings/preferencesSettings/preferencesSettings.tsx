@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { selectUser, updatePref } from '../../Auth/userSlice';
+import { selectUser, updatePref } from '../../../hooks/auth/userSlice';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';
 import Select from 'react-select';
 import "../Settings.scss"

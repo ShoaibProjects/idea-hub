@@ -5,10 +5,10 @@ import Like from '../Buttons/likeDislikeBtns/like';
 import Dislike from '../Buttons/likeDislikeBtns/dislike';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { removePostedContent } from '../Auth/userSlice'; // Assuming this action is used for deleting from the Redux store
+import { removePostedContent } from '../../hooks/auth/userSlice'; // Assuming this action is used for deleting from the Redux store
 import './idea-card.scss';
 import { selectIsDarkMode } from '../../Redux-slices/themeSlice/themeSlice';
-import { selectUser } from '../Auth/userSlice';
+import { selectUser } from '../../hooks/auth/userSlice';
 
 interface IdeaCardProps {
   id: string;

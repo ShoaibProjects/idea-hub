@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { selectUser } from '../../Auth/userSlice';
+import { selectUser } from '../../../hooks/auth/userSlice';
 import IdeaCard from '../../idea-card/idea-card';
 import './trending.scss';
 import { selectCategories } from '../../../Redux-slices/categories/categorySlices';

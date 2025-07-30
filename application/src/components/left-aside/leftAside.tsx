@@ -4,7 +4,7 @@ import './leftAside.scss';
 
 import CreateBtn from '../Buttons/CreateBtn/CreateBtn';
 import UserBtn from '../Buttons/UserBtn/UserBtn';
-import { selectUser } from '../Auth/userSlice';
+import { selectUser } from '../../hooks/auth/userSlice';
 import { useSelector } from 'react-redux';
 import LoginButton from '../Buttons/loginBtn/LoginBtn';
 import { FaFacebook } from "react-icons/fa";

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
+import { selectUser } from '../../../hooks/auth/userSlice';
 import { Link } from 'react-router-dom';
 import LogoutButton from '../../Buttons/LogOutBtn/LogOutBtn';
-import './AccountModal.scss'; // Import for the styles
+import './AccountModal.scss'; 
 
 interface AccountModalProps {
   onClose: () => void;
@@ -14,19 +14,17 @@ const AccountModal: React.FC<AccountModalProps> = ({ onClose }) => {
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      onClose(); // Close the modal if the backdrop is clicked
+      onClose(); 
     }
   };
 
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-content">
-        {/* Close Button */}
         <button className="close-btn" onClick={onClose}>
           &times;
         </button>
 
-        {/* User Info */}
         {user.username ? (
           <div className="user-info">
             <h2>{user.username}</h2>

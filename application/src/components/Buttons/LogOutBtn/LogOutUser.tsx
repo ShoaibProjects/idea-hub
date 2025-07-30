@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { logout } from '../../Auth/userSlice';
+import { logout } from '../../../hooks/auth/userSlice';
 import { AppDispatch } from '../../../store';  // Update with your store file path
 import { NavigateFunction } from 'react-router-dom';
 

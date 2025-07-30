@@ -1,21 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../../types/authTypes';
 
-// Define a type for the User state
-interface UserState {
-  username: string | null; // Allow username to be null
-  description: string;
-  preferences: string[];
-  postedContent: string[];
-  followers : string[];
-  following : string[];
-  likedIdeas: string[];
-  dislikedIdeas: string[];
-  isAuthenticated: boolean;
-}
-
-// Define the initial state using that type
-const initialState: UserState = {
-  username: null, // Set username to null initially
+const initialState: User = {
+  username: null, 
   description: '',
   preferences: [],
   postedContent: [],
@@ -30,7 +17,6 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // Set user data on signup/signin
     setUser: (state, action: PayloadAction<{ username: string; description: string; preferences: string[]; postedContent: string[]; followers : string[]; following : string[]; likedIdeas: string[]; dislikedIdeas: string[]; }>) => {
       state.username = action.payload.username;
       state.description = action.payload.description;
@@ -42,9 +28,9 @@ export const userSlice = createSlice({
       state.dislikedIdeas = action.payload.dislikedIdeas;
       state.isAuthenticated = true;
     },
-    // Logout user (clear the state)
+
     logout: (state) => {
-      state.username = null; // Set to null on logout
+      state.username = null; 
       state.description = '';
       state.preferences = [];
       state.followers = [];
@@ -94,12 +80,10 @@ export const userSlice = createSlice({
   },
 });
 
-// Export actions
 export const { setUser, logout, addLikedIdea, removeLikedIdea, addDislikedIdea, removeDislikedIdea, addPostedContent, removePostedContent, updateDesc, updatePref, addToFollowing, removeFromFollowing } = userSlice.actions;
 
-// Selector to get the user state
-export const selectUser = (state: { user: UserState }) => state.user; // Return the entire user state
-export const selectIsAuthenticated = (state: { user: UserState }) => state.user.isAuthenticated;
+export const selectUser = (state: { user: User }) => state.user; 
+export const selectIsAuthenticated = (state: { user: User }) => state.user.isAuthenticated;
 
 
 export default userSlice.reducer;

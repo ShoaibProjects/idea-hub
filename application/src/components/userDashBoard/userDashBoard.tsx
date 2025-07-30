@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'; // Import useDispatch fo
 import axios from 'axios';
 import IdeaCard from '../idea-card/idea-card';
 import './user-cont.scss';
-import { selectUser, updateDesc } from '../Auth/userSlice';
+import { selectUser, updateDesc } from '../../hooks/auth/userSlice';
 import IdeaCardSkeleton from '../cardSkeleton/cardSkeleton';
 import NoIdeasPlaceholder from '../noIdeas/noIdeas';
 import { useNavigate } from 'react-router';

@@ -5,7 +5,7 @@ import { Search, UserCircle } from 'lucide-react';
 import '../navbar.scss';
 import IdeaCard from '../../idea-card/idea-card';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
+import { selectUser } from '../../../hooks/auth/userSlice';
 import { Link } from 'react-router-dom';
 import './searchModal.scss';
 import NoIdeasPlaceholder from '../../noIdeas/noIdeas';

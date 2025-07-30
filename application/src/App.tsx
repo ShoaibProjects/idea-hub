@@ -5,7 +5,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { selectUser, setUser } from './components/Auth/userSlice';  // Import your setUser action from Redux
+import { selectUser, setUser } from './hooks/auth/userSlice';  // Import your setUser action from Redux
 import { AppDispatch } from './store';
 import { setTheme } from './Redux-slices/themeSlice/themeSlice'; // Adjust the import path as necessary
 import Cookies from 'js-cookie';

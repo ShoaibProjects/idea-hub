@@ -1,6 +1,6 @@
 // store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './components/Auth/userSlice';
+import userReducer from './hooks/auth/userSlice';
 import categoryReducer from './Redux-slices/categories/categorySlices';
 import themeReducer from './Redux-slices/themeSlice/themeSlice';
 import hamReducer from './Redux-slices/hamSlice/hamSlice';

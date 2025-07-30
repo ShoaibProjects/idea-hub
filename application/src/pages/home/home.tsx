@@ -4,7 +4,7 @@ import LeftAside from '../../components/left-aside/leftAside';
 import MainCont from '../../components/main-cont/main/main-cont';
 import Signin from '../../components/Auth/signinForm/signinForm';
 import { useSelector} from 'react-redux';
-import { selectIsAuthenticated } from '../../components/Auth/userSlice';
+import { selectIsAuthenticated } from '../../hooks/auth/userSlice';
 import Menu from '../../components/navbar/menu/menu';
 import './home.scss'
 import {  useDispatch } from 'react-redux';

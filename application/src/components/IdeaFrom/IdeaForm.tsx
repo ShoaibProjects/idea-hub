@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostedContent, selectUser } from '../Auth/userSlice';
+import { addPostedContent, selectUser } from '../../hooks/auth/userSlice';
 import { selectCategories } from '../../Redux-slices/categories/categorySlices';
 import axios from 'axios';
 import Select from 'react-select';

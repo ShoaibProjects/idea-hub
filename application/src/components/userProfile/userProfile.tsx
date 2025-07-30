@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'; // To get username from URL
-import { selectUser } from '../Auth/userSlice';
+import { selectUser } from '../../hooks/auth/userSlice';
 import axios from 'axios';
 import './userProfile.scss';
 import IdeaCard from '../idea-card/idea-card';

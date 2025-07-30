@@ -5,7 +5,7 @@ import { SiBuzzfeed } from "react-icons/si";
 import { Settings } from 'lucide-react';
 import './menuStuff.scss'; // Import the CSS file
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
+import { selectUser } from '../../../hooks/auth/userSlice';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import CreateBtn from '../../Buttons/CreateBtn/CreateBtn';
 import LoginButton from '../../Buttons/loginBtn/LoginBtn';

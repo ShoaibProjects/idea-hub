@@ -2,7 +2,7 @@
 import { User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useSelector} from 'react-redux';
-import { selectUser } from '../../Auth/userSlice';
+import { selectUser } from '../../../hooks/auth/userSlice';
 
 function UserBtn() {
   const user = useSelector(selectUser);

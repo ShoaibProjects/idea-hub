@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFollowing, removeFromFollowing, selectUser } from '../../Auth/userSlice';
+import { addToFollowing, removeFromFollowing, selectUser } from '../../../hooks/auth/userSlice';
 import axios from 'axios';
 import { NavigateFunction, useNavigate } from 'react-router';
 

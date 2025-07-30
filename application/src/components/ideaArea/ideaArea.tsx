@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Like from '../Buttons/likeDislikeBtns/like';
 import Dislike from '../Buttons/likeDislikeBtns/dislike';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, removePostedContent } from '../Auth/userSlice';
+import { selectUser, removePostedContent } from '../../hooks/auth/userSlice';
 import IdeaComments from '../comments/commentsCard';
 import axios from 'axios';
 import './ideaArea.scss';
