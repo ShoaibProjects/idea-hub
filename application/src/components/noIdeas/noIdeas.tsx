@@ -1,6 +1,6 @@
 import React from 'react';
 import { LightbulbIcon } from 'lucide-react';
-import './noIdeas.scss'; // Assuming you want to add some custom styles
+import './noIdeas.scss';
 interface noIdeasProp {
   dataStat : string;
 }

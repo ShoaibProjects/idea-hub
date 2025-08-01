@@ -13,7 +13,7 @@
 
     h2 {
       font-size: 2.5rem;
-      color: var(--primary-color); // Use your primary color for consistency
+      color: var(--primary-color);
       display: flex;
       align-items: center;
       gap: .5rem;
@@ -245,7 +245,7 @@
 
             &:focus {
               border-color: var(--primary-color);
-              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2); // Subtle shadow for focus
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
             }
           }
         }
@@ -267,18 +267,18 @@
      
       
         .password-input {
-          position: relative; // Position relative to contain the absolute icon
-          display: flex; // Use flexbox for better alignment
-          align-items: center; // Center items vertically
+          position: relative;
+          display: flex;
+          align-items: center;
         }
         
         
         .toggle-password {
-          position: absolute; // Absolute positioning for the icon
-          right: 15px; // Move inward from the right edge (adjust as needed)
-          cursor: pointer; // Pointer cursor for better UX
-          color: #3b82f6; // Color to match your theme
-          font-size: 1.2rem; // Size of the icon
+          position: absolute; 
+          right: 15px; 
+          cursor: pointer; 
+          color: #3b82f6; 
+          font-size: 1.2rem;
           padding-top: 5px;
         }
       }

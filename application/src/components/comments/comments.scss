@@ -1,19 +1,19 @@
 @import './../../styles/variables';
 .comments-container {
-    background-color: var(--background-color); // Light background for comments
+    background-color: var(--background-color); 
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); 
   }
   
   h3 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
-    color: var(--text-color); // Darker color for headers
+    color: var(--text-color); 
   }
   
   .add-comment-btn {
-    background-color: #007bff; // Primary button color
+    background-color: #007bff; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -23,7 +23,7 @@
     transition: background-color 0.3s;
   
     &:hover {
-      background-color: #0056b3; // Darker shade on hover
+      background-color: #0056b3; 
     }
   }
   
@@ -33,21 +33,21 @@
     margin-bottom: 1rem;
   
     .comment-input {
-      border: 1px solid #ccc; // Soft border for input
+      border: 1px solid #ccc; 
       border-radius: 5px;
       padding: 0.5rem;
-      resize: none; // Disable resizing
+      resize: none; 
       margin-bottom: 0.5rem;
       transition: border-color 0.3s;
   
       &:focus {
-        border-color: #007bff; // Change border color on focus
-        outline: none; // Remove default outline
+        border-color: #007bff;
+        outline: none;
       }
     }
   
     .submit-btn {
-      background-color: #007bff; // Success color
+      background-color: #007bff; 
       color: white;
       border: none;
       border-radius: 5px;
@@ -56,18 +56,18 @@
       transition: background-color 0.3s;
   
       &:hover {
-        background-color: #0056b3; // Darker shade on hover
+        background-color: #0056b3;
       }
     }
   }
   
   .comment {
-    background-color: var(--background-color-sec); // White background for each comment
+    background-color: var(--background-color-sec); 
     border-radius: 5px;
     padding: 1rem;
     margin-bottom: 0.5rem;
     position: relative;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); // Subtle shadow for each comment
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); 
   }
   
   .comment-options {
@@ -88,9 +88,9 @@
     top: 20px;
     right: 0;
     background: var(--background-color-sec);
-    border: 1px solid #ccc; // Border for dropdown
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); // Shadow for dropdown
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); 
     z-index: 10;
   
     .option-btn {
@@ -102,7 +102,7 @@
       transition: background 0.3s;
   
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1); // Hover effect for options
+        background-color: rgba(0, 0, 0, 0.1); 
       }
     }
   }
@@ -112,7 +112,7 @@
     flex-direction: column;
   
     .comment-input {
-      margin-bottom: 0.5rem; // Space between textarea and buttons
+      margin-bottom: 0.5rem; 
     }
     .comment-edit-btns{
       display: flex;
@@ -125,7 +125,7 @@
     }
 
     .submit-btn {
-      background-color: #007bff; // Success color
+      background-color: #007bff; 
       color: white;
       border: none;
       border-radius: 5px;
@@ -134,12 +134,12 @@
       transition: background-color 0.3s;
   
       &:hover {
-        background-color: #0056b3; // Darker shade on hover
+        background-color: #0056b3; 
       }
     }
   
     .cancel-btn {
-      background-color: #de5a68; // Success color
+      background-color: #de5a68; 
       color: white;
       border: none;
       border-radius: 5px;
@@ -148,13 +148,13 @@
       transition: background-color 0.3s;
   
       &:hover {
-        background-color: #c72636; // Darker shade on hover
+        background-color: #c72636; 
       }
     }
   }
   
   .comment-date {
-    color: var(--text-muted); // Lighter color for date
+    color: var(--text-muted); 
     font-size: 0.85rem;
   }
   

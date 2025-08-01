@@ -1,19 +1,16 @@
 @import './../../../styles/variables';
 
-// Modal overlay
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  // background-color: rgba(0, 0, 0, 0.5); // Using the variable for background
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; // Ensure it appears above other elements
-  // background-color: red;
-  // Modal content
+  z-index: 1000; 
+
 .modal-content {
   background-color: var(--background-color-sec);
   padding: 2rem;
@@ -31,12 +28,6 @@
     background-color: var(--background-color);
     overflow: hidden;
     border-radius: .5rem;
-    
-
-  // >div {
-  //   padding: 1rem;
-  //   padding-top: 0;
-  // }
   }
 
   >button {

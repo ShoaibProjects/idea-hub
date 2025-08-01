@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store'; // Import RootState type
-import MEnuStuff from './menuStuff'; // Import the MEnuStuff component
-import './menu.scss'; // Import the CSS file
+import { RootState } from '../../../store'; 
+import MEnuStuff from './menuStuff'; 
+import './menu.scss';
 
 const Menu: React.FC = () => {
   const sharedState = useSelector((state: RootState) => state.ham.sharedState);

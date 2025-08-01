@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store'; 
 import { logout } from './userSlice'; 
-import { handleLogout } from '../../components/Buttons/LogOutBtn/LogOutUser';
+import { useLogout } from '../../utils/useLogout';
 import { deleteUserAccount, logoutUser } from '../../api/deleteService';
 
 interface ErrorState {
@@ -67,12 +67,12 @@ export const useDeleteUser = (): UseDeleteUserReturn => {
           case 403: 
             console.error('Access forbidden. Invalid token.');
             alert("Invalid token. Please log in again.");
-            await handleLogout(dispatch, navigate);
+            await useLogout(dispatch, navigate);
             break;
           case 440: 
             console.log('Session expired. Redirecting to login.');
             alert("Session expired. Please log in again.");
-            await handleLogout(dispatch, navigate);
+            await useLogout(dispatch, navigate);
             break;
           case 500: 
             console.error('Server error. Please try again later.');

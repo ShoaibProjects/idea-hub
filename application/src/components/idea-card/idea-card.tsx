@@ -1,143 +1,60 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { MessageSquare, UserCircle, LightbulbIcon } from 'lucide-react';
-import Like from '../Buttons/likeDislikeBtns/like';
-import Dislike from '../Buttons/likeDislikeBtns/dislike';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { removePostedContent } from '../../hooks/auth/userSlice'; // Assuming this action is used for deleting from the Redux store
-import './idea-card.scss';
+import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from '../../Redux-slices/themeSlice/themeSlice';
 import { selectUser } from '../../hooks/auth/userSlice';
+import { useIdeaInteraction } from '../../hooks/useIdeaInteraction';
+import { useIdeaCard } from '../../hooks/useIdeaCard';
+import LikeButton from '../Buttons/likeDislikeBtns/like';
+import DislikeButton from '../Buttons/likeDislikeBtns/dislike';
+import './idea-card.scss';
+import { Idea } from '../../types/ideaTypes';
 
-interface IdeaCardProps {
-  id: string;
-  title: string;
-  category: string;
-  content: string;
-  creator: string;
-  upvotes: number;
-  downvotes: number;
-  comments: number;
-  viewer: string;
-}
 
-const IdeaCard: React.FC<IdeaCardProps> = ({
-  id,
-  title,
-  category,
-  content,
-  creator,
-  upvotes,
-  downvotes,
-  comments,
-  viewer,
-}) => {
-  const [liked, setLiked] = useState<boolean>(false);
-  const [disliked, setDisliked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<number>(upvotes);
-  const [dislikes, setDislikes] = useState<number>(downvotes);
-  const [editingIdea, setEditingIdea] = useState<{ title: string; content: string } | null>(null);
-  const [showActionMenu, setShowActionMenu] = useState<boolean>(false);
-
-  // const user = useSelector((state: any) => state.user); // Assuming user is stored in Redux
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isDarkMode = useSelector(selectIsDarkMode);
-
+const IdeaCard: React.FC<Idea> = ({ _id, title, category, description, creator, upvotes, downvotes, commentsCount }) => {
   const user = useSelector(selectUser);
-  
-
-  const handleCardClick = () => {
-    navigate(`/ideainfo/${id}`);
-  }
-
-  // API call to delete idea
-  const handleDelete = async () => {
-    try {
-      const response = await axios.delete(`https://idea-hub-app.vercel.app/idea/delete/${id}`, { withCredentials: true });
-      await axios.put(`https://idea-hub-app.vercel.app/user/${user.username}/remove-posted-idea`, { ideaId: id }, { withCredentials: true });
-      if (response.status === 201) {
-        dispatch(removePostedContent(id)); // Remove idea from Redux store
-        alert('Idea deleted successfully!');
-        navigate('/');
-      }
-    } catch (error) {
-      console.error('Error deleting idea:', error);
-      alert('Failed to delete idea.');
-    }
-  };
-
-  // API call to update idea
-  const handleUpdateIdea = async () => {
-    try {
-      await axios.put(`https://idea-hub-app.vercel.app/idea/update/${id}`, editingIdea, { withCredentials: true });
-      setEditingIdea(null);
-      alert('Idea updated successfully!');
-      navigate('/');
-    } catch (error) {
-      console.error('Error updating idea:', error);
-      alert('Failed to update idea.');
-    }
-  };
-
-  // Toggle action menu for edit/delete
-  const toggleActionMenu = () => {
-    setShowActionMenu(!showActionMenu);
-  };
+  const isDarkMode = useSelector(selectIsDarkMode);
+  const { likes, dislikes, isLiked, isDisliked, handleLike, handleDislike, isLoading: isInteractionLoading } = useIdeaInteraction({
+    ideaId: _id,
+    initialLikes: upvotes,
+    initialDislikes: downvotes,
+  });
+  const { editingIdea, setEditingIdea, showActionMenu, handleCardClick, handleDelete, handleUpdate, toggleActionMenu, openEditModal } = useIdeaCard({
+    _id,
+    title,
+    description,
+  });
 
   return (
     <div className="card-container" onClick={handleCardClick}>
       <div className="upper-card">
         <div className="title-category">
-          <span><LightbulbIcon /></span>
+          <LightbulbIcon />
           <span className="title">{title}</span>
           <span className="category">{category}</span>
         </div>
       </div>
-      <p className="content">{content}</p>
+      <p className="content">{description}</p>
       <div className="lower-card">
         <div className="creator">
           <Link to={`/userinfo/profile/${creator}`} className="creator-link" onClick={(e) => e.stopPropagation()}>
-            <UserCircle />
-            {creator}
+            <UserCircle /> {creator}
           </Link>
         </div>
         <div className="interaction">
           <div className="votes" onClick={(e) => e.stopPropagation()}>
-            <Like
-              Id={id}
-              setLikes={setLikes}
-              likes={likes}
-              setDislikes={setDislikes}
-              dislikes={dislikes}
-              liked={liked}
-              setLiked={setLiked}
-              disliked={disliked}
-              setDisliked={setDisliked}
-            />
-            <Dislike
-              Id={id}
-              setLikes={setLikes}
-              likes={likes}
-              setDislikes={setDislikes}
-              dislikes={dislikes}
-              liked={liked}
-              setLiked={setLiked}
-              disliked={disliked}
-              setDisliked={setDisliked}
-            />
+            <LikeButton onClick={handleLike} isLiked={isLiked} likes={likes} disabled={isInteractionLoading} />
+            <DislikeButton onClick={handleDislike} isDisliked={isDisliked} dislikes={dislikes} disabled={isInteractionLoading} />
           </div>
-          <div className="comments">
-            <MessageSquare size={20} /> {comments} Comments
-          </div>
-          {creator === viewer && (
+          <div className="comments"><MessageSquare size={20} /> {commentsCount} Comments</div>
+          {user?.username === creator && (
             <div className="action-buttons" onClick={(e) => e.stopPropagation()}>
-              <button className="dots" onClick={(e) => { e.stopPropagation(); toggleActionMenu(); }}>⋮</button>
+              <button className="dots" onClick={toggleActionMenu}>⋮</button>
               {showActionMenu && (
-                <div className={isDarkMode?"dropdown-menu dark-drop":"dropdown-menu"}>
-                  <button onClick={(e) => { e.stopPropagation(); setEditingIdea({ title, content }) }}>Edit</button>
-                  <button onClick={(e) => { e.stopPropagation(); handleDelete() }}>Delete</button>
+                <div className={isDarkMode ? "dropdown-menu dark-drop" : "dropdown-menu"}>
+                  <button onClick={openEditModal}>Edit</button>
+                  <button onClick={handleDelete}>Delete</button>
                 </div>
               )}
             </div>
@@ -155,12 +72,12 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
               onChange={(e) => setEditingIdea({ ...editingIdea, title: e.target.value })}
             />
             <textarea
-              value={editingIdea.content}
-              onChange={(e) => setEditingIdea({ ...editingIdea, content: e.target.value })}
+              value={editingIdea.description}
+              onChange={(e) => setEditingIdea({ ...editingIdea, description: e.target.value })}
             />
             <div className="modal-actions">
-              <button onClick={(e) => { e.stopPropagation(); handleUpdateIdea() }}>Save Changes</button>
-              <button onClick={(e) => { e.stopPropagation(); setEditingIdea(null) }}>Cancel</button>
+              <button onClick={handleUpdate}>Save Changes</button>
+              <button onClick={() => setEditingIdea(null)}>Cancel</button>
             </div>
           </div>
         </div>

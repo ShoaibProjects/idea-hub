@@ -3,45 +3,44 @@
 
 .trend-cont {
   @include middle-style;
-  // max-width: 1200px; // Maximum width for larger screens
-  margin: 0 auto; // Center the container
-  padding: 20px; // Padding around the content
+  margin: 0 auto; 
+  padding: 20px; 
 
-  h2 {
+  h2{
     font-size: 2rem;
-    color: $primary-color-dark; // Use your primary color for consistency
+    color: $primary-color-dark;
     display: flex;
     align-items: center;
     gap: .5rem;
   }
 
-  .filters {
+  .filters{
     left: 26%;
     right: 1%;
     width: 73%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 20px; // Space below the filters
-    background: var(--bg-filter-color); // Light background
-    padding: 10px 20px; // Padding around the filters
-    border-radius: 5px; // Rounded corners
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Soft shadow for depth
-    z-index: 9; // Ensure it appears above other content
-    top: 5.25rem; // Adjust the position from the top
-    position: fixed; // Make the filters fixed to the viewport
+    margin-bottom: 20px;
+    background: var(--bg-filter-color); 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+    top: 5.25rem;
+    position: fixed;
 
     label {
-      margin: 0 10px; // Space around labels
+      margin: 0 10px;
       color: $primary-color-dark;
       font-weight: bold;
     }
 
     select {
-      margin: 0 15px; // Space around selects
-      padding: 8px; // Padding inside the selects
-      border-radius: 5px; // Rounded corners for selects
-      border: 2px solid $secondary-color-light; // Border color
+      margin: 0 15px; 
+      padding: 8px; 
+      border-radius: 5px; 
+      border: 2px solid $secondary-color-light;
       transition: border-color 0.2s;
       background: none;
       color: var(--text-color);
@@ -49,23 +48,17 @@
       ;
 
       &:hover {
-        border-color: $primary-color-light; // Change border color on hover
+        border-color: $primary-color-light;
       }
     }
   }
 
   .ideas-container {
-    display: grid; // Use grid for layout
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
-    // gap: 20px; // Space between cards
-    padding-top: 9rem; // Add padding to avoid content being hidden behind the fixed filters
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+    padding-top: 9rem; 
   }
 
-  // p {
-  //   text-align: center;
-  //   font-size: 1rem;
-  //   color: $text-color-light; // Use your text color for consistency
-  // }
 }
 
 @media (max-width: 768px) {

@@ -1,12 +1,9 @@
-// themeSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
-
 interface ThemeState {
   isDarkMode: boolean;
 }
 
-// Initial state with type
 const initialState: ThemeState = {
   isDarkMode: false,
 };

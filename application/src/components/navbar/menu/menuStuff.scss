@@ -4,7 +4,6 @@
     flex-direction: column;
     font-weight: 600;
     gap: 1rem;
-    // background-color: #312e81; /* indigo-950 */
     background-color: $background-color-sec-dark;
     padding: 2rem;
     border-radius: 0.5rem;
@@ -13,12 +12,11 @@
     margin: auto;
 }
 
-.menu-container:focus,
-.menu-container:hover {
+.menu-container:focus,.menu-container:hover{
     border-color: #0ea5e9; /* sky-500 */
 }
 
-.menu-link {
+.menu-link{
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -29,10 +27,6 @@
     filter: brightness(0.65);
 }
 
-// .menu-link.active {
-//     filter: brightness(1.1);
-//     transform: scale(1.1);
-// }
 .rightAside-cont-imp{
     padding: 0%;
 }
@@ -45,7 +39,6 @@
 .h-icons-cont {
     display: flex;
     justify-content: center;
-    // background-color: white;
     background: none;
     padding: 1.5rem;
     align-items: center;
@@ -63,7 +56,6 @@
       outline: 1.5px solid var(--border-color);
       &:hover{
         background-color: var(--background-color-sec);
-        // outline: 2px solid var(--primary-color);
       }
     }
   }

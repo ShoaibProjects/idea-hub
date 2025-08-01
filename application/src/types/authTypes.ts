@@ -27,3 +27,10 @@ export interface SignupData {
     isGuest: boolean;
     rememberMe: boolean;
 }
+
+export interface UserProfileData {
+  username: string;
+  postedIdeas: string[];
+  followersCount: number;
+  description?: string;
+}

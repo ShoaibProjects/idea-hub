@@ -1,4 +1,3 @@
-// store.ts
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './hooks/auth/userSlice';
 import categoryReducer from './Redux-slices/categories/categorySlices';
@@ -15,6 +14,5 @@ export const store = configureStore({
     search: searchReducer,
   },
 });
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

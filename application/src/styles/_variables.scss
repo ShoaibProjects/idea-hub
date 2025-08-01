@@ -1,8 +1,6 @@
-// _variables.scss
-
-// Define light mode colors
-$primary-color-light: rgb(74, 144, 226);    // A calm, professional blue for primary elements
-$secondary-color-light: hsl(167, 72%, 45%);  // A soft green for secondary actions or accents
+// light mode colors
+$primary-color-light: rgb(74, 144, 226);    // primary elements
+$secondary-color-light: hsl(167, 72%, 45%);  // secondary actions or accents
 $background-color-light: whitesmoke;
 $background-color-sec-light: white;
 $text-color-light: #333333;       // Dark gray for readable text on a light background
@@ -12,14 +10,14 @@ $border-color-light: #000000;     // Light gray for borders
 $card-bg-light: #FFFFFF;          // Pure white for cards
 $background-color-ter-light: #e2e8f0;
 
-// Define dark mode colors
-$primary-color-dark: #2196F3;     // Intense blue for primary elements in dark mode
-$secondary-color-dark: hsl(167, 72%, 55%);   // Vibrant green for secondary elements
+// dark mode colors
+$primary-color-dark: #2196F3;     // primary elements
+$secondary-color-dark: hsl(167, 72%, 55%);   // secondary elements
 $background-color-dark: #1e293b;
 $background-color-sec-dark: #475569;
-$text-color-dark: #f1f5f9;        // Light gray for readable text on a dark background
+$text-color-dark: #f1f5f9;        // Light gray for readable text
 $muted-text-dark: #9ca3af;
-$accent-color-dark: #FFC107;      // Warm yellow-orange for accents
+$accent-color-dark: #FFC107;      // yellow-orange for accents
 $border-color-dark: #ffffff;      // Darker gray for borders
 $card-bg-dark: #334155;           // Dark background for containers or cards
 $background-color-ter-dark: #334155;

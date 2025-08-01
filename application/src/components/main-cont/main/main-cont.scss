@@ -5,14 +5,12 @@
     @include middle-style;
 
     .ideas-container {
-        display: grid; // Use grid for layout
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); // Responsive columns
-        // gap: 20px; // Space between cards
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
         @media (max-width: 768px){
           grid-template-columns: none;
           display: flex;
           flex-direction: column;
-          // padding-top: 1rem;
           >div{
             margin-bottom: 0;
           }
@@ -22,6 +20,6 @@
       p {
         text-align: center;
         font-size: 1rem;
-        color: var(--text-color); // Use your text color for consistency
+        color: var(--text-color); 
       }
 }

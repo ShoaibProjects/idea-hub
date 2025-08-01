@@ -1,8 +1,6 @@
 import { ColorRing } from 'react-loader-spinner';
 import './noIdeas.scss';
 
-
-
 const LoadingSpinner: React.FC = () => {
   return (
     <div className="loading-spinner">

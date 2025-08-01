@@ -42,11 +42,11 @@
         align-items: center;
         text-align: center;
         padding: 20px;
-        color: hsl(220, 9%, 56%); // Muted gray color for text
+        color: hsl(220, 9%, 56%); 
       
         .no-creators-icon {
           margin-bottom: 10px;
-          color: #9ca3af; // Icon color
+          color: #9ca3af;
         }
       
         .no-creators-message {
@@ -57,7 +57,7 @@
       
         .no-creators-suggestion {
           font-size: 0.9rem;
-          color: hsl(216, 15%, 60%); // Slightly darker text for the suggestion
+          color: hsl(216, 15%, 60%);
         }
       }
       .creator-h3{
@@ -97,17 +97,17 @@
     align-items: center;
     text-align: center;
     padding: 15px;
-    color: hsl(222, 9%, 56%); // Muted gray color for text
+    color: hsl(222, 9%, 56%); 
   
     .end-divider {
       width: 60%;
       border: 0;
-      border-top: 1px solid #e5e7eb; // Light gray line
+      border-top: 1px solid #e5e7eb; 
       margin: 10px 0;
     }
   
     .end-icon {
-      color: #9ca3af; // Icon color
+      color: #9ca3af; 
       margin: 8px 0;
     }
   

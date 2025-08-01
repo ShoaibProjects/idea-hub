@@ -15,14 +15,21 @@ const signup = async (userData: SignupData): Promise<User> => {
   return response.data;
 }
 
+const fetchUserData = async (): Promise<User> => {
+  const response = await apiClient.get<User>('/user/getUser/current');
+  return response.data;
+};
+
 interface IAuthService {
   signin: (credentials: SigninCredentials) => Promise<User>;
   signup: (userData: SignupData) => Promise<User>;
+  fetchUserData: ()=> Promise<User>;
 }
 
 const authService: IAuthService = {
   signin,
-  signup
+  signup,
+  fetchUserData
 };
 
 export default authService;
