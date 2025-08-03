@@ -1,30 +1,37 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../store'; 
-import { toggleMenu } from './../../Redux-slices/hamSlice/hamSlice'; 
+import { RootState, AppDispatch } from '../../store';
+import { toggleMenu } from './../../Redux-slices/hamSlice/hamSlice';
 import { ReactComponent as CrossIcon } from './../../assets/icons/cross.svg';
 import { ReactComponent as BarsIcon } from '../../assets/icons/bars.svg';
-import './ham.scss' 
+import './ham.scss';
 
 function Ham() {
   const sharedState = useSelector((state: RootState) => state.ham.sharedState);
-  const dispatch: AppDispatch = useDispatch(); // 
-  const [BarIconStyle, setBarIconStyle] = useState<{ transform: string; transition?: string }>({ transform: 'scale(0)' });
-  const [CrossIconStyle, setCrossIconStyle] = useState<{ transform: string; transition?: string }>({ transform: 'scale(1)' });
+  const dispatch: AppDispatch = useDispatch();
 
-  useEffect(() => {
-    if (sharedState) {
-      setBarIconStyle({ transform: 'scale(0)', transition: 'transform 0.5s ease-in-out' });
-      setCrossIconStyle({ transform: 'scale(1)', transition: 'transform 0.5s ease-in-out' });
-    } else {
-      setBarIconStyle({ transform: 'scale(1)', transition: 'transform 0.5s ease-in-out' });
-      setCrossIconStyle({ transform: 'scale(0)', transition: 'transform 0.5s ease-in-out' });
-    }
-  }, [sharedState]);
+  const crossIconStyle = {
+    transform: sharedState ? 'scale(1)' : 'scale(0)',
+    transition: 'transform 0.5s ease-in-out',
+  };
+
+  const barIconStyle = {
+    transform: sharedState ? 'scale(0)' : 'scale(1)',
+    transition: 'transform 0.5s ease-in-out',
+  };
+
+  const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    dispatch(toggleMenu());
+  };
 
   return (
-    <button className="hamburger-button" onClick={() => dispatch(toggleMenu())}>
-      {sharedState ? <CrossIcon className='imp-icon' style={CrossIconStyle} /> : <BarsIcon className='imp-icon' style={BarIconStyle} />}
+    <button className="hamburger-button" onClick={handleClick}>
+      {sharedState ? (
+        <CrossIcon className="imp-icon" style={crossIconStyle} />
+      ) : (
+        <BarsIcon className="imp-icon" style={barIconStyle} />
+      )}
     </button>
   );
 }
