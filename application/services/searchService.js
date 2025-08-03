@@ -40,15 +40,6 @@ export const performSearch = async (query, page = 1, limit = 10) => {
         },
         { $skip: skip },
         { $limit: limit },
-        {
-            $project: {
-                title: 1,
-                description: 1,
-                upvotes: 1,
-                createdAt: 1,
-                score: { $meta: "searchScore" },
-            },
-        },
     ]);
 
     const userSearchPromise = User.aggregate([
@@ -67,7 +58,6 @@ export const performSearch = async (query, page = 1, limit = 10) => {
         {
             $project: {
                 username: 1,
-                score: { $meta: "searchScore" },
             },
         },
     ]);

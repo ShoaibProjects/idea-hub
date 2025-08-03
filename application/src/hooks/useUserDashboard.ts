@@ -55,7 +55,7 @@ export const useUserDashboard = () => {
             return;
         }
         try {
-            await userService.updateUserDescription({ username: user.username, description });
+            await userService.updateUserDescription(user.username, { description });
             dispatch(updateDesc(description));
             setEditingDesc(false);
             alert('Description updated successfully!');

@@ -32,8 +32,9 @@ export const useIdeaInteraction = ({ ideaId, initialLikes, initialDislikes }: Us
     }, [user, ideaId]);
 
     const executeInteraction = async (interaction: () => Promise<void>) => {
-        if (!user) {
-            navigate('/signin');
+        if (!user.username) {
+            alert('You need to log in first.');
+            navigate('/');
             return;
         }
         setIsLoading(true);

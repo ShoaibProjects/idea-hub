@@ -31,7 +31,7 @@ router.put("/update/:id", verifyToken, updateIdea);
 
 router.delete("/delete/:id", verifyToken, deleteIdea);
 
-router.get("/recommendations/:userId", verifyToken, recomm);
+router.get("/recommendations/:username", verifyToken, recomm);
 
 router.get("/trending/ideas", getTrendingIdeas);
 

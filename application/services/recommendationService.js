@@ -16,18 +16,24 @@ export const getRecommendations = async (username, page = 1, limit = 20) => {
 
   const recommendations = await Idea.aggregate([
     { $match: { _id: { $nin: seenIdeaIds } } },
-
     {
       $addFields: {
         newnessScore: { $divide: [1, { $add: [{ $divide: [{ $subtract: [new Date(), "$createdAt"] }, 1000 * 60 * 60 * 24] }, 1] }] },
-        popularityScore: { $log10: { $add: ["$upvotes", 1] } },
-        ratioScore: { $divide: ["$upvotes", { $add: ["$upvotes", "$downvotes", 1] }] },
+        
+        popularityScore: { $log10: { $add: [{ $max: ["$upvotes", 0] }, 1] } },
+        
+        ratioScore: { 
+          $divide: [
+            { $max: ["$upvotes", 0] }, 
+            { $add: [{ $max: ["$upvotes", 0] }, { $max: ["$downvotes", 0] }, 1] }
+          ] 
+        },
+        
         followingScore: { $cond: { if: { $in: ["$creator", user.following] }, then: 1, else: 0 } },
         contentScore: { $size: { $setIntersection: ["$tags", user.preferences || []] } },
         likedSimilarityScore: { $size: { $setIntersection: ["$tags", likedTags] } }
       }
     },
-    
     {
       $addFields: {
         totalScore: {
@@ -42,16 +48,14 @@ export const getRecommendations = async (username, page = 1, limit = 20) => {
         }
       }
     },
-    
     { $sort: { totalScore: -1 } },
-
     { $skip: startIndex },
     { $limit: limit },
-
-    { $project: {
+    { 
+      $project: {
         totalScore: 0, newnessScore: 0, popularityScore: 0, ratioScore: 0,
         followingScore: 0, contentScore: 0, likedSimilarityScore: 0
-      } 
+      }
     }
   ]);
 

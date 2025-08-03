@@ -39,10 +39,9 @@ export const useAccountSettings = () => {
             if (!user?.username) {
                 throw new Error("User not found");
             }
-            await userService.updatePassword({
-                username: user.username,
+            await userService.updatePassword(user.username, {
                 password: currentPassword,
-                newPassword,
+                newPassword
             });
             setSuccess('Password changed successfully!');
             setCurrentPassword('');

@@ -32,7 +32,7 @@ export const useFollow = (profileUsername: string): UseFollowReturn => {
   const handleFollowToggle = async () => {
     if (!currentUser?.username) {
       alert('You need to log in first.');
-      navigate('/login');
+      navigate('/');
       return;
     }
 

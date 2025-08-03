@@ -34,7 +34,7 @@ export const getComments = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    await deleteCommentService(req.query, req.user);
+    await deleteCommentService(req.body, req.user);
     res.status(200).json({ message: "Comment deleted and removed from the idea" });
   } catch (err) {
     res.status(err.status || 400).json({ error: err.message });

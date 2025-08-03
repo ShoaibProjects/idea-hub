@@ -27,11 +27,13 @@ const IdeaSchema = new mongoose.Schema({
   },
   upvotes: {
     type: Number,
-    default: 0
+    default: 0,
+    min: [0, 'Upvotes cannot be negative.']
   },
   downvotes: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0
   },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, {

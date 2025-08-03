@@ -2,11 +2,11 @@ import { getRecommendations } from '../services/recommendationService.js';
 
 export const recomm = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { username } = req.params;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
 
-    const finalIdeas = await getRecommendations(userId, page, limit);
+    const finalIdeas = await getRecommendations(username, page, limit);
 
     res.json(finalIdeas);
   } catch (err) {

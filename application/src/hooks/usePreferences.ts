@@ -49,8 +49,7 @@ export const usePreferences = () => {
         setError(null);
 
         try {
-            await userService.updateUserPreferences({
-                username: user.username,
+            await userService.updateUserPreferences(user.username, {
                 preferences: selectedPreferences,
             });
 
